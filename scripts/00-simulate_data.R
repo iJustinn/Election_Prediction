@@ -1,52 +1,43 @@
 #### Preamble ####
-# Purpose: Simulates a dataset of Australian electoral divisions, including the 
-  #state and party that won each division.
-# Author: Rohan Alexander
-# Date: 26 September 2024
-# Contact: rohan.alexander@utoronto.ca
+# Purpose: TBD
+# Author: Ziheng Zhong
+# Date: 20 October 2024
+# Contact: ziheng.zhong@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: The `tidyverse` package must be installed
-# Any other information needed? Make sure you are in the `starter_folder` rproj
+
 
 
 #### Workspace setup ####
 library(tidyverse)
-set.seed(853)
+set.seed(304)
+
 
 
 #### Simulate data ####
-# State names
-states <- c(
-  "New South Wales",
-  "Victoria",
-  "Queensland",
-  "South Australia",
-  "Western Australia",
-  "Tasmania",
-  "Northern Territory",
-  "Australian Capital Territory"
-)
+# Defining the states and candidates
+states <- state.name
+candidates <- c("Trump", "Harris")
 
-# Political parties
-parties <- c("Labor", "Liberal", "Greens", "National", "Other")
+# Number of voters per state (randomly selected between 500,000 to 10,000,000)
+num_voters <- sample(500:1000, length(states), replace = TRUE)
 
-# Create a dataset by randomly assigning states and parties to divisions
+# Simulate data frame for voters in each state
 analysis_data <- tibble(
-  division = paste("Division", 1:151),  # Add "Division" to make it a character
-  state = sample(
-    states,
-    size = 151,
-    replace = TRUE,
-    prob = c(0.25, 0.25, 0.15, 0.1, 0.1, 0.1, 0.025, 0.025) # Rough state population distribution
-  ),
-  party = sample(
-    parties,
-    size = 151,
-    replace = TRUE,
-    prob = c(0.40, 0.40, 0.05, 0.1, 0.05) # Rough party distribution
-  )
+  state = rep(states, num_voters),
+  voter_id = 1:sum(num_voters),
+  age = sample(18:100, sum(num_voters), replace = TRUE),
+  gender = sample(c("Male", "Female", "Other"), sum(num_voters), replace = TRUE, prob = c(0.48, 0.48, 0.04)),
+  candidate_preference = sample(candidates, sum(num_voters), replace = TRUE, prob = c(0.5, 0.5))
 )
+
+# Aggregate the number of votes per candidate per state
+election_results <- analysis_data %>%
+  group_by(state, candidate_preference) %>%
+  summarise(votes = n(), .groups = 'drop')
+
 
 
 #### Save data ####
 write_csv(analysis_data, "data/00-simulated_data/simulated_data.csv")
+
+
