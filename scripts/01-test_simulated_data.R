@@ -12,78 +12,69 @@
 
 
 #### Workspace setup ####
+# Load Libraries
 library(tidyverse)
-
-analysis_data <- read_csv("data/00-simulated_data/simulated_data.csv")
-
-# Test if the data was successfully loaded
-if (exists("analysis_data")) {
-  message("Test Passed: The dataset was successfully loaded.")
-} else {
-  stop("Test Failed: The dataset could not be loaded.")
-}
+library(testthat)
+library(tibble)
+library(dplyr)
+library(here)
 
 
-#### Test data ####
 
-# Check if the dataset has 151 rows
-if (nrow(analysis_data) == 151) {
-  message("Test Passed: The dataset has 151 rows.")
-} else {
-  stop("Test Failed: The dataset does not have 151 rows.")
-}
+#### Test cases ####
+test_that("Test for number of states matches the predefined state list", {
+  simulated_data <- read_csv(here("data", "00-simulated_data", "simulated_data.csv"))
+  states <- c("Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming")
+  expect_equal(length(unique(simulated_data$state)), length(states),
+               info = "The number of unique states in the dataset does not match the predefined state list.")
+})
 
-# Check if the dataset has 3 columns
-if (ncol(analysis_data) == 3) {
-  message("Test Passed: The dataset has 3 columns.")
-} else {
-  stop("Test Failed: The dataset does not have 3 columns.")
-}
+test_that("Test for voter ID uniqueness", {
+  simulated_data <- read_csv(here("data", "00-simulated_data", "simulated_data.csv"))
+  expect_equal(length(unique(simulated_data$voter_id)), nrow(simulated_data),
+               info = "Voter IDs are not unique.")
+})
 
-# Check if all values in the 'division' column are unique
-if (n_distinct(analysis_data$division) == nrow(analysis_data)) {
-  message("Test Passed: All values in 'division' are unique.")
-} else {
-  stop("Test Failed: The 'division' column contains duplicate values.")
-}
+test_that("Test for age values within valid range (18 to 100)", {
+  simulated_data <- read_csv(here("data", "00-simulated_data", "simulated_data.csv"))
+  expect_true(all(simulated_data$age >= 18 & simulated_data$age <= 100),
+              info = "Age values are outside the valid range of 18 to 100.")
+})
 
-# Check if the 'state' column contains only valid Australian state names
-valid_states <- c("New South Wales", "Victoria", "Queensland", "South Australia", 
-                  "Western Australia", "Tasmania", "Northern Territory", 
-                  "Australian Capital Territory")
+test_that("Test for valid gender values", {
+  simulated_data <- read_csv(here("data", "00-simulated_data", "simulated_data.csv"))
+  expect_true(all(simulated_data$gender %in% c("Male", "Female", "Other")),
+              info = "Gender values contain invalid entries.")
+})
 
-if (all(analysis_data$state %in% valid_states)) {
-  message("Test Passed: The 'state' column contains only valid Australian state names.")
-} else {
-  stop("Test Failed: The 'state' column contains invalid state names.")
-}
+test_that("Test for valid candidate preference values", {
+  simulated_data <- read_csv(here("data", "00-simulated_data", "simulated_data.csv"))
+  candidates <- c("Harris", "Trump")
+  expect_true(all(simulated_data$candidate_preference %in% candidates),
+              info = "Candidate preference values contain invalid entries.")
+})
 
-# Check if the 'party' column contains only valid party names
-valid_parties <- c("Labor", "Liberal", "Greens", "National", "Other")
+test_that("Test for number of votes greater than zero for each state and candidate", {
+  simulated_data <- read_csv(here("data", "00-simulated_data", "simulated_data.csv"))
+  election_results <- simulated_data %>%
+    group_by(state, candidate_preference) %>%
+    summarise(votes = n(), .groups = 'drop')
+  expect_true(all(election_results$votes > 0),
+              info = "There are states or candidates with zero votes.")
+})
 
-if (all(analysis_data$party %in% valid_parties)) {
-  message("Test Passed: The 'party' column contains only valid party names.")
-} else {
-  stop("Test Failed: The 'party' column contains invalid party names.")
-}
+test_that("Test for each state having votes for both candidates", {
+  simulated_data <- read_csv(here("data", "00-simulated_data", "simulated_data.csv"))
+  candidates <- c("Harris", "Trump")
+  election_results <- simulated_data %>%
+    group_by(state, candidate_preference) %>%
+    summarise(votes = n(), .groups = 'drop')
+  states_with_both_candidates <- election_results %>%
+    group_by(state) %>%
+    summarise(candidate_count = n()) %>%
+    filter(candidate_count == length(candidates))
+  expect_equal(nrow(states_with_both_candidates), length(unique(simulated_data$state)),
+               info = "Not all states have votes for both candidates.")
+})
 
-# Check if there are any missing values in the dataset
-if (all(!is.na(analysis_data))) {
-  message("Test Passed: The dataset contains no missing values.")
-} else {
-  stop("Test Failed: The dataset contains missing values.")
-}
 
-# Check if there are no empty strings in 'division', 'state', and 'party' columns
-if (all(analysis_data$division != "" & analysis_data$state != "" & analysis_data$party != "")) {
-  message("Test Passed: There are no empty strings in 'division', 'state', or 'party'.")
-} else {
-  stop("Test Failed: There are empty strings in one or more columns.")
-}
-
-# Check if the 'party' column has at least two unique values
-if (n_distinct(analysis_data$party) >= 2) {
-  message("Test Passed: The 'party' column contains at least two unique values.")
-} else {
-  stop("Test Failed: The 'party' column contains less than two unique values.")
-}
