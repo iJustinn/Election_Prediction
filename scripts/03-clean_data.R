@@ -9,36 +9,24 @@
 
 #### Workspace setup ####
 library(tidyverse)
+library(here)
+
+
 
 #### Clean data ####
-raw_data <- read_csv("inputs/data/plane_data.csv")
+# data #1
+# Load data
+raw_data <- read_csv(here("data", "01-raw_data", "president_polls.csv"))
 
-cleaned_data <-
-  raw_data |>
-  janitor::clean_names() |>
-  select(wing_width_mm, wing_length_mm, flying_time_sec_first_timer) |>
-  filter(wing_width_mm != "caw") |>
-  mutate(
-    flying_time_sec_first_timer = if_else(flying_time_sec_first_timer == "1,35",
-                                   "1.35",
-                                   flying_time_sec_first_timer)
-  ) |>
-  mutate(wing_width_mm = if_else(wing_width_mm == "490",
-                                 "49",
-                                 wing_width_mm)) |>
-  mutate(wing_width_mm = if_else(wing_width_mm == "6",
-                                 "60",
-                                 wing_width_mm)) |>
-  mutate(
-    wing_width_mm = as.numeric(wing_width_mm),
-    wing_length_mm = as.numeric(wing_length_mm),
-    flying_time_sec_first_timer = as.numeric(flying_time_sec_first_timer)
-  ) |>
-  rename(flying_time = flying_time_sec_first_timer,
-         width = wing_width_mm,
-         length = wing_length_mm
-         ) |> 
-  tidyr::drop_na()
+# Filter the data for only Trump and Harris (using the column 'answer')
+candidate_sup_num_data <- raw_data %>%
+  filter(answer %in% c("Trump", "Harris"), election_date == '11/5/24') %>%
+  mutate(weight_value = log(sample_size)) %>%
+  select(candidate = answer, weight_value, support_pct = pct, date = end_date)
+
+
 
 #### Save data ####
-write_csv(cleaned_data, "outputs/data/analysis_data.csv")
+write_csv(candidate_sup_num_data, "data/02-analysis_data/candidate_sup_num_data.csv")
+
+

@@ -5,8 +5,38 @@ library(dplyr)
 library(tidyr)
 library(maps)
 
-# Load the cleaned data
+# Load data
 cleaned_data <- read.csv("data/02-analysis_data/clean_data.csv")
+candidate_sup_num_data <- read.csv("data/02-analysis_data/candidate_sup_num_data.csv")
+
+
+
+#### candidate_sup_num_data Chart ####
+# Plot the weighted percentage change over time for both candidates
+candidate_sup_num_data %>%
+  ggplot(aes(x = as.Date(date, format = "%m/%d/%y"), y = support_pct * weight_value, color = candidate)) +
+  geom_smooth(method = "loess", se = FALSE) +
+  scale_color_manual(values = c("Trump" = "blue", "Harris" = "red")) +
+  labs(
+    title = "Weighted Support Percentage Change Over Time",
+    x = "Date",
+    y = "Weighted Support Percentage",
+    color = "Candidate"
+  ) +
+  theme_minimal()
+
+# Plot the unweighted percentage change over time for both candidates
+candidate_sup_num_data %>%
+  ggplot(aes(x = as.Date(date, format = "%m/%d/%y"), y = support_pct, color = candidate)) +
+  geom_smooth(method = "loess", se = FALSE) +
+  scale_color_manual(values = c("Trump" = "blue", "Harris" = "red")) +
+  labs(
+    title = "Unweighted Support Percentage Change Over Time",
+    x = "Date",
+    y = "Support Percentage",
+    color = "Candidate"
+  ) +
+  theme_minimal()
 
 
 
@@ -91,6 +121,9 @@ ggplot(merged_data_mixed, aes(x = long, y = lat, group = group, fill = leading_c
        x = "",
        y = "") +
   theme_map()
+
+
+
 
 
 
