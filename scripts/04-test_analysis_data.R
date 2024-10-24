@@ -1,69 +1,81 @@
 #### Preamble ####
-# Purpose: Tests... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 26 September 2024 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: TBD
+# Author: Ziheng Zhong
+# Date: 24 October 2024
+# Contact: ziheng.zhong@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+
 
 
 #### Workspace setup ####
 library(tidyverse)
 library(testthat)
+library(here)
 
-data <- read_csv("data/02-analysis_data/analysis_data.csv")
 
 
-#### Test data ####
-# Test that the dataset has 151 rows - there are 151 divisions in Australia
-test_that("dataset has 151 rows", {
-  expect_equal(nrow(analysis_data), 151)
+#### Test cases ####
+# candidate_sup_num_data Tests
+test_that("Data Integrity Test: No missing values in critical columns", {
+  candidate_data <- read_csv(here("data", "02-analysis_data", "candidate_sup_num_data.csv"))
+  print(names(candidate_data))  # Debugging: Print column names to verify
+  critical_columns <- c("candidate", "support_pct")  # Allow missing values in weight_value
+  for (col in critical_columns) {
+    expect_false(any(is.na(candidate_data[[col]])), paste("Column", col, "contains missing values."))
+  }
 })
 
-# Test that the dataset has 3 columns
-test_that("dataset has 3 columns", {
-  expect_equal(ncol(analysis_data), 3)
+
+test_that("Range Validation Test: Numerical columns are within expected ranges", {
+  candidate_data <- read_csv(here("data", "02-analysis_data", "candidate_sup_num_data.csv"))
+  print(names(candidate_data))  # Debugging: Print column names to verify
+  # Assuming weight_value should be between 0 and 10000, ignoring NA values
+  expect_true(all(candidate_data$weight_value[!is.na(candidate_data$weight_value)] >= 0 &
+                    candidate_data$weight_value[!is.na(candidate_data$weight_value)] <= 10000),
+              "Weight value is out of the expected range (0-10000).")
 })
 
-# Test that the 'division' column is character type
-test_that("'division' is character", {
-  expect_type(analysis_data$division, "character")
+
+test_that("Column Type Test: All columns have expected data types", {
+  candidate_data <- read_csv(here("data", "02-analysis_data", "candidate_sup_num_data.csv"))
+  print(names(candidate_data))  # Debugging: Print column names to verify
+  expect_true(is.character(candidate_data$candidate), "candidate is not a character")
+  expect_true(is.numeric(candidate_data$weight_value), "weight_value is not numeric")
+  expect_true(is.character(candidate_data$date), "date is not a character")
 })
 
-# Test that the 'party' column is character type
-test_that("'party' is character", {
-  expect_type(analysis_data$party, "character")
+
+
+# num_grade_pollscore_data Tests
+test_that("Data Integrity Test: No missing values in critical columns", {
+  pollscore_data <- read_csv(here("data", "02-analysis_data", "num_grade_pollscore_data.csv"))
+  print(names(pollscore_data))  # Debugging: Print column names to verify
+  critical_columns <- c("numeric_grade", "pollscore")
+  for (col in critical_columns) {
+    expect_false(any(is.na(pollscore_data[[col]])), paste("Column", col, "contains missing values."))
+  }
 })
 
-# Test that the 'state' column is character type
-test_that("'state' is character", {
-  expect_type(analysis_data$state, "character")
+
+test_that("Range Validation Test: Numerical columns are within expected ranges", {
+  pollscore_data <- read_csv(here("data", "02-analysis_data", "num_grade_pollscore_data.csv"))
+  print(names(pollscore_data))  # Debugging: Print column names to verify
+  # Assuming pollscore should be between 0 and 100, ignoring NA values
+  out_of_range <- pollscore_data$pollscore[!is.na(pollscore_data$pollscore) & (pollscore_data$pollscore < 0 | pollscore_data$pollscore > 100)]
+  if (length(out_of_range) > 0) {
+    print(paste("Out of range values in pollscore:", paste(out_of_range, collapse = ", ")))
+  }
+  expect_true(all(pollscore_data$pollscore[!is.na(pollscore_data$pollscore)] >= 0 &
+                    pollscore_data$pollscore[!is.na(pollscore_data$pollscore)] <= 100),
+              "Poll score is out of the expected range (0-100).")
 })
 
-# Test that there are no missing values in the dataset
-test_that("no missing values in dataset", {
-  expect_true(all(!is.na(analysis_data)))
+
+test_that("Column Type Test: All columns have expected data types", {
+  pollscore_data <- read_csv(here("data", "02-analysis_data", "num_grade_pollscore_data.csv"))
+  print(names(pollscore_data))  # Debugging: Print column names to verify
+  expect_true(is.numeric(pollscore_data$numeric_grade), "numeric_grade is not numeric")
+  expect_true(is.numeric(pollscore_data$pollscore), "pollscore is not numeric")
 })
 
-# Test that 'division' contains unique values (no duplicates)
-test_that("'division' column contains unique values", {
-  expect_equal(length(unique(analysis_data$division)), 151)
-})
 
-# Test that 'state' contains only valid Australian state or territory names
-valid_states <- c("New South Wales", "Victoria", "Queensland", "South Australia", "Western Australia", 
-                  "Tasmania", "Northern Territory", "Australian Capital Territory")
-test_that("'state' contains valid Australian state names", {
-  expect_true(all(analysis_data$state %in% valid_states))
-})
-
-# Test that there are no empty strings in 'division', 'party', or 'state' columns
-test_that("no empty strings in 'division', 'party', or 'state' columns", {
-  expect_false(any(analysis_data$division == "" | analysis_data$party == "" | analysis_data$state == ""))
-})
-
-# Test that the 'party' column contains at least 2 unique values
-test_that("'party' column contains at least 2 unique values", {
-  expect_true(length(unique(analysis_data$party)) >= 2)
-})

@@ -37,7 +37,7 @@ raw_data <- read_csv(here("data", "01-raw_data", "president_polls.csv"))
 # Filtering
 num_grade_pollscore_data <- raw_data %>%
   filter(answer %in% c("Trump", "Harris"), election_date == '11/5/24') %>%
-  filter(!is.na(numeric_grade), !is.na(pollscore)) %>%
+  filter(!is.na(numeric_grade), !is.na(pollscore), pollscore >= 0) %>%
   select(candidate = answer, date = end_date, support_pct = pct, numeric_grade, pollscore)
 
 # Save data
