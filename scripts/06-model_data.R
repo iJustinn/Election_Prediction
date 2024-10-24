@@ -1,13 +1,13 @@
 #### Preamble ####
-# Purpose: Models... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 11 February 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: TBD
+# Author: Ziheng Zhong
+# Date: 24 October 2024
+# Contact: ziheng.zhong@mail.utoronto.ca
 # License: MIT
 
 
 
-# Load necessary libraries
+#### Workspace setup ####
 library(modelsummary)
 library(randomForest)
 library(rstanarm)
