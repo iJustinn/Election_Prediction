@@ -7,7 +7,7 @@
 
 
 
-# Load necessary libraries
+#### Workspace setup ####
 library(ggthemes)
 library(ggplot2)
 library(dplyr)

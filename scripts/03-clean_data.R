@@ -1,11 +1,11 @@
 #### Preamble ####
-# Purpose: Cleans the raw plane data recorded by two observers..... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 6 April 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: TBD
+# Author: Ziheng Zhong
+# Date: 24 October 2024
+# Contact: ziheng.zhong@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+
+
 
 #### Workspace setup ####
 library(tidyverse)
@@ -37,7 +37,7 @@ raw_data <- read_csv(here("data", "01-raw_data", "president_polls.csv"))
 # Filtering
 num_grade_pollscore_data <- raw_data %>%
   filter(answer %in% c("Trump", "Harris"), election_date == '11/5/24') %>%
-  filter(!is.na(numeric_grade), !is.na(pollscore)) %>%
+  filter(!is.na(numeric_grade), !is.na(pollscore), pollscore >= 0) %>%
   select(candidate = answer, date = end_date, support_pct = pct, numeric_grade, pollscore)
 
 # Save data
