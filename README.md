@@ -1,27 +1,27 @@
-# USA Presidential Election Prediction
+# Election Prediction
 
-## Overview
+This repository provides all the necessary information to replicate Yingke He and Ziheng Zhong's USA election forecast paper.
 
-This repository provides all the necessary information to replicate the Yingke He and Ziheng Zhong's USA election forecast paper. It has the code, paper itself, and the necessary data.
+## Paper Overview
 
+This paper utlized data from [xxx](xxx). ...
 
 ## File Structure
 
-The repo is structured as:
+The files for this research are organized in this repository as follows:
 
--   `data/raw_data` contains the raw data as obtained from X.
--   `data/analysis_data` contains the cleaned dataset that was constructed.
--   `model` contains fitted models. 
--   `other` contains details about LLM chat interactions and sketches.
--   `paper` contains the files used to generate the paper, including the Quarto document and reference bibliography file, as well as the PDF of the paper. 
--   `scripts` contains the R scripts used to simulate, download and clean data.
+-   `data/raw_data`: the raw data used for analysis
 
-## Statement on LLM usage
+-   `data/analysis_data`: the cleaned data used for fuurther analysis
 
-Aspects of the code was written with the help of ChatGPT4 and ChatGPT40; the entire chat history is available in inputs/llms/usage.txt.
+-   `other/llm`: records of multiple conversations with ChatGPT that assisted in building this project
 
-## Some checks
+-   `other/sketches`: previews of the charts and models included in the final research paper
 
-- [ ] Remove files that you're not using
-- [ ] Update comments in R scripts
-- [ ] Remove this checklist
+-   `paper`: files used to generate the paper, such as Quarto and bibliography files, as well as the research paper itself
+
+-   `scripts`: R code used for data simulation, download data, clean data, charting and testing
+
+## Large Language Model (LLM) usage statement
+
+This project utilized ChatGPT (ChatGPT 4o model) to assist during the research, development, and writing processes. All records of usage can be found in the `other/llm` folder of this repository.
