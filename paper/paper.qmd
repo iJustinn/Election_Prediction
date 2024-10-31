@@ -81,7 +81,8 @@ outcome_variables <- data.frame(
 
 outcome_variables %>%
   kable(
-    col.names = c("Variable"),
+    col.names = c("Outcome Variable"),
+    caption = "Outcome Variables", 
     booktabs = TRUE
   ) %>%
   kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
@@ -89,6 +90,29 @@ outcome_variables %>%
 
 ## Predictor variables
 This study includes several key predictor variables that provide insights into regional voting patterns, polling methodologies, and the timing of voter sentiment shifts. Each variable plays a unique role in forecasting vote shares for the 2024 U.S. Presidential election. Below are detailed descriptions of each predictor.
+
+```{r}
+#| label: tbl-predictor_variables
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+
+# Define the variable names
+predictor_variables <- data.frame(
+  Variable = c("State", "Pollster", "Candidate Name", "Percentage (pct)", "Sample Size", "Days to Election")
+)
+
+# Create the table
+predictor_variables %>%
+  kable(
+    col.names = c("Predictor Variable"),
+    caption = "Predictor Variables",
+    booktabs = TRUE
+  ) %>%
+  kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
+```
+
 
 ### State
 
