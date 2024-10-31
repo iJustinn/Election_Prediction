@@ -25,6 +25,7 @@ library(kableExtra)
 library(ggplot2)
 library(dplyr)
 library(here)
+library(knitr)
 library(rstanarm)
 library(modelsummary)
 
@@ -56,50 +57,68 @@ The structure of the paper is organized as follows: following @sec-intro, @sec-d
 
 We use the statistical programming language R [@citeR].... Our data [@shelter].... Following @tellingstories, we consider...
 
-Overview text
+Overview text [To be updated...]
 
 ## Data Measurement
 	
-Some paragraphs about how we go from a phenomena in the world to an entry in the dataset.
+Some paragraphs about how we go from a phenomena in the world to an entry in the dataset.[To be updated...]
 
 ## Outcome variables
 
-Add graphs, tables and text. Use sub-sub-headings for each outcome variable or update the subheading to be singular.
+Add graphs, tables and text. Use sub-sub-headings for each outcome variable or update the subheading to be singular. [To be updated...]
 
+```{r}
+#| label: tbl-outcome_variables
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
 
+# Define the variable names
+outcome_variables <- data.frame(
+  Variable = c("State", "Pollster", "Candidate Name", "Percentage (pct)", "Sample Size", "Start Date", "End Date")
+)
+
+outcome_variables %>%
+  kable(
+    col.names = c("Variable"),
+    booktabs = TRUE
+  ) %>%
+  kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
+```
 
 ## Predictor variables
-Some explanations
+This study includes several key predictor variables that provide insights into regional voting patterns, polling methodologies, and the timing of voter sentiment shifts. Each variable plays a unique role in forecasting vote shares for the 2024 U.S. Presidential election. Below are detailed descriptions of each predictor.
 
 ### State
 
-State (state)
+State (`state`) is a categorical variable that represents the U.S. state in which each poll was conducted. States have distinct political dynamics, influenced by regional issues, demographics, and historical voting patterns. Including the state variable allows the model to account for these differences, enabling predictions that are sensitive to each state’s unique electoral landscape.
 
 ### Pollster
 
-Pollster (pollster)
+Pollster (`pollster`) identifies the organization conducting each poll. Different polling organizations may use varied methodologies, such as sample selection, weighting, and question phrasing, which can introduce systematic biases. By including the pollster as a predictor, the model can adjust for potential biases or methodological differences, providing more accurate and standardized vote share estimates.
 
 ### Candidate Name 
 
-Candidate Name (candidate_name)
+Candidate Name (`candidate_name`) is a categorical variable that identifies the candidate for whom each poll measures support. Including candidate names allows the model to assess each candidate’s baseline popularity and identify variations in support across different demographics and states. This variable enables comparisons between major contenders, such as Donald Trump and Kamala Harris, as well as other candidates, to forecast overall vote shares.
 
 ### Percentage of Votes
 
-Percentage of Votes (pct)
+Percentage of Votes (`pct`) represents the percentage of respondents in each poll who indicated support for a specific candidate. As a primary predictor, this variable directly informs the model about the current level of support for each candidate at the time the poll was conducted. By converting these percentages into vote share estimates, the model can project likely election outcomes based on current polling data.
 
 ### Sample Size
 
-Sample Size (sample_size)
+Sample Size (`sample_size`) denotes the number of respondents included in each poll. Larger sample sizes generally increase the reliability of a poll, as they reduce the margin of error and are more likely to represent the broader population. By incorporating sample size as a predictor, the model can weigh polls based on their reliability, giving more importance to larger, more robust samples.
 
 ### Days to Election
 The variable days to election represents the days remaining from the poll's end date to Election Day.
-It is calculated using the end_date variable, by assuming the election date is November 5 2024.
+It is calculated using the `end_date` variable, by subtracting the end_date from the election date, by assuming the election date is November 5 2024.
 
 
 # Model {#sec-model}
 
 To predict the actual election vote share for each candidate in each state while accounting for variations by pollster and other poll-specific factors.
-Background details and diagnostics are included in [Appendix -@sec-model-details].
+Background details and diagnostics are included in [Appendix -@sec-model-details]. [To be updated...]
 
 ## Model set-up
 
