@@ -1,0 +1,136 @@
+#### Workspace setup ####
+library(tidyverse)
+set.seed(304)
+
+
+#### Simulate data ####
+# TODO: simulate a dataset for 2024 US Presedent Election
+
+
+#### Save data ####
+write_csv(analysis_data, "data/00-simulated_data/simulated_data.csv")
+
+It looks like you're simulating data for the 2024 US Presidential Election and have a placeholder in your script. Here's an example of how you might simulate a dataset using R:
+
+Define candidates and other relevant election attributes.
+Create variables like state, candidate preference, voter demographics, etc.
+Use the dplyr and tidyverse packages to manipulate the data.
+Below is a possible way to simulate a dataset:
+
+r
+Copy code
+#### Workspace setup ####
+library(tidyverse)
+set.seed(304)
+
+
+#### Simulate data ####
+# Defining the states and candidates
+states <- state.name
+candidates <- c("Candidate_A", "Candidate_B")
+
+# Number of voters per state (randomly selected between 500,000 to 10,000,000)
+num_voters <- sample(500000:10000000, length(states), replace = TRUE)
+
+# Simulate data frame for voters in each state
+analysis_data <- tibble(
+  state = rep(states, num_voters),
+  voter_id = 1:sum(num_voters),
+  age = sample(18:100, sum(num_voters), replace = TRUE),
+  gender = sample(c("Male", "Female", "Other"), sum(num_voters), replace = TRUE, prob = c(0.48, 0.48, 0.04)),
+  candidate_preference = sample(candidates, sum(num_voters), replace = TRUE, prob = c(0.5, 0.5))
+)
+
+# Aggregate the number of votes per candidate per state
+election_results <- analysis_data %>%
+  group_by(state, candidate_preference) %>%
+  summarise(votes = n(), .groups = 'drop')
+
+
+#### Save data ####
+write_csv(analysis_data, "data/00-simulated_data/simulated_data.csv")
+write_csv(election_results, "data/00-simulated_data/election_results.csv")
+This script simulates a voter dataset and summarizes the number of votes per candidate for each state. You can modify the probabilities or attributes to make the data more realistic if needed.
+
+Let me know if this helps or if you'd like further modifications to the dataset!
+
+
+
+
+
+
+You said:
+put it in canvas, edit the data to not include parties, but use trump and harris
+ChatGPT said:
+ChatGPT
+Simulate 2024 Election Data
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+#### Workspace setup ####
+library(tidyverse)
+set.seed(304)
+
+
+#### Simulate data ####
+# Defining the states and candidates
+states <- state.name
+candidates <- c("Trump", "Harris")
+
+# Number of voters per state (randomly selected between 500,000 to 10,000,000)
+num_voters <- sample(500000:10000000, length(states), replace = TRUE)
+
+# Simulate data frame for voters in each state
+analysis_data <- tibble(
+  state = rep(states, num_voters),
+  voter_id = 1:sum(num_voters),
+  age = sample(18:100, sum(num_voters), replace = TRUE),
+  gender = sample(c("Male", "Female", "Other"), sum(num_voters), replace = TRUE, prob = c(0.48, 0.48, 0.04)),
+  candidate_preference = sample(candidates, sum(num_voters), replace = TRUE, prob = c(0.5, 0.5))
+)
+
+# Aggregate the number of votes per candidate per state
+election_results <- analysis_data %>%
+  group_by(state, candidate_preference) %>%
+  summarise(votes = n(), .groups = 'drop')
+
+
+#### Save data ####
+write_csv(analysis_data, "data/00-simulated_data/simulated_data.csv")
+write_csv(election_results, "data/00-simulated_data/election_results.csv")
+
+I've updated the script to use "Trump" and "Harris" as candidates instead of generic parties. Let me know if you need any further adjustments or if you'd like to refine the data simulation!
+
+
+
+
+
