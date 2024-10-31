@@ -1,6 +1,6 @@
 # Election Prediction
 
-This repository provides all the necessary information to replicate the Yingke He and Ziheng Zhong's USA election forecast paper.
+This repository provides all the necessary information to replicate Yingke He and Ziheng Zhong's USA election forecast paper.
 
 ## Paper Overview
 
