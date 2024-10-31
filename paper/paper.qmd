@@ -7,7 +7,7 @@ author:
 thanks: "Code and data are available at: [https://github.com/iJustinn/Election_Prediction](https://github.com/RohanAlexander/starter_folder)."
 date: today
 date-format: long
-abstract: "This paper "
+abstract: "This paper analyzes polling data for the 2024 U.S. Presidential election, examining the key candidates notabily Donald Trump and Kamala Harris to gain a comprehensive perspective on the race. A Hierarchical Bayesian Model is applied in this study and the findings reveal significant variations across states, with [To be updated...] emerging as particularly influential battlegrounds that ultimately tilt in favor of [To be updated..].By highlighting these trends, this research underscores the dynamic and evolving nature of U.S. political landscapes and the crucial role that swing states play in determining election outcomes."
 format: pdf
 toc: true
 number-sections: true
@@ -37,17 +37,17 @@ cleaned_poll_data <-
 ```
 
 
-# Introduction
+# Introduction {#sec-intro}
 
-Overview paragraph
+In the lead-up to the 2024 U.S. Presidential election, understanding voter behavior across states and demographic groups is essential for accurately predicting electoral outcomes. Recent polling data from various sources suggests a close race among major candidates, including Donald Trump, Kamala Harris, and other key contenders. This study applies a Hierarchical Bayesian Model to analyze polling data across all U.S. states, with a focus on identifying critical swing states where even slight shifts in voter sentiment could prove decisive. By exploring trends in voter support across different states and demographic groups, this research aims to highlight the regions most likely to influence the final election outcome.
 
-Estimand paragraph
+The primary objective of this study is to estimate state-level vote shares for each candidate while accounting for factors such as regional variations, pollster-specific biases, and the timing of polls relative to Election Day. Predictors including polling percentages, sample sizes, and days remaining until the election are incorporated into the model, which adjusts for state and pollster effects. The model’s structure enables the estimation of vote shares that reflect the underlying distribution of polling data across diverse regions in the U.S.
 
-Results paragraph
+Initial findings reveal variations in candidate support across states, with certain swing states emerging as pivotal in determining the Electoral College result. The model’s projections suggest a likely lead for Trump in the Electoral College, underscoring the influence of large-sample, recent polls on forecast accuracy. This study’s results emphasize the importance of swing states in the electoral process, demonstrating how regional dynamics and polling methodologies impact predictions.[To Be updated...]
 
-Why it matters paragraph
+This research contributes to the field of election forecasting by combining aggregated polling data with a robust modeling approach, offering valuable insights for political analysts, campaign strategists, and policymakers. By identifying critical swing states and accounting for potential polling biases, this study equips stakeholders with the tools to anticipate voter shifts and strategize effectively in an evolving political landscape.
 
-Telegraphing paragraph: The remainder of this paper is structured as follows. @sec-data....
+The structure of the paper is organized as follows: following @sec-intro, @sec-data outlines the data collection and cleaning process, along with a description of the outcome and predictor variables used in the analysis.@sec-model, introduces the forecasting models and discuss the rationale behind choosing these models for election outcomes prediction. @sec-result then presents the main findings, including a breakdown of state-level and pollster-level random effects. Finally, @sec-discussion interprets the results, highlighting significant trends and predictions, and concludes with a discussion on the reliability of the forecasts and potential limitations of the models.
 
 
 # Data {#sec-data}
@@ -96,7 +96,7 @@ The variable days to election represents the days remaining from the poll's end 
 It is calculated using the end_date variable, by assuming the election date is November 5 2024.
 
 
-# Model
+# Model {#sec-model}
 
 To predict the actual election vote share for each candidate in each state while accounting for variations by pollster and other poll-specific factors.
 Background details and diagnostics are included in [Appendix -@sec-model-details].
@@ -170,7 +170,7 @@ We expect a positive relationship between the size of the wings and time spent a
 We can use maths by including latex between dollar signs, for instance $\theta$.
 
 
-# Results
+# Results {#sec-result}
 
 Our results are summarized in @tbl-modelresults.
 
@@ -185,7 +185,7 @@ Our results are summarized in @tbl-modelresults.
 
 
 
-# Discussion
+# Discussion {#sec-discussion}
 
 ## First discussion point {#sec-first-point}
 
