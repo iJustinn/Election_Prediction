@@ -1,14 +1,15 @@
 ---
-title: "My title"
-subtitle: "My subtitle if needed"
+title: "Red, Blue, or Purple? 2024’s Battleground States Tell a Story"
+subtitle: "Pennsylvania, Arizona, and Nevada Become Game Changers as Trump Gains Ground"
 author: 
-  - First author
-  - Another author
-thanks: "Code and data are available at: [https://github.com/RohanAlexander/starter_folder](https://github.com/RohanAlexander/starter_folder)."
+  - Yingke He
+  - Ziheng Zhong
+thanks: "Code and data are available at: [https://github.com/iJustinn/Election_Prediction](https://github.com/RohanAlexander/starter_folder)."
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "This paper "
 format: pdf
+toc: true
 number-sections: true
 bibliography: references.bib
 ---
@@ -19,7 +20,20 @@ bibliography: references.bib
 #| message: false
 
 library(tidyverse)
-library(palmerpenguins)
+library(arrow)
+library(kableExtra)
+library(ggplot2)
+library(dplyr)
+library(here)
+library(rstanarm)
+library(modelsummary)
+
+#read in cleaned data
+data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
+
+cleaned_poll_data <-
+  read_csv(file = here("data", "02-analysis_data", "clean_data.csv"), 
+           show_col_types = FALSE)
 ```
 
 
@@ -36,10 +50,6 @@ Why it matters paragraph
 Telegraphing paragraph: The remainder of this paper is structured as follows. @sec-data....
 
 
-
-
-
-
 # Data {#sec-data}
 
 ## Overview
@@ -48,7 +58,7 @@ We use the statistical programming language R [@citeR].... Our data [@shelter]..
 
 Overview text
 
-## Measurement
+## Data Measurement
 	
 Some paragraphs about how we go from a phenomena in the world to an entry in the dataset.
 
@@ -58,76 +68,97 @@ Add graphs, tables and text. Use sub-sub-headings for each outcome variable or u
 
 
 
-Some of our data is of penguins (@fig-bills), from @palmerpenguins.
-
-```{r}
-#| label: fig-bills
-#| fig-cap: Bills of penguins
-#| echo: false
-
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = "none") +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
-```
-
-Talk more about it.
-
-And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
-
-```{r}
-#| label: fig-planes
-#| fig-cap: Relationship between wing length and width
-#| echo: false
-#| warning: false
-#| message: false
-
-analysis_data <- read_csv(here::here("data/02-analysis_data/analysis_data.csv"))
-
-analysis_data |> 
-  ggplot(aes(x = width, y = length)) +
-  geom_point(alpha = 0.8) +
-  theme_minimal() +
-  labs(x = "Wing width (mm)",
-       y = "Wing length (mm)")
-```
-
-Talk way more about it. 
-
 ## Predictor variables
+Some explanations
 
-Add graphs, tables and text.
+### State
 
-Use sub-sub-headings for each outcome variable and feel free to combine a few into one if they go together naturally.
+State (state)
 
+### Pollster
 
+Pollster (pollster)
 
+### Candidate Name 
 
+Candidate Name (candidate_name)
 
+### Percentage of Votes
 
+Percentage of Votes (pct)
+
+### Sample Size
+
+Sample Size (sample_size)
+
+### Days to Election
+The variable days to election represents the days remaining from the poll's end date to Election Day.
+It is calculated using the end_date variable, by assuming the election date is November 5 2024.
 
 
 # Model
 
-The goal of our modelling strategy is twofold. Firstly,...
-
-Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
+To predict the actual election vote share for each candidate in each state while accounting for variations by pollster and other poll-specific factors.
+Background details and diagnostics are included in [Appendix -@sec-model-details].
 
 ## Model set-up
 
-Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.  
+A Hierarchical Bayesian Model is utilized to predict the actual election vote for each candidate in each state while accounting for variables by pollster.
 
-\begin{align} 
-y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
-\mu_i &= \alpha + \beta_i + \gamma_i\\
-\alpha &\sim \mbox{Normal}(0, 2.5) \\
-\beta &\sim \mbox{Normal}(0, 2.5) \\
-\gamma &\sim \mbox{Normal}(0, 2.5) \\
-\sigma &\sim \mbox{Exponential}(1)
+The model prediction utilizes the following predictor variables:
+
+- **State** (`state`): Include as a categorical term to capture regional variations.
+- **Pollster** (`pollster`): Include as a categorical variable for different polling effects.
+- **Candidate Name** (`candidate_name`):Include as a categorical feature or model separately for each candidate.
+- **Percentage of Votes by Poll in State** (`pct`): Use as a primary predictor of actual vote share, with a smooth term to allow for non-linear effects.
+- **Sample Size** (`sample_size`): Include as a predictor or weight to reflect poll reliability.
+- **Days to Election** (`end_date`):capture trends in support leading up to the election.
+
+
+Let: 
+\begin{align*}
+y_{ijk} & : \text{ The target variable, representing the actual election vote share for candidate } k \text{ in state } i \text{ with pollster } j. \\
+\text{pct}_{ijk} & : \text{ The observed polling percentage for candidate } k \text{ in state } i \text{ by pollster } j. \\
+\text{sample\_size}_{ijk} & : \text{ The sample size of the poll, which helps in weighing the poll reliability.} \\
+\text{days\_to\_election}_{ijk} & : \text{ Derived as the days remaining until the election from the poll’s end date, capturing the effect of recency.}
+\end{align*}
+
+The model takes the form of the following equation:
+\begin{align}
+y_{ijk} = \alpha_i + \beta_j + \gamma_k + \delta \cdot \text{pct}_{ijk} + \eta \cdot \text{sample\_size}_{ijk} + \theta \cdot \text{days\_to\_election}_{ijk} + \epsilon_{ijk}
 \end{align}
+
+where:
+\begin{align*}
+\alpha_i &\sim \mathcal{N}(\mu_{\alpha}, \sigma_{\alpha}^2): \quad \text{State-level random effect for each state } i, \text{ capturing regional variations in voting patterns.} \\
+\beta_j &\sim \mathcal{N}(\mu_{\beta}, \sigma_{\beta}^2): \quad \text{Pollster-level random effect for each pollster } j, \text{ accounting for systematic biases or differences in polling methods.} \\
+\epsilon_{ijk} &\sim \mathcal{N}(0, \sigma^2): \quad \text{Error term, accounting for random noise.} \\
+\gamma_k &: \quad \text{Candidate fixed effect for each candidate } k, \text{ representing baseline support across states and pollsters.} \\
+\delta &: \quad \text{Coefficient for Percentage of Votes by Poll } (\text{pct}_{ijk}), \text{ reflecting how poll support translates to actual vote share.} \\
+\eta &: \quad \text{Coefficient for Sample Size } (\text{sample\_size}_{ijk}), \text{ weighing polls based on their reliability.} \\
+\theta &: \quad \text{Coefficient for Days to Election } (\text{days\_to\_election}_{ijk}), \text{ capturing the trend in support as the election date approaches.}
+\end{align*}
+
+### Interpretation of Parameters
+
+\begin{align*}
+\alpha_i &: \quad \text{Captures state-specific effects, allowing the model to adjust the baseline vote share prediction based on regional differences.} \\[8pt]
+\beta_j &: \quad \text{Accounts for systematic biases or differences in methodologies across pollsters.} \\[8pt]
+\gamma_k &: \quad \text{Provides an overall baseline effect for each candidate, independent of state or pollster.} \\[8pt]
+\delta &: \quad \text{Measures how closely polling support translates to actual vote share.} \\[8pt]
+\eta &: \quad \text{Adjusts the model’s sensitivity to polls based on their sample size, giving more weight to larger polls.} \\[8pt]
+\theta &: \quad \text{Captures how support trends change as the election date approaches.}
+\end{align*}
+
+### Prior Distributions
+
+\begin{align*}
+\alpha_i &\sim \mathcal{N}(0, 2.5): \quad \text{State-level random effect prior for each state } i. \\
+\beta_j &\sim \mathcal{N}(0, 2.5): \quad \text{Pollster-level random effect prior for each pollster } j. \\
+\gamma_k &\sim \mathcal{N}(0, 2.5): \quad \text{Candidate fixed effect prior for each candidate } k. \\
+\delta, \eta, \theta &\sim \mathcal{N}(0, 1): \quad \text{Coefficients for polling percentage, sample size, and days to election.} \\
+\sigma &\sim \text{Exponential}(1): \quad \text{Prior for the standard deviation of the error term.}
+\end{align*}
 
 We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
 
@@ -144,31 +175,11 @@ We can use maths by including latex between dollar signs, for instance $\theta$.
 Our results are summarized in @tbl-modelresults.
 
 ```{r}
-#| echo: false
-#| eval: true
-#| warning: false
-#| message: false
 
-library(rstanarm)
-
-first_model <-
-  readRDS(file = here::here("models/first_model.rds"))
 ```
 
 ```{r}
-#| echo: false
-#| eval: true
-#| label: tbl-modelresults
-#| tbl-cap: "Explanatory models of flight time based on wing width and wing length"
-#| warning: false
 
-modelsummary::modelsummary(
-  list(
-    "First model" = first_model
-  ),
-  statistic = "mad",
-  fmt = 2
-)
 ```
 
 
@@ -208,24 +219,7 @@ In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. 
 In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
 
 ```{r}
-#| eval: true
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-ppcheckandposteriorvsprior
-#| layout-ncol: 2
-#| fig-cap: "Examining how the model fits, and is affected by, the data"
-#| fig-subcap: ["Posterior prediction check", "Comparing the posterior with the prior"]
 
-pp_check(first_model) +
-  theme_classic() +
-  theme(legend.position = "bottom")
-
-posterior_vs_prior(first_model) +
-  theme_minimal() +
-  scale_color_brewer(palette = "Set1") +
-  theme(legend.position = "bottom") +
-  coord_flip()
 ```
 
 ## Diagnostics
@@ -235,18 +229,7 @@ posterior_vs_prior(first_model) +
 @fig-stanareyouokay-2 is a Rhat plot. It shows... This suggests...
 
 ```{r}
-#| echo: false
-#| eval: true
-#| message: false
-#| warning: false
-#| label: fig-stanareyouokay
-#| fig-cap: "Checking the convergence of the MCMC algorithm"
-#| fig-subcap: ["Trace plot", "Rhat plot"]
-#| layout-ncol: 2
 
-plot(first_model, "trace")
-
-plot(first_model, "rhat")
 ```
 
 
