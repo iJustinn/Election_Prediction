@@ -74,15 +74,17 @@ Add graphs, tables and text. Use sub-sub-headings for each outcome variable or u
 #| warning: false
 #| message: false
 
-# Define the variable names
+# Define the variable names and examples
 outcome_variables <- data.frame(
-  Variable = c("State", "Pollster", "Candidate Name", "Percentage (pct)", "Sample Size", "Start Date", "End Date")
+  Variable = c("State", "Pollster", "Candidate Name", "Percentage (pct)", "Sample Size", "Start Date", "End Date"),
+  Example = c("Wisconsin", "RMG Research", "Donald Trump", "48.5%", "789", "2024-9-24", "2024-10-16")
 )
 
+# Create the table with an Example column
 outcome_variables %>%
   kable(
-    col.names = c("Outcome Variable"),
-    caption = "Outcome Variables", 
+    col.names = c("Outcome Variable", "Example"),
+    caption = "Outcome Variables",
     booktabs = TRUE
   ) %>%
   kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
@@ -100,13 +102,14 @@ This study includes several key predictor variables that provide insights into r
 
 # Define the variable names
 predictor_variables <- data.frame(
-  Variable = c("State", "Pollster", "Candidate Name", "Percentage (pct)", "Sample Size", "Days to Election")
+  Variable = c("State", "Pollster", "Candidate Name", "Percentage (pct)", "Sample Size", "Days to Election"),
+  Example = c("Georgia", "InsiderAdvantage", "Kamala Harris", "47%", "800", "24")
 )
 
 # Create the table
 predictor_variables %>%
   kable(
-    col.names = c("Predictor Variable"),
+    col.names = c("Predictor Variable", "Example"),
     caption = "Predictor Variables",
     booktabs = TRUE
   ) %>%
