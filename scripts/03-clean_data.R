@@ -51,12 +51,13 @@ raw_data <- read_csv(here("data", "01-raw_data", "president_polls.csv"))
 
 # Keeping columns that are essential for analysis
 clean_data <- raw_data %>%
-  select(state, pollster_rating_name, candidate_name, pct, sample_size, start_date, end_date)
+  select(state, pollster_rating_name, pollscore, candidate_name, pct, sample_size, start_date, end_date)
 
 # Dropping rows where critical information like candidate name or percentage is missing
 clean_data <- clean_data %>%
   filter(!is.na(state)) %>%
   filter(!is.na(pollster_rating_name)) %>%
+  filter(!is.na(pollscore)) %>%
   filter(!is.na(candidate_name)) %>%
   filter(!is.na(pct)) %>%
   filter(!is.na(sample_size)) %>%
