@@ -49,8 +49,9 @@ write_csv(num_grade_pollscore_data, "data/02-analysis_data/num_grade_pollscore_d
 # Load data
 raw_data <- read_csv(here("data", "01-raw_data", "president_polls.csv"))
 
-# Keeping columns that are essential for analysis
+# Select essential columns
 clean_data <- raw_data %>%
+
   select(state, pollster_rating_name, pollscore, candidate_name, pct, sample_size, start_date, end_date)
 
 # Dropping rows where critical information like candidate name or percentage is missing
@@ -62,16 +63,24 @@ clean_data <- clean_data %>%
   filter(!is.na(pct)) %>%
   filter(!is.na(sample_size)) %>%
   filter(!is.na(start_date)) %>%
-  filter(!is.na(end_date))
+  filter(!is.na(end_date)) %>%
+  
+  # Filter to keep only rows with candidates "Kamala Harris" or "Donald Trump"
+  filter(candidate_name %in% c("Kamala Harris", "Donald Trump"))
 
-# Calculate the number of days to the election date (November 5th) without modifying end_date format
+# Check the first few rows of clean_data
+head(clean_data)
+
+# Set election date
 election_date <- as.Date("2024-11-05")
+
+# Calculate days to election without modifying the end_date format
 clean_data <- clean_data %>%
   mutate(temp_end_date = as.Date(end_date, format = "%m/%d/%y")) %>%
   mutate(days_to_election = as.numeric(difftime(election_date, temp_end_date, units = "days"))) %>%
-  select(-temp_end_date)
+  select(-temp_end_date) # Remove temporary column
 
 # Save the cleaned data
-write_csv(clean_data, "data/02-analysis_data/clean_data.csv")
+write_csv(clean_data, here("data", "02-analysis_data", "clean_data.csv"))
 
 

@@ -1,0 +1,96 @@
+state,candidate_name,weighted_pct,total_weight
+Alabama,Donald Trump,57,-0.114416476
+Alaska,Donald Trump,51.86762797,-33.41224442
+Alaska,Kamala Harris,43.56955135,-21.57493647
+Arizona,Donald Trump,48.66014109,-915.0717136
+Arizona,Kamala Harris,46.65932424,-716.4717608
+Arkansas,Donald Trump,54.42577174,5.37090325
+Arkansas,Kamala Harris,40,6.96
+California,Donald Trump,33.96070465,-181.9436732
+California,Kamala Harris,59.61913867,-101.4495572
+Colorado,Donald Trump,37.91880992,-25.25465987
+Colorado,Kamala Harris,53.63073278,-4.814323607
+Connecticut,Donald Trump,37.1459693,-16.4523858
+Connecticut,Kamala Harris,53,-13.33333333
+Delaware,Donald Trump,37,1.111111111
+Delaware,Kamala Harris,54,1.111111111
+Florida,Donald Trump,52.72196006,-185.7076839
+Florida,Kamala Harris,42.9381882,-150.6273208
+Georgia,Donald Trump,48.6137454,-807.4405755
+Georgia,Kamala Harris,47.59654027,-613.2238279
+Hawaii,Donald Trump,,0
+Idaho,Donald Trump,54.5,-1.354271357
+Illinois,Donald Trump,36.45821873,-4.195140489
+Indiana,Donald Trump,57.05311123,-25.58389732
+Indiana,Kamala Harris,40.63850045,-19.81721698
+Iowa,Donald Trump,49.2626121,-68.81403177
+Iowa,Kamala Harris,43.87716119,-31.68114833
+Kansas,Donald Trump,49.8859742,-4.645523582
+Kentucky,Donald Trump,52.67342795,-0.688176131
+Louisiana,Donald Trump,51,-0.512405063
+Maine,Donald Trump,40.62984045,-15.71637067
+Maine,Kamala Harris,53.23044272,-17.32501721
+Maine CD-1,Donald Trump,35.88321772,-8.624831327
+Maine CD-1,Kamala Harris,60.10699564,-8.791226991
+Maine CD-2,Donald Trump,46.91603142,-8.062876254
+Maine CD-2,Kamala Harris,46.70892759,-8.229271918
+Maryland,Donald Trump,32.17645241,-78.42625612
+Maryland,Kamala Harris,63.89920914,-60.41620569
+Massachusetts,Donald Trump,30.9810157,-79.12412351
+Massachusetts,Kamala Harris,60.40467689,-56.94892969
+Michigan,Donald Trump,46.61650653,-801.2940918
+Michigan,Kamala Harris,48.06838084,-568.9616566
+Minnesota,Donald Trump,42.2081591,-70.47658948
+Minnesota,Kamala Harris,48.68169155,-35.91981954
+Mississippi,Donald Trump,54,-0.324050633
+Missouri,Donald Trump,53.92658418,-52.50688657
+Missouri,Kamala Harris,43.64268203,-14.66551363
+Montana,Donald Trump,56.22162342,-190.5161197
+Montana,Kamala Harris,39.20954223,-181.9631684
+Nebraska,Donald Trump,52.11625096,-31.11079368
+Nebraska,Kamala Harris,38.17863944,-29.7521815
+Nebraska CD-2,Donald Trump,42,-124.0191899
+Nebraska CD-2,Kamala Harris,50.73350168,-124.0191899
+Nevada,Donald Trump,46.92137876,-403.9053911
+Nevada,Kamala Harris,48.98581609,-230.0355084
+New Hampshire,Donald Trump,42.94339745,-230.639402
+New Hampshire,Kamala Harris,50.88519184,-179.6872709
+New Jersey,Donald Trump,36.82135379,-8.099789299
+New Mexico,Donald Trump,41.76389234,-38.08524706
+New Mexico,Kamala Harris,52.59511139,-36.36700342
+New York,Donald Trump,38.78326518,-135.8865501
+New York,Kamala Harris,53.54689227,-78.90860163
+North Carolina,Donald Trump,48.0096613,-885.0973993
+North Carolina,Kamala Harris,48.35867281,-776.5641584
+North Dakota,Donald Trump,69.20416199,-0.217792399
+North Dakota,Kamala Harris,-40,-0.138888889
+Ohio,Donald Trump,50.72994343,-405.963489
+Ohio,Kamala Harris,44.50941992,-343.3482607
+Oklahoma,Donald Trump,58.83199341,-8.1988268
+Oklahoma,Kamala Harris,39.9,1.468181818
+Oregon,Donald Trump,32.65543929,-1.229715594
+Oregon,Kamala Harris,47,1.37254902
+Pennsylvania,Donald Trump,46.58590673,-1420.597677
+Pennsylvania,Kamala Harris,48.7015564,-1123.360603
+Rhode Island,Donald Trump,45.67293596,-15.63724275
+Rhode Island,Kamala Harris,56.71878845,-19.33857971
+South Carolina,Donald Trump,50.9958315,-16.45775304
+South Carolina,Kamala Harris,42,-8.659459459
+South Dakota,Donald Trump,53.26481676,-13.46232638
+Tennessee,Donald Trump,56.24618518,10.73944056
+Tennessee,Kamala Harris,35,7.753571429
+Texas,Donald Trump,49.82632137,-450.7383593
+Texas,Kamala Harris,44.74895584,-363.0502341
+Utah,Donald Trump,52.23790298,-39.07516418
+Utah,Kamala Harris,36.92360797,-33.23887147
+Vermont,Donald Trump,28,-7.107692308
+Vermont,Kamala Harris,68.5,-7.107692308
+Virginia,Donald Trump,41.22488685,-106.1792061
+Virginia,Kamala Harris,55.21925659,-55.60249099
+Washington,Donald Trump,35.21780996,-69.87391942
+Washington,Kamala Harris,55.83539492,-55.13028825
+West Virginia,Donald Trump,64.41065882,5.51289891
+West Virginia,Kamala Harris,34,9.714285714
+Wisconsin,Donald Trump,46.63741586,-964.6080844
+Wisconsin,Kamala Harris,49.21152263,-692.3435602
+Wyoming,Donald Trump,67.6,-1.321105528
