@@ -28,6 +28,12 @@ library(here)
 library(knitr)
 library(rstanarm)
 library(modelsummary)
+library(readr)
+library(writexl) 
+library(ggplot2)
+library(gridExtra)
+library(grid)
+library(usmap)
 
 #read in cleaned data
 data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
@@ -177,11 +183,6 @@ Pollscore (`pollscore`) variable serves as a measure of each pollster's historic
 #| warning: false
 #| message: false
 
-# Load necessary libraries
-library(tidyverse)
-library(here)
-library(readr)
-
 # Load the data (assuming `clean_data.csv` contains the poll scores)
 data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"))
 
@@ -291,48 +292,26 @@ The Bayesian framework further enables the use of prior distributions, which can
 The hierarchical Bayesian model addresses issues of multicollinearity and heteroscedasticity by capturing group-level variability, and helps avoid violations of assumptions inherent in simpler linear models. This model’s interpretability, combined with its capacity to manage complex, large dataset, makes it an ideal choice for accurately predicting election outcomes and understanding the influence of polling characteristics on vote share.
 
 
-1. State Effects ($\alpha_i$)
+#### State Effects ($\alpha_i$)
 ```{r}
 #| label: tbl-state_effects
+#| tbl-cap: "State Effects Example"
 #| echo: false
 #| eval: true
 #| warning: false
 #| message: false
-#| 
-library(dplyr)
-library(readr)
-library(here)
-library(writexl) 
-library(kableExtra)
-
-# Read in the cleaned data
-data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
-
-# Calculate the average state effect based on polling percentage (pct) by state and pollster_rating_name
-state_effects <- data %>%
-  group_by(state, pollster_rating_name) %>%
-  summarise(
-    state_effect = round(mean(pct, na.rm = TRUE), 1)  # Average polling percentage for each state-pollster combination, rounded to 1 decimal
-  )
-
-# Display the state effects
-#print(state_effects)
-
-# Save state_effects to a CSV file
-write_csv(state_effects, path = here("data", "02-analysis_data", "state effect.csv"))
 
 # Read the saved CSV file
-state_effects_read <- read_csv(here("data", "02-analysis_data", "state effect.csv"), show_col_types = FALSE)
+state_effects_read <- read_csv(here("data", "02-analysis_data", "state_effect.csv"), show_col_types = FALSE)
 
 # Display the first 5 rows as a table using kable
 state_effects_read %>%
   head(5) %>%
   kable(
     col.names = c("State", "Pollster Rating Name", "State Effect"),
-    caption = "State Effects Example",
     booktabs = TRUE
   ) %>%
-  kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
+  kable_styling(latex_options = c("striped"))
 
 ```
 
@@ -342,79 +321,37 @@ Arizona’s effect estimates vary across pollsters, with higher values like 49.2
 
 By incorporating these state-specific adjustments, the model better aligns with local voting behaviors, capturing regional nuances and improving the reliability of its predictions.
 
-2. Pollster Effect ($\beta_j$)
+#### Pollster Effect ($\beta_j$)
 ```{r}
 #| label: tbl-pollster_effect
+#| tbl-cap: "Pollster Effects Example"
 #| echo: false
 #| warning: false
 #| message: false
-# Load necessary libraries
-library(dplyr)
-library(readr)
-library(here)
-
-# Read in the cleaned data
-data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
-
-# Check if the column names are as expected
-#print(colnames(data))
-
-# Calculate the average pollster effect based on pollscore
-pollster_effects <- data %>%
-  group_by(pollster_rating_name) %>%
-  summarise(
-    pollster_effect = mean(pollscore, na.rm = TRUE)  # Calculate average pollscore for each pollster
-  )
-
-# Display the pollster effects
-#print(pollster_effects)
-
-# Save pollster effects to a CSV file, including the pollster_rating_name
-write_csv(pollster_effects, path = here("data", "02-analysis_data", "pollster effect.csv"))
 
 # Read the saved CSV file
-pollster_effects_read <- read_csv(here("data", "02-analysis_data", "pollster effect.csv"), show_col_types = FALSE)
+pollster_effects_read <- read_csv(here("data", "02-analysis_data", "pollster_effect.csv"), show_col_types = FALSE)
 
 # Display the first 5 rows as a table using kable
 pollster_effects_read %>%
   head(5) %>%
   kable(
     col.names = c("Pollster Rating Name", "Pollster Effect"),
-    caption = "Pollster Effects Example",
     booktabs = TRUE
   ) %>%
-  kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
+  kable_styling(latex_options = c("striped"))
 
 ```
 The pollster effects in @tbl-pollster_effect in this model adjust for systematic biases or methodological tendencies in polling data from specific organizations, standardizing vote share predictions across diverse sources. For example, ABC News/The Washington Post has a notable negative adjustment of -1.2, suggesting that this pollster’s data tends to overestimate support for certain candidates, prompting a downward correction. In contrast, BK Strategies has a positive effect of 0.3, indicating a slight upward adjustment, which may be due to an observed underestimation in their polling results. Other pollsters, such as 1892 Polling with a minor positive effect of 0.1, and Alaska Survey Research with a small negative effect of -0.1, receive subtle adjustments to bring their estimates in line with the model's overall predictions. By incorporating these pollster-specific effects, the model accounts for known polling biases, enhancing its predictive reliability.
 
-3. Candidate Fixed Effect ($\gamma_k$)
+#### Candidate Fixed Effect ($\gamma_k$)
 
 ```{r}
 #| label: tbl-candidate_fixed_effect
+#| tbl-cap: "Candidate Fixed Effects Example"
 #| echo: false
 #| warning: false
 #| message: false
-# Load necessary libraries
-library(dplyr)
-library(readr)
-library(here)
-library(knitr)
-library(kableExtra)
-
-# Read in the cleaned data
-data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
-
-# Calculate the candidate fixed effect as the average support across all polls
-candidate_fixed_effect <- data %>%
-  group_by(candidate_name) %>%
-  summarise(gamma_k = round(mean(pct, na.rm = TRUE), 1))
-
-# Display candidate fixed effects
-#print(candidate_fixed_effect)
-
-# Save candidate_fixed_effect to a CSV file
-write_csv(candidate_fixed_effect, path = here("data", "02-analysis_data", "candidate_fixed_effect.csv"))
 
 # Read the saved CSV file
 candidate_fixed_effect_read <- read_csv(here("data", "02-analysis_data", "candidate_fixed_effect.csv"), show_col_types = FALSE)
@@ -424,143 +361,62 @@ candidate_fixed_effect_read %>%
   head(5) %>%
   kable(
     col.names = c("Candidate Name", "Candidate Fixed Effect (gamma_k)"),
-    caption = "Candidate Fixed Effects Example",
     booktabs = TRUE
   ) %>%
-  kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
-
+  kable_styling(latex_options = c("striped"))
 
 ```
 Shown in above @tbl-candidate_fixed_effect, the candidate fixed effects in this model capture the baseline level of support for each candidate, reflecting their overall popularity or favorability across the polls. For example, Kamala Harris has a candidate fixed effect of 47.22, while Donald Trump has a slightly lower effect of 45.28. These values suggest that, on average, Harris may have a marginally higher baseline level of support in the polling data compared to Trump. These fixed effects allow the model to adjust for inherent differences in candidate popularity, providing a more accurate prediction by factoring in each candidate's overall favorability independent of state, pollster, or specific poll characteristics. This adjustment is crucial for capturing the candidates' general standing in the electorate, contributing to more reliable forecasting.
 
-4. Adjust predictions by poll score and sample size $( \delta \cdot \mathrm{pct}_{ijk} + \eta \cdot \mathrm{sample\_size}_{ijk} )$
+#### Adjust predictions by poll score and sample size $( \delta \cdot \mathrm{pct}_{ijk} + \eta \cdot \mathrm{sample\_size}_{ijk} )$
 
 ```{r}
 #| label: tbl-adjusted_prediction
+#| tbl-cap: "Weighted Predictions by Poll Score and Sample Size Example"
 #| echo: false
 #| warning: false
 #| message: false
-# Load necessary libraries
-library(dplyr)
-library(readr)
-library(here)
-library(knitr)
-library(kableExtra)
 
-# Read in the cleaned data
-data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
+# Read the saved CSV file
+weighted_predictions <- read_csv(here("data", "02-analysis_data", "weighted_predictions.csv"), show_col_types = FALSE)
 
-# Ensure the pollscore and sample_size columns are non-NA (replace NAs with default values if needed)
-data <- data %>%
-  mutate(
-    pollscore = ifelse(is.na(pollscore), 0, pollscore),  # Replace NA pollscore with 0
-    sample_size = ifelse(is.na(sample_size), 1, sample_size)  # Replace NA sample_size with 1
-  )
-
-# Calculate the weight for each poll as the product of pollscore and sample_size
-data <- data %>%
-  mutate(weight = pollscore * sample_size)
-
-# Calculate the weighted average of pct for each candidate in each state
-weighted_predictions <- data %>%
-  group_by(state, candidate_name) %>%
-  summarise(
-    weighted_pct = round(sum(pct * weight, na.rm = TRUE) / sum(weight, na.rm = TRUE), 0),
-    total_weight = round(sum(weight, na.rm = TRUE), 0)  # Optional: To inspect total weight per group, rounded to 0 dp
-  ) %>%
-  ungroup()
-
-# Display the weighted predictions
-#print(weighted_predictions)
-
-# Save weighted_predictions to an csv file
-write_csv(weighted_predictions, path = here("data", "02-analysis_data", "weighted_predictions.csv"))
-
-# Optionally, display the first 5 rows as a table using kable
 weighted_predictions %>%
   head(5) %>%
   kable(
     col.names = c("State", "Candidate Name", "Weighted Percentage", "Total Weight"),
-    caption = "Weighted Predictions by Poll Score and Sample Size Example",
     booktabs = TRUE
   ) %>%
-  kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
+  kable_styling(latex_options = c("striped"))
 
 ```
 @tbl-adjusted_prediction shows the adjusted predictions by poll score and sample size. The table of weighted predictions shows adjusted support percentages for each candidate by state, incorporating both poll score and sample size. The "Weighted Percentage" column represents the predicted support level for each candidate after applying these weights, while the "Total Weight" column indicates the cumulative influence of poll score and sample size. For instance, in Alaska, Donald Trump has a weighted percentage of 51.57 with a total weight of -4031.0, while Kamala Harris has a lower weighted percentage of 43.32 with a weight of -934.4. In Arizona, the weights are significantly higher in absolute value, such as -76819.6 for Trump, reflecting the model's prioritization of more reliable and larger polls in this state. These adjustments ensure the model’s predictions are robust, accurately reflecting candidate support by accounting for the quality and scale of each poll.
 
-5. Adjustment of weighted predictions by accounting for recency $( \theta \cdot \mathrm{days\_to\_election}_{ijk} )$
+#### Adjustment of weighted predictions by accounting for recency $( \theta \cdot \mathrm{days\_to\_election}_{ijk} )$
 
 
 ```{r}
 #| label: tbl-weighted_prediction
+#| tbl-cap: "Weighted Predictions with Recency Adjustment Examples"
 #| echo: false
 #| warning: false
 #| message: false
-# Load necessary libraries
-library(dplyr)
-library(readr)
-library(here)
-library(knitr)
-library(kableExtra)
 
-# Read in the cleaned data
-data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
-
-# Ensure no NA values in pollscore, sample_size, and days_to_election
-data <- data %>%
-  mutate(
-    pollscore = ifelse(is.na(pollscore), 0, pollscore),  
-    sample_size = ifelse(is.na(sample_size), 1, sample_size),  
-    days_to_election = ifelse(is.na(days_to_election) | days_to_election <= 0, 
-                               max(days_to_election, na.rm = TRUE), 
-                               days_to_election)  
-  )
-
-# Calculate recency weight
-data <- data %>%
-  mutate(recency_weight = ifelse(days_to_election > 0, 1 / days_to_election, 0))
-
-# Calculate total weight
-data <- data %>%
-  mutate(total_weight = pollscore * sample_size * recency_weight)
-
-# Calculate the weighted average of pct for each candidate in each state
-weighted_predictions <- data %>%
-  group_by(state, candidate_name) %>%
-  summarise(
-    weighted_pct = round(ifelse(sum(total_weight, na.rm = TRUE) == 0, 0, 
-                                sum(pct * total_weight, na.rm = TRUE) / sum(total_weight, na.rm = TRUE)), 1),
-    total_weight = round(sum(total_weight, na.rm = TRUE), 1)
-  ) %>%
-  ungroup()
-
-# Save weighted predictions to csv
-write_csv(weighted_predictions, path = here("data", "02-analysis_data", "weighted_predictions_with_recency.csv"))
+# Read the saved CSV file
+weighted_predictions <- read_csv(here("data", "02-analysis_data", "weighted_predictions_with_recency.csv"), show_col_types = FALSE)
 
 # Display first 5 rows without extra styling
 weighted_predictions %>%
   head(5) %>%
   kable(
     col.names = c("State", "Candidate Name", "Weighted Percentage", "Total Weight"),
-    caption = "Weighted Predictions with Recency Adjustment Examples"
-  )
-  # Avoid using `booktabs` or `latex_options` here to prevent LaTeX conflicts
-
-# Pollster reliability adjustment
-zeta <- 0.2  
-data <- data %>%
-  mutate(
-    pollster_reliability_adjustment = round(zeta * pollscore, 1)  # Rounded to 1 decimal place
-  )
-
-# Save pollster reliability adjustments to csv
-write_csv(data, path = here("data", "02-analysis_data", "Pollscore_reliability_adjust.csv"))
+    booktabs = TRUE
+  ) %>%
+  kable_styling(latex_options = c("striped"))
 ```
 
 @tbl-weighted_prediction illustrates the model’s adjustment of weighted predictions by accounting for recency. This adjustment decreases the influence of older polls while giving more recent polls greater weight, enhancing prediction relevance as Election Day approaches. Here, the "Total Weight" column reflects the combined impact of poll score, sample size, and recency. For example, in Arizona, Donald Trump’s weighted percentage is 48.66 with a significant total weight of -915.07, indicating a substantial recent adjustment due to proximity to the election. Kamala Harris's weighted percentage in the same state is 46.66 with a weight of -716.47, reflecting similar adjustments. This recency factor ensures that the model prioritizes fresher data, which better captures evolving voter sentiment, thereby making predictions more accurate as the election nears.
 
-6. Pollscore Reliability ($\zeta$)
+#### Pollscore Reliability ($\zeta$)
 ```{r}
 #| echo: false
 #| warning: false
@@ -586,24 +442,19 @@ The final predictions for the 2024 presidential election indicate a close race b
 
 ```{r}
 #| label: tbl-modelresults
+#| tbl-cap: "Final Predictions for Trump and Harris"
 #| echo: false
 #| warning: false
 #| message: false
 
-library(dplyr)
-library(readr)
-library(here)
-library(knitr)
-library(kableExtra)
-
 # Load the main data and effect files
 data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
-pollster_effect <- read_csv(here("data", "02-analysis_data", "pollster effect.csv"), show_col_types = FALSE)
-state_effect <- read_csv(here("data", "02-analysis_data", "state effect.csv"), show_col_types = FALSE)
+pollster_effect <- read_csv(here("data", "02-analysis_data", "pollster_effect.csv"), show_col_types = FALSE)
+state_effect <- read_csv(here("data", "02-analysis_data", "state_effect.csv"), show_col_types = FALSE)
 candidate_fixed_effect <- read_csv(here("data", "02-analysis_data", "candidate_fixed_effect.csv"), show_col_types = FALSE)
-polling_percentage_sample_size_adjust <- read_csv(here("data", "02-analysis_data", "Adjust predictions by poll score and sample size.csv"), show_col_types = FALSE)
-days_to_election_adjust <- read_csv(here("data", "02-analysis_data", "adjust weights for recency by using days_to_election.csv"), show_col_types = FALSE)
-Pollscore_reliability_adjust <- read_csv(here("data", "02-analysis_data", "Pollscore_reliability_adjust.csv"), show_col_types = FALSE)
+polling_percentage_sample_size_adjust <- read_csv(here("data", "02-analysis_data", "adjust_predictions_by_poll_score_and_sample_size.csv"), show_col_types = FALSE)
+days_to_election_adjust <- read_csv(here("data", "02-analysis_data", "adjust_weights_for_recency_by_using_days_to_election.csv"), show_col_types = FALSE)
+Pollscore_reliability_adjust <- read_csv(here("data", "02-analysis_data", "pollscore_reliability_adjust.csv"), show_col_types = FALSE)
 
 # Standardize pollster_rating_name if present
 data <- data %>% mutate(pollster_rating_name = tolower(trimws(pollster_rating_name)))
@@ -676,29 +527,24 @@ results <- results %>%
 
 # Display the results in a kable table with kableExtra styling
 results %>%
-  kable(caption = "Final Predictions for Trump and Harris") %>%
+  kable() %>%
   kable_styling(full_width = FALSE, position = "center", font_size = 14)
 
 ```
 
-## Predicted Electorial Outcomes 
+## Predicted Electorial Outcomes
 
 The outcome pie chart @fig-presidential-pies below shows the predicted vote share distribution between Donald Trump and Kamala Harris, along with a comparison that includes votes projected for other candidates or undecided voters.
 
 ```{r}
 #| label: fig-presidential-pies
 #| fig-cap: "2024 Presidential Predictions"
+#| fig-subcap: ["Trump", "Harris", "Overall"]
 #| echo: false
 #| warning: false
 #| message: false
-#| fig-width: 40
-#| fig-height: 15
-#| fig.fullwidth: true
-
-# Load required libraries
-library(ggplot2)
-library(gridExtra)
-library(grid)
+#| layout-ncol: 3
+#| layout-nrow: 1
 
 # Average predictions for Trump and Harris
 average_trump_prediction <- 46.11
@@ -724,15 +570,15 @@ data_both <- data.frame(
 )
 
 # Define colors for Trump (red), Harris (blue), and Others (gray)
-colors <- c("Trump" = "red", "Harris" = "blue", "Others" = "gray80")
+colors <- c("Trump" = "red", "Harris" = "blue", "Others" = "darkgray")
 
 # First Pie Chart: Trump Prediction
-p1 <- ggplot(data_trump, aes(x = "", y = percentage, fill = candidate)) +
+ggplot(data_trump, aes(x = "", y = percentage, fill = candidate)) +
   geom_bar(stat = "identity", width = 1, color = "black") +
   coord_polar("y", start = 0) +
   geom_text(aes(label = sprintf("%.2f%%", percentage)), 
             position = position_stack(vjust = 0.5), 
-            size = 11, fontface = "bold") +
+            size = 8, fontface = "bold", color = "white") +
   scale_fill_manual(values = colors) +
   theme_void() +
   theme(legend.position = "right",
@@ -741,12 +587,12 @@ p1 <- ggplot(data_trump, aes(x = "", y = percentage, fill = candidate)) +
         plot.margin = unit(c(0, 0, 0, 0), "cm"))
 
 # Second Pie Chart: Harris Prediction
-p2 <- ggplot(data_harris, aes(x = "", y = percentage, fill = candidate)) +
+ggplot(data_harris, aes(x = "", y = percentage, fill = candidate)) +
   geom_bar(stat = "identity", width = 1, color = "black") +
   coord_polar("y", start = 0) +
   geom_text(aes(label = sprintf("%.2f%%", percentage)), 
             position = position_stack(vjust = 0.5), 
-            size = 11, fontface = "bold") +
+            size = 8, fontface = "bold", color = "white") +
   scale_fill_manual(values = colors) +
   theme_void() +
   theme(legend.position = "right",
@@ -755,12 +601,12 @@ p2 <- ggplot(data_harris, aes(x = "", y = percentage, fill = candidate)) +
         plot.margin = unit(c(0, 0, 0, 0), "cm"))
 
 # Third Pie Chart: Trump vs. Harris vs. Others
-p3 <- ggplot(data_both, aes(x = "", y = percentage, fill = candidate)) +
+ggplot(data_both, aes(x = "", y = percentage, fill = candidate)) +
   geom_bar(stat = "identity", width = 1, color = "black") +
   coord_polar("y", start = 0) +
   geom_text(aes(label = sprintf("%.2f%%", percentage)), 
             position = position_stack(vjust = 0.5), 
-            size = 11, fontface = "bold") +
+            size = 8, fontface = "bold", color = "white") +
   scale_fill_manual(values = colors) +
   theme_void() +
   theme(legend.position = "right",
@@ -768,27 +614,13 @@ p3 <- ggplot(data_both, aes(x = "", y = percentage, fill = candidate)) +
         legend.text = element_text(size = 20),
         plot.margin = unit(c(0, 0, 0, 0), "cm"))
 
-# Create labels for each chart with increased font size
-label_a <- textGrob("(a) Trump Vote Share", gp = gpar(fontsize = 35, fontface = "bold"))  # Increased font size
-label_b <- textGrob("(b) Harris Vote Share", gp = gpar(fontsize = 35, fontface = "bold"))  # Increased font size
-label_c <- textGrob("(c) Comparative Vote Share", gp = gpar(fontsize = 35, fontface = "bold"))  # Increased font size
-
-# Arrange the pie charts in a single row with labels below each plot
-grid.arrange(
-  p1, p2, p3,
-  label_a, label_b, label_c,
-  ncol = 3,
-  layout_matrix = rbind(c(1, 2, 3), c(4, 5, 6)),  # Arrange plots in the first row and labels in the second
-  heights = c(10, 1.5)  # Allocate more space to the label row to avoid compression
-)
-
 ```
 
-The first pie chart, labeled (a) Trump Vote Share, displays Donald Trump’s projected support level if we consider his vote share against all other potential candidates. According to the model, Trump is estimated to hold 46.11% of the vote, while 53.89% falls under the "Others" category. This result suggests that although Trump has a strong share of the projected votes, he does not exceed the 50% threshold in isolation, indicating there remains a sizable portion of voters who may support other candidates or remain undecided.
+The @fig-presidential-pies-1, displays Donald Trump’s projected support level if we consider his vote share against all other potential candidates. According to the model, Trump is estimated to hold 46.11% of the vote, while 53.89% falls under the "Others" category. This result suggests that although Trump has a strong share of the projected votes, he does not exceed the 50% threshold in isolation, indicating there remains a sizable portion of voters who may support other candidates or remain undecided.
 
-The second pie chart, (b) Harris Vote Share, presents Kamala Harris’s estimated support level against all other candidates. Harris is projected to receive 45.65% of the vote, with 54.35% categorized as "Others." Similar to Trump’s results, Harris shows a solid portion of support, though she too falls short of the majority. This chart highlights that Harris’s vote share is almost on par with Trump’s but leaves a considerable portion of votes uncommitted to either of the main candidates.
+The @fig-presidential-pies-2, presents Kamala Harris’s estimated support level against all other candidates. Harris is projected to receive 45.65% of the vote, with 54.35% categorized as "Others." Similar to Trump’s results, Harris shows a solid portion of support, though she too falls short of the majority. This chart highlights that Harris’s vote share is almost on par with Trump’s but leaves a considerable portion of votes uncommitted to either of the main candidates.
 
-The third pie chart, (c) Comparative Vote Share, illustrates the direct comparison between Trump, Harris, and the "Others" category. In this model, Trump holds a slight lead with 46.11%, while Harris closely follows with 45.65%. Meanwhile, 8.24% of the vote remains attributed to "Others," representing voters who may support third-party candidates or are undecided. This small lead for Trump, amounting to just a 0.46% difference, emphasizes the closeness of the race. The presence of a significant "Others" portion could prove crucial if those votes shift toward one of the primary candidates, potentially altering the predicted outcome.
+The @fig-presidential-pies-3, illustrates the direct comparison between Trump, Harris, and the "Others" category. In this model, Trump holds a slight lead with 46.11%, while Harris closely follows with 45.65%. Meanwhile, 8.24% of the vote remains attributed to "Others," representing voters who may support third-party candidates or are undecided. This small lead for Trump, amounting to just a 0.46% difference, emphasizes the closeness of the race. The presence of a significant "Others" portion could prove crucial if those votes shift toward one of the primary candidates, potentially altering the predicted outcome.
 
 Overall, these results suggest a highly competitive election, with Trump holding a marginal edge over Harris. The close percentages indicate that even slight changes in voter preferences could impact the election result, and the 8.24% of "Others" reflects the potential influence of undecided or third-party voters. This tight margin underscores the importance of swing votes in determining the final outcome, with neither candidate showing a decisive lead at this stage.
 
@@ -801,7 +633,6 @@ Model predictions for key states reveals a competitive landscape for the 2024 pr
 #| echo: false
 #| warning: false
 #| message: false
-library(dplyr)
 
 set.seed(42) # For reproducibility
 
@@ -850,8 +681,6 @@ This pattern underscores the competitive nature of the election, where both cand
 #| echo: false
 #| warning: false
 #| message: false
-# Load necessary libraries
-library(tidyverse)
 
 # Create the data frame for the swing states
 swing_states <- data.frame(
@@ -893,12 +722,6 @@ The bar plot @fig-modelresults_states shows the model’s predicted vote percent
 #| fig-width: 20
 #| fig-height: 8
 #| fig.fullwidth: true
-# Load necessary libraries
-library(tidyverse)
-library(readxl)
-library(ggplot2)
-library(usmap)  # For easier mapping of U.S. states
-library(here)
 
 # Load the weighted predictions data with recency adjustments
 predictions <- read_csv(here("data", "02-analysis_data", "weighted_predictions_with_recency.csv"))
@@ -980,14 +803,8 @@ This discussion examines the effectiveness and limitations of the election predi
 #| warning: false
 #| message: false
 
-# Load necessary libraries
-library(tidyverse)
-library(usmap)
-library(ggplot2)
-library(here)
-
 # Load the state effect data
-state_effect <- read_csv(here("data", "02-analysis_data", "state effect.csv"))
+state_effect <- read_csv(here("data", "02-analysis_data", "state_effect.csv"))
 
 # Check the data structure
 glimpse(state_effect)
@@ -1021,12 +838,8 @@ In the prediction model, the inclusion of pollster and pollscore effects enables
 #| warning: false
 #| message: false
 
-# Load necessary libraries
-library(tidyverse)
-library(here)
-
 # Load the data (adjust the file path as needed)
-pollster_effects <- read_csv(here("data", "02-analysis_data", "pollster effect.csv"))
+pollster_effects <- read_csv(here("data", "02-analysis_data", "pollster_effect.csv"))
 
 # 1. Histogram of Pollster Effects
 ggplot(pollster_effects, aes(x = pollster_effect)) +
@@ -1047,10 +860,6 @@ The histogram of pollster effects (@fig-pollster_effect) shows the distribution 
 #| echo: false
 #| warning: false
 #| message: false
-
-# Load necessary libraries
-library(tidyverse)
-library(here)
 
 # Load the clean data (adjust path if needed)
 data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"))
@@ -1077,10 +886,6 @@ ggplot(harris_data, aes(x = pollscore, y = pct)) +
 #| warning: false
 #| message: false
 
-# Load necessary libraries
-library(tidyverse)
-library(here)
-
 # Load the clean data (adjust path if needed)
 data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"))
 
@@ -1101,12 +906,11 @@ ggplot(trump_data, aes(x = pollscore, y = pct)) +
 ## Days to Election (Recency) Effet
 
 ```{r}
-# Load required libraries
-library(readr)
-library(here)
-library(dplyr)
-library(ggplot2)
-library(gridExtra) # For arranging plots side by side
+#| echo: false
+#| warning: false
+#| message: false
+#| layout-ncol: 2
+#| layout-nrow: 1
 
 # Load both datasets
 weighted_predictions <- read_csv(here("data", "02-analysis_data","weighted_predictions.csv"))
@@ -1130,7 +934,7 @@ trump_data <- combined_df %>% filter(candidate_name == "Donald Trump")
 harris_data <- combined_df %>% filter(candidate_name == "Kamala Harris")
 
 # Plot for Donald Trump
-plot_trump <- ggplot(trump_data, aes(x = source, y = weighted_pct, fill = source)) +
+ggplot(trump_data, aes(x = source, y = weighted_pct, fill = source)) +
   geom_violin(trim = FALSE) +
   geom_boxplot(width = 0.1, color = "black", fill = "white", outlier.shape = NA) +
   labs(title = "Donald Trump", y = "Weighted Prediction (%)") +
@@ -1138,15 +942,12 @@ plot_trump <- ggplot(trump_data, aes(x = source, y = weighted_pct, fill = source
   theme(axis.title.x = element_blank()) # Remove x-axis title
 
 # Plot for Kamala Harris
-plot_harris <- ggplot(harris_data, aes(x = source, y = weighted_pct, fill = source)) +
+ggplot(harris_data, aes(x = source, y = weighted_pct, fill = source)) +
   geom_violin(trim = FALSE) +
   geom_boxplot(width = 0.1, color = "black", fill = "white", outlier.shape = NA) +
   labs(title = "Kamala Harris", y = "Weighted Prediction (%)") +
   theme_minimal() +
   theme(axis.title.x = element_blank()) # Remove x-axis title
-
-# Arrange the two plots side by side
-grid.arrange(plot_trump, plot_harris, ncol = 2)
 
 ```
 
