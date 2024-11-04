@@ -51,7 +51,6 @@ cleaned_poll_data <-
 # )
 ```
 
-
 # Introduction {#sec-intro}
 
 In the approach to the 2024 U.S. Presidential election, analyzing voter behavior across states and demographic groups is vital for improving the accuracy of electoral outcome predictions. Recent polling data indicate a close competition among primary candidates, including Donald Trump and Kamala Harris, underscoring the importance of precise forecasting. This study employs a Hierarchical Bayesian Model to analyze polling data from all U.S. states, with particular attention to identifying swing states where minor shifts in voter sentiment could significantly impact the results. By examining trends in voter support across states and demographics, this research aims to enhance the accuracy of election predictions by pinpointing the regions most likely to influence the final electoral outcome.
@@ -66,7 +65,7 @@ The structure of the paper is organized as follows: following @sec-intro, @sec-d
 
 # Data {#sec-data}
 
-This project is motivated and guided by Rohan Alexander and his book [@citeTbook]. Data used in this paper was cleaned, analyzed and modeled with the programming language R [@citeR]. Also with support of additional packages in R: `arrow` [@citeArrow], `readr` [@citeReadr], `ggplot2` [@citeGgplot2], `tidyverse` [@citeTidyverse], `dplyr` [@citeDplyr], `here` [@citeHere], `knitr` [@citeKnitr], `kableExtra` [@citeKableExtra], `rstanarm` [@citeRstanarm], `modelsummary` [@citeModelsummary], `writexl` [@citeWritexl], `gridExtra` [@citeGridExtra], `grid` [@citeGrid], `usmap` [@citeUsmap].
+This project is motivated and guided by Rohan Alexander and his book [@citeTbook]. Data used in this paper was cleaned, analyzed and modeled with the programming language R [@citeR]. Also with support of additional packages in R: `arrow` [@citeArrow], `readr` [@citeReadr], `ggplot2` [@citeGgplot2], `tidyverse` [@citeTidyverse], `dplyr` [@citeDplyr], `here` [@citeHere], `knitr` [@citeKnitr], `kableExtra` [@citeKableExtra], `rstanarm` [@citeRstanarm], `modelsummary` [@citeModelsummary], `gridExtra` [@citeGridExtra], `grid` [@citeGrid], `usmap` [@citeUsmap].
 
 ## Source
 
@@ -398,7 +397,6 @@ weighted_predictions %>%
 
 #### Adjustment of weighted predictions by accounting for recency $( \theta \cdot \mathrm{days\_to\_election}_{ijk} )$
 
-
 ```{r}
 #| label: tbl-weighted_prediction
 #| tbl-cap: "Weighted Predictions with Recency Adjustment Examples"
@@ -426,6 +424,7 @@ weighted_predictions %>%
 #| echo: false
 #| warning: false
 #| message: false
+
 # Read in the cleaned data
 data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
 
@@ -990,13 +989,36 @@ In summary, each polling methodology has limitations that can impact data qualit
 
 ## Overview
 
+This survey aims to capture a comprehensive view of voter sentiments across the United States, focusing on key battleground states such as Pennsylvania, Ohio, and Nevada. The survey will provide insights into voters' preferences, motivations, and key issues that influence their voting behavior. By emphasizing pivotal states and stratifying data by demographics, the survey offers a granular understanding of the political landscape as it relates to the 2024 U.S. Presidential election.
+
 ## Sampling Approach
+
+The sampling approach will employ a stratified random sampling method to ensure the inclusion of diverse demographic groups across geographic regions, especially in swing states. This approach ensures the representation of key variables, including age, gender, ethnicity, and socioeconomic status. The survey will aim for a sample size large enough to allow meaningful analysis of subgroups within these states, helping to reduce sampling bias and improve the generalizability of findings.
 
 ## Stratification Variables
 
+To address regional and demographic diversity, stratification will focus on:
+
+- State-level stratification for battleground states (e.g., Pennsylvania, Ohio, Nevada).
+- Demographic stratification based on age, gender, ethnicity, and education level to ensure diversity.
+- Political affiliation stratification to capture variations among Democrat, Republican, and Independent voters.
+
+These stratification variables are chosen to capture potential differences in voting preferences and sentiments, allowing a nuanced analysis of voter dynamics in each group.
+
 ## Survey Structure
 
+The survey will begin with an introduction explaining its purpose, scope, and confidentiality terms. A contact section will provide details for follow-up or clarification. The survey questions will be grouped logically, covering:
+
+- Demographics: Collecting background information on respondents.
+- Political Engagement: Assessing respondents' political interests and participation history.
+- Voting Intentions: Exploring preferences for presidential candidates and key issues.
+- Perceptions and Concerns: Questions regarding major concerns, such as the economy or healthcare.
+
+The survey will end with a thank-you message, expressing gratitude for the respondent’s participation.
+
 ## Recruitment Strategy
+
+Recruitment will utilize mixed-mode sampling, reaching potential participants through online panels and phone interviews. Efforts will focus on achieving demographic diversity and engaging underrepresented voter groups to ensure robust and representative data.
 
 # Data Source and Preprocessing
 
