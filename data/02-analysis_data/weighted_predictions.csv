@@ -1,0 +1,425 @@
+state,candidate_name,weighted_pct,total_weight
+Alabama,Donald Trump,57,-50
+Alabama,Joe Biden,32,-50
+Alabama,Robert F. Kennedy,NA,0
+Alaska,Donald Trump,52,-4031
+Alaska,Joe Biden,40,-3097
+Alaska,Kamala Harris,43,-934
+Alaska,Robert F. Kennedy,9,-506
+Arizona,Chase Oliver,2,-11863
+Arizona,Cornel West,1,-20940
+Arizona,Donald Trump,47,-76820
+Arizona,Gavin Newsom,34,-1100
+Arizona,Gretchen Whitmer,NA,0
+Arizona,J.B. Pritzker,NA,0
+Arizona,Jill Stein,1,-25224
+Arizona,Joe Biden,41,-44282
+Arizona,"Joe Manchin, III",4,208
+Arizona,Josh Shapiro,NA,0
+Arizona,Kamala Harris,46,-34822
+Arizona,Lars Mapstead,1,-1898
+Arizona,Mark Kelly,NA,0
+Arizona,Mike Pence,43,150
+Arizona,Nikki Haley,55,-1160
+Arizona,Pete Buttigieg,NA,0
+Arizona,Robert F. Kennedy,9,-12869
+Arizona,Ron DeSantis,45,-2376
+Arkansas,Chase Oliver,1,418
+Arkansas,Donald Trump,60,-367
+Arkansas,Jill Stein,0,418
+Arkansas,Joe Biden,29,-1090
+Arkansas,Kamala Harris,40,418
+Arkansas,Robert F. Kennedy,1,418
+Arkansas,Ron DeSantis,49,-306
+California,Chase Oliver,0,-1037
+California,Claudia De La Cruz,1,-428
+California,Cornel West,2,-8207
+California,Donald Trump,32,-30213
+California,Gavin Newsom,52,-830
+California,Jill Stein,1,-7734
+California,Joe Biden,52,-27920
+California,Kamala Harris,57,-4887
+California,Robert F. Kennedy,7,-8636
+California,Ron DeSantis,30,-3424
+Colorado,Cornel West,2,-400
+Colorado,Donald Trump,37,-6295
+Colorado,Jill Stein,3,-400
+Colorado,Joe Biden,44,-6772
+Colorado,Kamala Harris,54,-253
+Colorado,Robert F. Kennedy,12,-400
+Colorado,Ron DeSantis,31,-730
+Connecticut,Donald Trump,38,-3140
+Connecticut,Joe Biden,49,-2500
+Connecticut,Kamala Harris,53,-640
+Connecticut,Robert F. Kennedy,3,-640
+Delaware,Donald Trump,37,50
+Delaware,Joe Biden,NA,0
+Delaware,Kamala Harris,54,50
+Delaware,Robert F. Kennedy,NA,0
+Florida,Chase Oliver,1,2905
+Florida,Cornel West,1,-1279
+Florida,Donald Trump,50,-14172
+Florida,Hillary Rodham Clinton,41,-1000
+Florida,Jill Stein,-8,455
+Florida,Joe Biden,44,-12479
+Florida,Kamala Harris,43,-4421
+Florida,Lars Mapstead,2,539
+Florida,Nikki Haley,27,359
+Florida,Robert F. Kennedy,6,2587
+Florida,Ron DeSantis,53,-4087
+Georgia,Chase Oliver,1,-10833
+Georgia,Claudia De La Cruz,1,-1156
+Georgia,Cornel West,1,-23628
+Georgia,Donald Trump,48,-77355
+Georgia,Gavin Newsom,32,-1100
+Georgia,Jill Stein,1,-20957
+Georgia,Joe Biden,42,-51884
+Georgia,Kamala Harris,47,-32739
+Georgia,Lars Mapstead,2,-1812
+Georgia,Mike Pence,43,150
+Georgia,Nikki Haley,41,-3661
+Georgia,Robert F. Kennedy,10,-16658
+Georgia,Ron DeSantis,46,-4857
+Hawaii,Donald Trump,NA,0
+Hawaii,Joe Biden,NA,0
+Hawaii,Robert F. Kennedy,NA,0
+Idaho,Donald Trump,54,-539
+Idaho,Joe Biden,26,-539
+Idaho,Robert F. Kennedy,NA,0
+Illinois,Donald Trump,37,-2715
+Illinois,J.B. Pritzker,NA,0
+Illinois,Joe Biden,49,-2715
+Illinois,Robert F. Kennedy,NA,0
+Indiana,Donald Trump,55,-2648
+Indiana,Joe Biden,31,-2708
+Indiana,Kamala Harris,41,-1040
+Indiana,Nikki Haley,44,-1100
+Indiana,Robert F. Kennedy,NA,0
+Iowa,Chase Oliver,1,-1546
+Iowa,Cornel West,5,-986
+Iowa,Donald Trump,49,-15402
+Iowa,Gavin Newsom,35,-557
+Iowa,Joe Biden,38,-15017
+Iowa,Kamala Harris,44,-1447
+Iowa,Robert F. Kennedy,7,-1546
+Iowa,Ron DeSantis,47,-1619
+Kansas,Donald Trump,50,-3049
+Kansas,Joe Biden,36,-3363
+Kansas,Robert F. Kennedy,NA,0
+Kansas,Ron DeSantis,50,-314
+Kentucky,Donald Trump,51,-199
+Kentucky,Joe Biden,16,-199
+Kentucky,Robert F. Kennedy,NA,0
+Louisiana,Donald Trump,51,-405
+Louisiana,Joe Biden,34,-810
+Louisiana,Robert F. Kennedy,NA,0
+Louisiana,Ron DeSantis,46,-405
+Maine,Chase Oliver,1,-800
+Maine,Cornel West,0,-556
+Maine,Donald Trump,40,-2146
+Maine,Jill Stein,-3,-435
+Maine,Joe Biden,59,-628
+Maine,Kamala Harris,53,-1519
+Maine,Robert F. Kennedy,-15,-232
+Maine CD-1,Chase Oliver,1,-367
+Maine CD-1,Cornel West,-0,-367
+Maine CD-1,Donald Trump,37,-709
+Maine CD-1,Jill Stein,1,-367
+Maine CD-1,Joe Biden,43,61
+Maine CD-1,Kamala Harris,60,-770
+Maine CD-1,Robert F. Kennedy,2,-367
+Maine CD-2,Chase Oliver,1,-343
+Maine CD-2,Cornel West,1,-343
+Maine CD-2,Donald Trump,47,-662
+Maine CD-2,Jill Stein,2,-343
+Maine CD-2,Joe Biden,28,61
+Maine CD-2,Kamala Harris,47,-723
+Maine CD-2,Robert F. Kennedy,4,-343
+Maryland,Chase Oliver,1,-787
+Maryland,Cornel West,2,-2326
+Maryland,Donald Trump,33,-6075
+Maryland,Jill Stein,1,-3114
+Maryland,Joe Biden,51,-1693
+Maryland,Kamala Harris,64,-2738
+Maryland,Nikki Haley,36,653
+Maryland,Robert F. Kennedy,4,-2180
+Maryland,Ron DeSantis,36,664
+Maryland,Vivek G. Ramaswamy,29,327
+Massachusetts,Chase Oliver,0,-2089
+Massachusetts,Claudia De La Cruz,1,-780
+Massachusetts,Cornel West,1,-3599
+Massachusetts,Donald Trump,30,-8685
+Massachusetts,Jill Stein,1,-2247
+Massachusetts,Joe Biden,52,-6456
+Massachusetts,Kamala Harris,61,-2229
+Massachusetts,Robert F. Kennedy,8,-4159
+Massachusetts,Shiva Ayyadurai,1,-780
+Michigan,Chase Oliver,1,-9540
+Michigan,Cornel West,1,-24639
+Michigan,Donald Trump,46,-79475
+Michigan,Gavin Newsom,36,-240
+Michigan,Gretchen Whitmer,50,-2393
+Michigan,J.B. Pritzker,NA,0
+Michigan,Jill Stein,2,-25443
+Michigan,Joe Biden,42,-52276
+Michigan,Joseph Kishore,-0,-1348
+Michigan,Josh Shapiro,47,-1113
+Michigan,Kamala Harris,48,-31317
+Michigan,Lars Mapstead,1,-2028
+Michigan,Liz Cheney,8,-120
+Michigan,Nikki Haley,42,-5190
+Michigan,Pete Buttigieg,NA,0
+Michigan,Randall A. Terry,0,-2304
+Michigan,Robert F. Kennedy,9,-23180
+Michigan,Ron DeSantis,45,-2674
+Michigan,Shiva Ayyadurai,-0,-650
+Minnesota,Chase Oliver,1,3652
+Minnesota,Cornel West,-51,-31
+Minnesota,Donald Trump,41,-8088
+Minnesota,Gretchen Whitmer,49,-1178
+Minnesota,Jill Stein,3,3621
+Minnesota,Joe Biden,52,-2223
+Minnesota,Josh Shapiro,49,-1178
+Minnesota,Kamala Harris,50,-3359
+Minnesota,Lars Mapstead,1,1920
+Minnesota,Robert F. Kennedy,211,12
+Minnesota,Ron DeSantis,43,150
+Mississippi,Donald Trump,54,-256
+Mississippi,Joe Biden,36,-512
+Mississippi,Robert F. Kennedy,NA,0
+Mississippi,Ron DeSantis,49,-256
+Missouri,Chase Oliver,1,64
+Missouri,Cornel West,1,-1100
+Missouri,Donald Trump,52,-16090
+Missouri,Jill Stein,1,-1100
+Missouri,Joe Biden,36,-14972
+Missouri,Kamala Harris,43,-1118
+Missouri,Robert F. Kennedy,7,-1584
+Montana,Chase Oliver,0,-3068
+Montana,Cornel West,-10,-801
+Montana,Donald Trump,56,-8243
+Montana,Jill Stein,0,-4990
+Montana,Joe Biden,30,-1394
+Montana,"Joe Manchin, III",6,871
+Montana,Kamala Harris,40,-7028
+Montana,Robert F. Kennedy,6,-2758
+Montana,Ron DeSantis,35,-179
+Nebraska,Donald Trump,51,-2426
+Nebraska,Joe Biden,19,-137
+Nebraska,Kamala Harris,38,-2289
+Nebraska,Robert F. Kennedy,NA,0
+Nebraska CD-2,Chase Oliver,1,-2883
+Nebraska CD-2,Cornel West,1,-843
+Nebraska CD-2,Donald Trump,42,-5320
+Nebraska CD-2,Jill Stein,2,-2883
+Nebraska CD-2,Kamala Harris,51,-5320
+Nebraska CD-2,Robert F. Kennedy,-4,-131
+Nevada,Chase Oliver,1,-4579
+Nevada,Cornel West,1,-15846
+Nevada,Donald Trump,46,-54133
+Nevada,Gavin Newsom,33,-1250
+Nevada,Jill Stein,1,-16264
+Nevada,Joe Biden,40,-43269
+Nevada,Kamala Harris,47,-15896
+Nevada,Lars Mapstead,2,-1842
+Nevada,Nikki Haley,45,-1833
+Nevada,Robert F. Kennedy,9,-14596
+Nevada,Ron DeSantis,43,-4448
+New Hampshire,Bernie Sanders,48,-1009
+New Hampshire,Chase Oliver,1,-8621
+New Hampshire,Chris Christie,20,-605
+New Hampshire,Chris Sununu,42,-774
+New Hampshire,Cornel West,1,-10441
+New Hampshire,Donald Trump,42,-28160
+New Hampshire,Elizabeth Ann Warren,44,-1009
+New Hampshire,Jill Stein,1,-11063
+New Hampshire,Joe Biden,46,-25762
+New Hampshire,"Joe Manchin, III",2,-1000
+New Hampshire,Kamala Harris,51,-10800
+New Hampshire,Lars Mapstead,1,-1000
+New Hampshire,Mike Pence,20,-605
+New Hampshire,Nikki Haley,42,-2655
+New Hampshire,Robert F. Kennedy,6,-10167
+New Hampshire,Ron DeSantis,39,-4569
+New Hampshire,Tim Scott,34,-605
+New Hampshire,Vivek G. Ramaswamy,32,-605
+New Jersey,Cornel West,1,-1100
+New Jersey,Donald Trump,37,-1957
+New Jersey,Jill Stein,1,-1100
+New Jersey,Joe Biden,44,-1957
+New Jersey,Robert F. Kennedy,8,-857
+New Mexico,Chase Oliver,-4,-67
+New Mexico,Cornel West,0,-1062
+New Mexico,Donald Trump,41,-4402
+New Mexico,Jill Stein,-6,-67
+New Mexico,Joe Biden,48,-1780
+New Mexico,Kamala Harris,53,-2472
+New Mexico,Randall A. Terry,1,60
+New Mexico,Robert F. Kennedy,1,-623
+New Mexico,Ron DeSantis,43,150
+New York,Chase Oliver,1,-1762
+New York,Cornel West,3,-5774
+New York,Donald Trump,36,-22940
+New York,Jill Stein,2,-2862
+New York,Joe Biden,46,-18317
+New York,Kamala Harris,53,-4623
+New York,Robert F. Kennedy,11,-4972
+North Carolina,Charles Ballay,2,100
+North Carolina,Chase Oliver,1,-13790
+North Carolina,Cornel West,1,-20522
+North Carolina,Donald Trump,48,-62401
+North Carolina,Gavin Newsom,34,-1100
+North Carolina,Jill Stein,1,-20704
+North Carolina,Joe Biden,42,-27890
+North Carolina,Kamala Harris,48,-37268
+North Carolina,Mike Pence,39,-666
+North Carolina,Nikki Haley,37,-2773
+North Carolina,Randall A. Terry,0,-3661
+North Carolina,Robert F. Kennedy,7,-10341
+North Carolina,Ron DeSantis,47,-418
+North Carolina,Roy A. Cooper,NA,0
+North Dakota,Chase Oliver,1,-50
+North Dakota,Donald Trump,52,-311
+North Dakota,Joe Biden,12,-311
+North Dakota,Kamala Harris,Inf,0
+North Dakota,Robert F. Kennedy,NA,0
+Ohio,Chase Oliver,2,-3264
+Ohio,Chris Christie,33,135
+Ohio,Cornel West,-3,-3183
+Ohio,Donald Trump,50,-30934
+Ohio,Gavin Newsom,33,-1613
+Ohio,Gretchen Whitmer,34,-1613
+Ohio,Jill Stein,1,-6295
+Ohio,Joe Biden,39,-16304
+Ohio,"Joe Manchin, III",6,935
+Ohio,Kamala Harris,44,-13693
+Ohio,Mike Pence,37,269
+Ohio,Nikki Haley,36,269
+Ohio,Robert F. Kennedy,7,-5198
+Ohio,Ron DeSantis,47,-3096
+Ohio,Tim Scott,38,135
+Oklahoma,Cornel West,2,-676
+Oklahoma,Donald Trump,59,-3175
+Oklahoma,Jill Stein,1,-676
+Oklahoma,Joe Biden,28,-3690
+Oklahoma,Kamala Harris,40,97
+Oklahoma,Robert F. Kennedy,7,-676
+Oklahoma,Ron DeSantis,53,-418
+Oregon,Donald Trump,37,-1808
+Oregon,Jill Stein,1,70
+Oregon,Joe Biden,50,-1948
+Oregon,Kamala Harris,47,140
+Oregon,Robert F. Kennedy,7,70
+Pennsylvania,Chase Oliver,1,-23775
+Pennsylvania,Cornel West,1,-29382
+Pennsylvania,Donald Trump,46,-115623
+Pennsylvania,Gavin Newsom,33,-1100
+Pennsylvania,Gretchen Whitmer,48,-1137
+Pennsylvania,J.B. Pritzker,NA,0
+Pennsylvania,Jill Stein,1,-39538
+Pennsylvania,Joe Biden,43,-57372
+Pennsylvania,Josh Shapiro,52,-1558
+Pennsylvania,Kamala Harris,48,-58969
+Pennsylvania,Lars Mapstead,0,-3129
+Pennsylvania,Nikki Haley,50,-2076
+Pennsylvania,Pete Buttigieg,NA,0
+Pennsylvania,Robert F. Kennedy,8,-26901
+Pennsylvania,Ron DeSantis,44,-2649
+Rhode Island,Chase Oliver,-0,-205
+Rhode Island,Cornel West,0,-801
+Rhode Island,Donald Trump,48,-751
+Rhode Island,Jill Stein,1,-1006
+Rhode Island,Joe Biden,161,-90
+Rhode Island,Kamala Harris,57,-959
+Rhode Island,Robert F. Kennedy,119,69
+Rhode Island,Ron DeSantis,36,-298
+South Carolina,Donald Trump,50,-2848
+South Carolina,Joe Biden,36,-3523
+South Carolina,Kamala Harris,42,-320
+South Carolina,Nikki Haley,47,-515
+South Carolina,Robert F. Kennedy,NA,0
+South Carolina,Ron DeSantis,42,-480
+South Dakota,Donald Trump,53,-4630
+South Dakota,Joe Biden,29,-4630
+South Dakota,Robert F. Kennedy,11,-550
+Tennessee,Chase Oliver,1,217
+Tennessee,Donald Trump,62,688
+Tennessee,Jill Stein,1,217
+Tennessee,Joe Biden,42,580
+Tennessee,"Joe Manchin, III",5,196
+Tennessee,Kamala Harris,35,217
+Tennessee,Robert F. Kennedy,13,856
+Tennessee,Ron DeSantis,63,109
+Texas,Chase Oliver,1,-5356
+Texas,Cornel West,2,-7462
+Texas,Donald Trump,48,-36337
+Texas,Jill Stein,2,-11842
+Texas,Joe Biden,38,-34394
+Texas,Kamala Harris,45,-14206
+Texas,Mike Pence,29,-1320
+Texas,Nikki Haley,33,-3828
+Texas,Robert F. Kennedy,7,-9115
+Texas,Ron DeSantis,40,-3155
+Texas,Tim Scott,33,-1320
+Texas,Vivek G. Ramaswamy,34,-2640
+Utah,Chase Oliver,1,-456
+Utah,Cornel West,2,-696
+Utah,Donald Trump,50,-2951
+Utah,Jill Stein,1,-696
+Utah,Joe Biden,30,-1879
+Utah,Joel Skousen,-0,-456
+Utah,Kamala Harris,36,-1071
+Utah,Robert F. Kennedy,15,-406
+Vermont,Chase Oliver,-0,-277
+Vermont,Cornel West,-0,-277
+Vermont,Donald Trump,28,-554
+Vermont,Joe Biden,NA,0
+Vermont,Kamala Harris,68,-554
+Vermont,Robert F. Kennedy,3,-277
+Virginia,Chase Oliver,1,-3965
+Virginia,Claudia De La Cruz,1,-1608
+Virginia,Cornel West,-1,-5636
+Virginia,Donald Trump,44,-9235
+Virginia,Glenn Youngkin,24,1112
+Virginia,Jill Stein,2,-3379
+Virginia,Joe Biden,63,-2169
+Virginia,"Joe Manchin, III",7,862
+Virginia,Kamala Harris,50,-5138
+Virginia,Lars Mapstead,1,2560
+Virginia,Nikki Haley,48,-363
+Virginia,Robert F. Kennedy,15,-3168
+Virginia,Ron DeSantis,23,1180
+Washington,Cornel West,3,-81
+Washington,Donald Trump,35,-4198
+Washington,Gretchen Whitmer,42,-100
+Washington,Joe Biden,46,-1802
+Washington,Josh Shapiro,40,-100
+Washington,Kamala Harris,54,-2095
+Washington,Raphael Warnock,40,-100
+Washington,Robert F. Kennedy,9,-81
+Washington,Ron DeSantis,NA,0
+West Virginia,Donald Trump,50,-331
+West Virginia,Jill Stein,2,-418
+West Virginia,Joe Biden,25,-1011
+West Virginia,Kamala Harris,34,680
+West Virginia,Robert F. Kennedy,NA,0
+Wisconsin,Chase Oliver,1,-15167
+Wisconsin,Claudia De La Cruz,-0,-2922
+Wisconsin,Cornel West,1,-32095
+Wisconsin,Donald Trump,46,-96667
+Wisconsin,Gavin Newsom,36,-1100
+Wisconsin,Gretchen Whitmer,46,-1151
+Wisconsin,J.B. Pritzker,NA,0
+Wisconsin,Jill Stein,2,-35144
+Wisconsin,Joe Biden,44,-62110
+Wisconsin,Josh Shapiro,46,-1151
+Wisconsin,Kamala Harris,49,-40826
+Wisconsin,Lars Mapstead,0,-1902
+Wisconsin,Nikki Haley,49,-6009
+Wisconsin,Pete Buttigieg,NA,0
+Wisconsin,Randall A. Terry,0,-6664
+Wisconsin,Robert F. Kennedy,8,-31739
+Wisconsin,Ron DeSantis,48,-3662
+Wyoming,Donald Trump,68,-526
+Wyoming,Joe Biden,15,-526
+Wyoming,Robert F. Kennedy,NA,0

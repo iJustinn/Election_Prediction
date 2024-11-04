@@ -1,0 +1,425 @@
+state,candidate_name,weighted_pct,total_weight
+Alabama,Donald Trump,57,-0.1
+Alabama,Joe Biden,32,-0.1
+Alabama,Robert F. Kennedy,0,0
+Alaska,Donald Trump,51.9,-33.4
+Alaska,Joe Biden,40.4,-11.8
+Alaska,Kamala Harris,43.6,-21.6
+Alaska,Robert F. Kennedy,6.4,-10.5
+Arizona,Chase Oliver,1.5,-242.2
+Arizona,Cornel West,0.7,-186.4
+Arizona,Donald Trump,48.7,-915.1
+Arizona,Gavin Newsom,34.4,-4.2
+Arizona,Gretchen Whitmer,0,0
+Arizona,J.B. Pritzker,0,0
+Arizona,Jill Stein,1.3,-338.3
+Arizona,Joe Biden,41.6,-202.3
+Arizona,"Joe Manchin, III",4,0.6
+Arizona,Josh Shapiro,0,0
+Arizona,Kamala Harris,46.7,-716.5
+Arizona,Lars Mapstead,1,-10.5
+Arizona,Mark Kelly,0,0
+Arizona,Mike Pence,43,0.3
+Arizona,Nikki Haley,56.1,-3
+Arizona,Pete Buttigieg,0,0
+Arizona,Robert F. Kennedy,8.1,-81.2
+Arizona,Ron DeSantis,47.2,-5.2
+Arkansas,Chase Oliver,1,7
+Arkansas,Donald Trump,54.4,5.4
+Arkansas,Jill Stein,0,7
+Arkansas,Joe Biden,27.4,-2
+Arkansas,Kamala Harris,40,7
+Arkansas,Robert F. Kennedy,1,7
+Arkansas,Ron DeSantis,49,-0.4
+California,Chase Oliver,0.3,-24.9
+California,Claudia De La Cruz,1,-7.5
+California,Cornel West,1.6,-43.7
+California,Donald Trump,34,-181.9
+California,Gavin Newsom,52.3,-2.8
+California,Jill Stein,1.2,-48.7
+California,Joe Biden,51.6,-83.7
+California,Kamala Harris,59.6,-101.4
+California,Robert F. Kennedy,5.3,-51.2
+California,Ron DeSantis,30.5,-6
+Colorado,Cornel West,2,-3
+Colorado,Donald Trump,37.9,-25.3
+Colorado,Jill Stein,3,-3
+Colorado,Joe Biden,44.3,-22.9
+Colorado,Kamala Harris,53.6,-4.8
+Colorado,Robert F. Kennedy,12,-3
+Colorado,Ron DeSantis,32.1,-2.4
+Connecticut,Donald Trump,37.1,-16.5
+Connecticut,Joe Biden,48.8,-3.1
+Connecticut,Kamala Harris,53,-13.3
+Connecticut,Robert F. Kennedy,3,-13.3
+Delaware,Donald Trump,37,1.1
+Delaware,Joe Biden,0,0
+Delaware,Kamala Harris,54,1.1
+Delaware,Robert F. Kennedy,0,0
+Florida,Chase Oliver,1,35.2
+Florida,Cornel West,1.1,-11
+Florida,Donald Trump,52.7,-185.7
+Florida,Hillary Rodham Clinton,41.3,-1
+Florida,Jill Stein,1.1,19.8
+Florida,Joe Biden,43.2,-39.2
+Florida,Kamala Harris,42.9,-150.6
+Florida,Lars Mapstead,1.6,2.3
+Florida,Nikki Haley,27,1
+Florida,Robert F. Kennedy,3.8,23.9
+Florida,Ron DeSantis,53.2,-6.1
+Georgia,Chase Oliver,1.5,-172.5
+Georgia,Claudia De La Cruz,0.8,-25
+Georgia,Cornel West,1,-240.6
+Georgia,Donald Trump,48.6,-807.4
+Georgia,Gavin Newsom,32.2,-4.2
+Georgia,Jill Stein,0.9,-210.9
+Georgia,Joe Biden,41.3,-210.7
+Georgia,Kamala Harris,47.6,-613.2
+Georgia,Lars Mapstead,1.5,-10.1
+Georgia,Mike Pence,43,0.3
+Georgia,Nikki Haley,40.2,-11.1
+Georgia,Robert F. Kennedy,8,-97.7
+Georgia,Ron DeSantis,45.5,-9.9
+Hawaii,Donald Trump,0,0
+Hawaii,Joe Biden,0,0
+Hawaii,Robert F. Kennedy,0,0
+Idaho,Donald Trump,54.5,-1.4
+Idaho,Joe Biden,25.8,-1.4
+Idaho,Robert F. Kennedy,0,0
+Illinois,Donald Trump,36.5,-4.2
+Illinois,J.B. Pritzker,0,0
+Illinois,Joe Biden,48,-4.2
+Illinois,Robert F. Kennedy,0,0
+Indiana,Donald Trump,57.1,-25.6
+Indiana,Joe Biden,30.8,-10.3
+Indiana,Kamala Harris,40.6,-19.8
+Indiana,Nikki Haley,44.5,-4.5
+Indiana,Robert F. Kennedy,0,0
+Iowa,Chase Oliver,1.3,-19.6
+Iowa,Cornel West,4.7,-2.3
+Iowa,Donald Trump,49.3,-68.8
+Iowa,Gavin Newsom,34.7,-1.4
+Iowa,Joe Biden,37.4,-38.6
+Iowa,Kamala Harris,43.9,-31.7
+Iowa,Robert F. Kennedy,6.8,-19.6
+Iowa,Ron DeSantis,47.5,-2.9
+Kansas,Donald Trump,49.9,-4.6
+Kansas,Joe Biden,35.4,-5
+Kansas,Robert F. Kennedy,0,0
+Kansas,Ron DeSantis,50,-0.4
+Kentucky,Donald Trump,52.7,-0.7
+Kentucky,Joe Biden,20.9,-0.7
+Kentucky,Robert F. Kennedy,0,0
+Louisiana,Donald Trump,51,-0.5
+Louisiana,Joe Biden,34.5,-1
+Louisiana,Robert F. Kennedy,0,0
+Louisiana,Ron DeSantis,46,-0.5
+Maine,Chase Oliver,1,-9.5
+Maine,Cornel West,0.6,-8.2
+Maine,Donald Trump,40.6,-15.7
+Maine,Jill Stein,-0.3,-7.5
+Maine,Joe Biden,35.5,1.6
+Maine,Kamala Harris,53.2,-17.3
+Maine,Robert F. Kennedy,-1.2,-5.3
+Maine CD-1,Chase Oliver,1,-4
+Maine CD-1,Cornel West,-0,-4
+Maine CD-1,Donald Trump,35.9,-8.6
+Maine CD-1,Jill Stein,0.5,-4
+Maine CD-1,Joe Biden,43,0.2
+Maine CD-1,Kamala Harris,60.1,-8.8
+Maine CD-1,Robert F. Kennedy,2,-4
+Maine CD-2,Chase Oliver,1,-3.7
+Maine CD-2,Cornel West,0.5,-3.7
+Maine CD-2,Donald Trump,46.9,-8.1
+Maine CD-2,Jill Stein,2.1,-3.7
+Maine CD-2,Joe Biden,28,0.2
+Maine CD-2,Kamala Harris,46.7,-8.2
+Maine CD-2,Robert F. Kennedy,3.6,-3.7
+Maryland,Chase Oliver,1,-16.5
+Maryland,Cornel West,2.3,-10.9
+Maryland,Donald Trump,32.2,-78.4
+Maryland,Jill Stein,1.1,-27.4
+Maryland,Joe Biden,52,-13.8
+Maryland,Kamala Harris,63.9,-60.4
+Maryland,Nikki Haley,36,2
+Maryland,Robert F. Kennedy,4.5,-12.1
+Maryland,Ron DeSantis,35.6,1.5
+Maryland,Vivek G. Ramaswamy,29.2,0.8
+Massachusetts,Chase Oliver,0.3,-48.2
+Massachusetts,Claudia De La Cruz,0.9,-26.9
+Massachusetts,Cornel West,0.7,-28.6
+Massachusetts,Donald Trump,31,-79.1
+Massachusetts,Jill Stein,1.4,-49.1
+Massachusetts,Joe Biden,50,-22.2
+Massachusetts,Kamala Harris,60.4,-56.9
+Massachusetts,Robert F. Kennedy,6.3,-31.1
+Massachusetts,Shiva Ayyadurai,0.9,-26.9
+Michigan,Chase Oliver,0.9,-167.8
+Michigan,Cornel West,1,-208.3
+Michigan,Donald Trump,46.6,-801.3
+Michigan,Gavin Newsom,34.6,-1.5
+Michigan,Gretchen Whitmer,50.7,-16.8
+Michigan,J.B. Pritzker,0,0
+Michigan,Jill Stein,1.5,-272.6
+Michigan,Joe Biden,42.3,-227.2
+Michigan,Joseph Kishore,-0,-27.9
+Michigan,Josh Shapiro,47,-10.7
+Michigan,Kamala Harris,48.1,-569
+Michigan,Lars Mapstead,1,-11
+Michigan,Liz Cheney,8,-0.4
+Michigan,Nikki Haley,41.4,-16.8
+Michigan,Pete Buttigieg,0,0
+Michigan,Randall A. Terry,0,-54.3
+Michigan,Robert F. Kennedy,5.8,-207.7
+Michigan,Ron DeSantis,45.8,-7.2
+Michigan,Shiva Ayyadurai,-0,-13.8
+Minnesota,Chase Oliver,0.4,48.7
+Minnesota,Cornel West,-0.5,-6.6
+Minnesota,Donald Trump,42.2,-70.5
+Minnesota,Gretchen Whitmer,49,-11.3
+Minnesota,Jill Stein,1.6,40.6
+Minnesota,Joe Biden,55,-11.6
+Minnesota,Josh Shapiro,49,-11.3
+Minnesota,Kamala Harris,48.7,-35.9
+Minnesota,Lars Mapstead,0.8,10.2
+Minnesota,Robert F. Kennedy,6.6,-5
+Minnesota,Ron DeSantis,43,0.3
+Mississippi,Donald Trump,54,-0.3
+Mississippi,Joe Biden,36.5,-0.6
+Mississippi,Robert F. Kennedy,0,0
+Mississippi,Ron DeSantis,49,-0.3
+Missouri,Chase Oliver,1,1.2
+Missouri,Cornel West,1,-7.9
+Missouri,Donald Trump,53.9,-52.5
+Missouri,Jill Stein,0.6,-7.9
+Missouri,Joe Biden,36.2,-37.8
+Missouri,Kamala Harris,43.6,-14.7
+Missouri,Robert F. Kennedy,6.8,-9.2
+Montana,Chase Oliver,0,-82.4
+Montana,Cornel West,-1,-15
+Montana,Donald Trump,56.2,-190.5
+Montana,Jill Stein,0.3,-99.9
+Montana,Joe Biden,31.1,-8.6
+Montana,"Joe Manchin, III",6,2.1
+Montana,Kamala Harris,39.2,-182
+Montana,Robert F. Kennedy,4.8,-21.8
+Montana,Ron DeSantis,9.5,-0.1
+Nebraska,Donald Trump,52.1,-31.1
+Nebraska,Joe Biden,30,-1.4
+Nebraska,Kamala Harris,38.2,-29.8
+Nebraska,Robert F. Kennedy,0,0
+Nebraska CD-2,Chase Oliver,1.4,-66.9
+Nebraska CD-2,Cornel West,1,-15.9
+Nebraska CD-2,Donald Trump,42,-124
+Nebraska CD-2,Jill Stein,1.7,-66.9
+Nebraska CD-2,Kamala Harris,50.7,-124
+Nebraska CD-2,Robert F. Kennedy,-4,-1.6
+Nevada,Chase Oliver,1.2,-43.7
+Nevada,Cornel West,1.1,-124.3
+Nevada,Donald Trump,46.9,-403.9
+Nevada,Gavin Newsom,32,-4.4
+Nevada,Jill Stein,1.1,-130.2
+Nevada,Joe Biden,40.1,-182.6
+Nevada,Kamala Harris,49,-230
+Nevada,Lars Mapstead,2,-10.2
+Nevada,Nikki Haley,45,-5
+Nevada,Robert F. Kennedy,8.5,-82.3
+Nevada,Ron DeSantis,43.4,-8.1
+New Hampshire,Bernie Sanders,47.6,-2.8
+New Hampshire,Chase Oliver,0.7,-148.8
+New Hampshire,Chris Christie,20,-1.5
+New Hampshire,Chris Sununu,42,-1.3
+New Hampshire,Cornel West,0.2,-118.9
+New Hampshire,Donald Trump,42.9,-230.6
+New Hampshire,Elizabeth Ann Warren,44.5,-2.8
+New Hampshire,Jill Stein,0.7,-165.1
+New Hampshire,Joe Biden,45.3,-71.3
+New Hampshire,"Joe Manchin, III",1.7,-3.3
+New Hampshire,Kamala Harris,50.9,-179.7
+New Hampshire,Lars Mapstead,0.8,-3.3
+New Hampshire,Mike Pence,20,-1.5
+New Hampshire,Nikki Haley,42.8,-7.8
+New Hampshire,Robert F. Kennedy,5,-71.9
+New Hampshire,Ron DeSantis,38.7,-11
+New Hampshire,Tim Scott,34,-1.5
+New Hampshire,Vivek G. Ramaswamy,32,-1.5
+New Jersey,Cornel West,1.2,-5
+New Jersey,Donald Trump,36.8,-8.1
+New Jersey,Jill Stein,0.8,-5
+New Jersey,Joe Biden,44.1,-8.1
+New Jersey,Robert F. Kennedy,7.8,-3.1
+New Mexico,Chase Oliver,2.1,4
+New Mexico,Cornel West,0.2,-14.2
+New Mexico,Donald Trump,41.8,-38.1
+New Mexico,Jill Stein,3.6,4
+New Mexico,Joe Biden,48.9,-1.4
+New Mexico,Kamala Harris,52.6,-36.4
+New Mexico,Randall A. Terry,1,0.4
+New Mexico,Robert F. Kennedy,1.5,-9.4
+New Mexico,Ron DeSantis,43,0.3
+New York,Chase Oliver,0.4,-26
+New York,Cornel West,1.9,-41.9
+New York,Donald Trump,38.8,-135.9
+New York,Jill Stein,1.7,-32.9
+New York,Joe Biden,46.5,-57
+New York,Kamala Harris,53.5,-78.9
+New York,Robert F. Kennedy,9.1,-25.9
+North Carolina,Charles Ballay,2,0.5
+North Carolina,Chase Oliver,0.9,-275.6
+North Carolina,Cornel West,0.8,-282.7
+North Carolina,Donald Trump,48,-885.1
+North Carolina,Gavin Newsom,34,-4.2
+North Carolina,Jill Stein,0.7,-302.2
+North Carolina,Joe Biden,41.7,-116.5
+North Carolina,Kamala Harris,48.4,-776.6
+North Carolina,Mike Pence,39.4,-1.1
+North Carolina,Nikki Haley,37.3,-10.6
+North Carolina,Randall A. Terry,0.1,-96.2
+North Carolina,Robert F. Kennedy,6.5,-65
+North Carolina,Ron DeSantis,53.6,-0.4
+North Carolina,Roy A. Cooper,0,0
+North Dakota,Chase Oliver,1,-1.4
+North Dakota,Donald Trump,69.2,-0.2
+North Dakota,Joe Biden,-133.4,-0.1
+North Dakota,Kamala Harris,-40,-0.1
+North Dakota,Robert F. Kennedy,0,0
+Ohio,Chase Oliver,1.9,-60.1
+Ohio,Chris Christie,32.8,0.3
+Ohio,Cornel West,-1,-17.4
+Ohio,Donald Trump,50.7,-406
+Ohio,Gavin Newsom,33,-6.8
+Ohio,Gretchen Whitmer,34,-6.8
+Ohio,Jill Stein,1.7,-73.2
+Ohio,Joe Biden,38.9,-51.4
+Ohio,"Joe Manchin, III",6,2.3
+Ohio,Kamala Harris,44.5,-343.3
+Ohio,Mike Pence,37.5,0.6
+Ohio,Nikki Haley,35.9,0.6
+Ohio,Robert F. Kennedy,7.2,-26.6
+Ohio,Ron DeSantis,47.2,-4.1
+Ohio,Tim Scott,37.9,0.3
+Oklahoma,Cornel West,2,-3.3
+Oklahoma,Donald Trump,58.8,-8.2
+Oklahoma,Jill Stein,1,-3.3
+Oklahoma,Joe Biden,27.5,-10.2
+Oklahoma,Kamala Harris,39.9,1.5
+Oklahoma,Robert F. Kennedy,7,-3.3
+Oklahoma,Ron DeSantis,53,-0.5
+Oregon,Donald Trump,32.7,-1.2
+Oregon,Jill Stein,1,0.7
+Oregon,Joe Biden,50.5,-2.6
+Oregon,Kamala Harris,47,1.4
+Oregon,Robert F. Kennedy,7,0.7
+Pennsylvania,Chase Oliver,0.7,-389.7
+Pennsylvania,Cornel West,0.7,-240.5
+Pennsylvania,Donald Trump,46.6,-1420.6
+Pennsylvania,Gavin Newsom,33.2,-4.2
+Pennsylvania,Gretchen Whitmer,48,-10.9
+Pennsylvania,J.B. Pritzker,0,0
+Pennsylvania,Jill Stein,1.4,-515.8
+Pennsylvania,Joe Biden,42.9,-281.4
+Pennsylvania,Josh Shapiro,53.4,-12.2
+Pennsylvania,Kamala Harris,48.7,-1123.4
+Pennsylvania,Lars Mapstead,0,-17.4
+Pennsylvania,Nikki Haley,49.9,-5.7
+Pennsylvania,Pete Buttigieg,0,0
+Pennsylvania,Robert F. Kennedy,6.6,-201.3
+Pennsylvania,Ron DeSantis,45,-6.2
+Rhode Island,Chase Oliver,-0,-4.1
+Rhode Island,Cornel West,0.1,-14.3
+Rhode Island,Donald Trump,45.7,-15.6
+Rhode Island,Jill Stein,1.2,-18.4
+Rhode Island,Joe Biden,28.6,3.3
+Rhode Island,Kamala Harris,56.7,-19.3
+Rhode Island,Robert F. Kennedy,-4.9,-8.2
+Rhode Island,Ron DeSantis,36,-0.4
+South Carolina,Donald Trump,51,-16.5
+South Carolina,Joe Biden,35.3,-10.3
+South Carolina,Kamala Harris,42,-8.7
+South Carolina,Nikki Haley,47,-1.9
+South Carolina,Robert F. Kennedy,0,0
+South Carolina,Ron DeSantis,42,-0.6
+South Dakota,Donald Trump,53.3,-13.5
+South Dakota,Joe Biden,28.7,-13.5
+South Dakota,Robert F. Kennedy,11.2,-3.1
+Tennessee,Chase Oliver,1,7.8
+Tennessee,Donald Trump,56.2,10.7
+Tennessee,Jill Stein,0.6,7.8
+Tennessee,Joe Biden,34.3,3.2
+Tennessee,"Joe Manchin, III",5.4,0.5
+Tennessee,Kamala Harris,35,7.8
+Tennessee,Robert F. Kennedy,7.3,10.8
+Tennessee,Ron DeSantis,60.6,0.2
+Texas,Chase Oliver,1.3,-106.1
+Texas,Cornel West,1.8,-34.7
+Texas,Donald Trump,49.8,-450.7
+Texas,Jill Stein,1.8,-133.2
+Texas,Joe Biden,37.8,-121.7
+Texas,Kamala Harris,44.7,-363.1
+Texas,Mike Pence,29,-3.4
+Texas,Nikki Haley,32.8,-11.8
+Texas,Robert F. Kennedy,6.7,-46.1
+Texas,Ron DeSantis,39.4,-8
+Texas,Tim Scott,33,-3.4
+Texas,Vivek G. Ramaswamy,33.5,-7.4
+Utah,Chase Oliver,1.5,-15.7
+Utah,Cornel West,1.9,-16.9
+Utah,Donald Trump,52.2,-39.1
+Utah,Jill Stein,0.6,-16.9
+Utah,Joe Biden,27.6,-5.8
+Utah,Joel Skousen,-0,-15.7
+Utah,Kamala Harris,36.9,-33.2
+Utah,Robert F. Kennedy,15.2,-2.7
+Vermont,Chase Oliver,-0,-3.6
+Vermont,Cornel West,-0,-3.6
+Vermont,Donald Trump,28,-7.1
+Vermont,Joe Biden,0,0
+Vermont,Kamala Harris,68.5,-7.1
+Vermont,Robert F. Kennedy,3,-3.6
+Virginia,Chase Oliver,1.7,-22.7
+Virginia,Claudia De La Cruz,1,-27.7
+Virginia,Cornel West,0.3,-79.7
+Virginia,Donald Trump,41.2,-106.2
+Virginia,Glenn Youngkin,28,3.1
+Virginia,Jill Stein,3.4,-26.4
+Virginia,Joe Biden,45.7,-45.8
+Virginia,"Joe Manchin, III",7,2.1
+Virginia,Kamala Harris,55.2,-55.6
+Virginia,Lars Mapstead,1.2,13.6
+Virginia,Nikki Haley,47.8,-1.4
+Virginia,Robert F. Kennedy,-487.7,0.7
+Virginia,Ron DeSantis,25.2,3.1
+Washington,Cornel West,3,-0.2
+Washington,Donald Trump,35.2,-69.9
+Washington,Gretchen Whitmer,42,-0.9
+Washington,Joe Biden,48.2,-12
+Washington,Josh Shapiro,40,-0.9
+Washington,Kamala Harris,55.8,-55.1
+Washington,Raphael Warnock,40,-0.9
+Washington,Robert F. Kennedy,9,-0.2
+Washington,Ron DeSantis,0,0
+West Virginia,Donald Trump,64.4,5.5
+West Virginia,Jill Stein,2,-2.7
+West Virginia,Joe Biden,26,-4.2
+West Virginia,Kamala Harris,34,9.7
+West Virginia,Robert F. Kennedy,0,0
+Wisconsin,Chase Oliver,1.2,-250.7
+Wisconsin,Claudia De La Cruz,-0,-75.4
+Wisconsin,Cornel West,0.6,-324.6
+Wisconsin,Donald Trump,46.6,-964.6
+Wisconsin,Gavin Newsom,35.8,-4.3
+Wisconsin,Gretchen Whitmer,46,-11.1
+Wisconsin,J.B. Pritzker,0,0
+Wisconsin,Jill Stein,1.3,-369
+Wisconsin,Joe Biden,43.9,-274.2
+Wisconsin,Josh Shapiro,46,-11.1
+Wisconsin,Kamala Harris,49.2,-692.3
+Wisconsin,Lars Mapstead,0,-10.6
+Wisconsin,Nikki Haley,48.3,-19.1
+Wisconsin,Pete Buttigieg,0,0
+Wisconsin,Randall A. Terry,0.5,-126.3
+Wisconsin,Robert F. Kennedy,5.9,-282.5
+Wisconsin,Ron DeSantis,48.4,-9.3
+Wyoming,Donald Trump,67.6,-1.3
+Wyoming,Joe Biden,14.8,-1.3
+Wyoming,Robert F. Kennedy,0,0
