@@ -1060,20 +1060,16 @@ For parameter estimation, generating samples from the posterior distributions. T
 ## Candidate Fixed Effects
 
 ```{r}
-
 #| label: fig-candidate_fixed
 #| fig-cap: "Candidate Fixed Effects in Hierachical Bayesian Model" 
 #| echo: false
 #| warning: false
 #| message: false
-
-# Load necessary libraries
-library(ggplot2)
-library(readr)
-library(here)
+#| fig-height: 5
+#| fig-width: 6
 
 # Load the candidate fixed effect data
-candidate_data <- read_csv(here("data", "02-analysis_data", "candidate_fixed_effect.csv"))
+candidate_data <- read_csv(here("data", "02-analysis_data", "candidate_fixed_effect.csv"), show_col_types = FALSE)
 
 # Plot candidate fixed effects
 ggplot(candidate_data, aes(x = reorder(candidate_name, gamma_k), y = gamma_k)) +
@@ -1085,8 +1081,6 @@ ggplot(candidate_data, aes(x = reorder(candidate_name, gamma_k), y = gamma_k)) +
     y = "Fixed Effect Estimate (gamma_k)"
   ) +
   theme_minimal()
-
-```
 
 ```
 
