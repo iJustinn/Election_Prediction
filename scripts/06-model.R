@@ -8,14 +8,37 @@
 
 
 #### Workspace setup ####
-library(dplyr)
-library(here)
-library(writexl) 
-library(kableExtra)
-library(readr)
-library(knitr)
 
+package_list <- c("tidyverse", "arrow", "kableExtra", "ggplot2", "dplyr", "here", "knitr", "rstanarm", "modelsummary", "readr", "gridExtra", "grid", "usmap")
 
+# Check and install missing packages
+install_and_load <- function(package_list) {
+  for (package in package_list) {
+    if (!require(package, character.only = TRUE)) {
+      install.packages(package)
+      library(package, character.only = TRUE)
+    }
+  }
+}
+
+install_and_load(package_list)
+
+#read in cleaned data
+data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
+
+cleaned_poll_data <-
+  read_csv(file = here("data", "02-analysis_data", "num_grade_pollscore_data.csv"), 
+           show_col_types = FALSE)
+
+model <- stan_glmer(
+  pct ~ (1 | state) + (1 | pollster_rating_name) + candidate_name + sample_size + days_to_election,
+  data = data,
+  family = gaussian(), 
+  prior = normal(0, 2.5),
+  prior_intercept = normal(0, 2.5),
+  prior_aux = exponential(1),
+  iter = 100, chains = 2
+)
 
 # Read in the cleaned data
 data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
