@@ -1,6 +1,6 @@
 #### Preamble ####
-# Purpose: TBD
-# Author: Ziheng Zhong
+# Purpose: This code simulates a dataset of voters by state, including their demographic information and candidate preference, and then aggregates the total votes per candidate for each state.
+# Author: Yingke He, Ziheng Zhong
 # Date: 20 October 2024
 # Contact: ziheng.zhong@mail.utoronto.ca
 # License: MIT

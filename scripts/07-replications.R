@@ -9,11 +9,5 @@
 
 
 #### Workspace setup ####
-library(tidyverse)
-# [...UPDATE THIS...]
-
-#### Load data ####
-# [...ADD CODE HERE...]
-
 
 
