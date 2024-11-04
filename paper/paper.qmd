@@ -19,21 +19,19 @@ bibliography: references.bib
 #| warning: false
 #| message: false
 
-library(tidyverse)
-library(arrow)
-library(kableExtra)
-library(ggplot2)
-library(dplyr)
-library(here)
-library(knitr)
-library(rstanarm)
-library(modelsummary)
-library(readr)
-library(writexl) 
-library(ggplot2)
-library(gridExtra)
-library(grid)
-library(usmap)
+package_list <- c("tidyverse", "arrow", "kableExtra", "ggplot2", "dplyr", "here", "knitr", "rstanarm", "modelsummary", "readr", "writexl", "gridExtra", "grid", "usmap")
+
+# Check and install missing packages
+install_and_load <- function(package_list) {
+  for (package in package_list) {
+    if (!require(package, character.only = TRUE)) {
+      install.packages(package)
+      library(package, character.only = TRUE)
+    }
+  }
+}
+
+install_and_load(package_list)
 
 #read in cleaned data
 data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
@@ -69,9 +67,9 @@ The structure of the paper is organized as follows: following @sec-intro, @sec-d
 
 # Data {#sec-data}
 
-## Overview [info tobe update]
+This project is motivated and guided by Rohan Alexander and his book [@citeTbook]. Data used in this paper was cleaned, analyzed and modeled with the programming language R [@citeR]. Also with support of additional packages in R: `arrow` [@citeArrow], `readr` [@citeReadr], `ggplot2` [@citeGgplot2], `tidyverse` [@citeTidyverse], `dplyr` [@citeDplyr], `here` [@citeHere], `knitr` [@citeKnitr], `kableExtra` [@citeKableExtra], `rstanarm` [@citeRstanarm], `modelsummary` [@citeModelsummary], `writexl` [@citeWritexl], `gridExtra` [@citeGridExtra], `grid` [@citeGrid], `usmap` [@citeUsmap].
 
-We use the statistical programming language R [@citeR].... Our data [@shelter].... Following @tellingstories, we consider...
+## Overview [info tobe update]
 
 Overview text [To be updated...]
 
@@ -279,8 +277,7 @@ where:
 \sigma &\sim \text{Exponential}(1): \quad \text{Prior for the standard deviation of the error term.} \\
 \end{align*}
 
-We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.[To be updated...]
-
+We run the model in R [@citeR] using the `rstanarm` package of @citeRstanarm. We use the default priors from `rstanarm`.[To be updated...]
 
 ### Model Justification 
 
