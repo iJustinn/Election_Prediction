@@ -4,7 +4,7 @@ subtitle: "Pennsylvania, Ohio, and Nevada Become Game Changers as Trump Gains Gr
 author: 
   - Yingke He
   - Ziheng Zhong
-thanks: "Code and data are available at: [https://github.com/iJustinn/Election_Prediction](https://github.com/RohanAlexander/starter_folder)."
+thanks: "Code and data are available at: [https://github.com/iJustinn/Election_Prediction.git](https://github.com/iJustinn/Election_Prediction.git)."
 date: today
 date-format: long
 abstract: "This paper analyzes polling data for the 2024 U.S. Presidential election, examining key candidates, notably Donald Trump and Kamala Harris, to gain a comprehensive perspective on the race. A Hierarchical Bayesian Model is applied in this study, and the findings reveal significant variations across states, with Pennsylvania, Ohio, Georgia, and Nevada emerging as particularly influential battlegrounds that ultimately tilt in favor of Trump. By highlighting these trends, this research underscores the dynamic and evolving nature of the U.S. political landscape and the crucial role that swing states play in determining election outcomes."
@@ -63,7 +63,6 @@ Initial findings reveal variations in candidate support across states, with cert
 This research contributes to the field of election forecasting by combining aggregated polling data with a robust modeling approach, offering valuable insights for political analysts, campaign strategists, and policymakers. By identifying critical swing states and accounting for potential polling biases, this study equips stakeholders with the tools to anticipate voter shifts and strategize effectively in an evolving political landscape.
 
 The structure of the paper is organized as follows: following @sec-intro, @sec-data outlines the data collection and cleaning process, along with a description of the outcome and predictor variables used in the analysis.@sec-model, introduces the forecasting models and discuss the rationale behind choosing these models for election outcomes prediction. @sec-result then presents the main findings, including a breakdown of state-level and pollster-level random effects. Finally, @sec-discussion interprets the results, highlighting significant trends and predictions, and concludes with a discussion on the reliability of the forecasts and potential limitations of the models.
-
 
 # Data {#sec-data}
 
@@ -179,14 +178,16 @@ Pollscore (`pollscore`) variable serves as a measure of each pollster's historic
 #| echo: false
 #| warning: false
 #| message: false
+#| fig-height: 3
+#| fig-width: 5
 
 # Load the data (assuming `clean_data.csv` contains the poll scores)
 data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"))
 
 # Plot histogram with overlayed density plot
 ggplot(data, aes(x = pollscore)) +
-  geom_histogram(aes(y = ..density..), binwidth = 0.05, fill = "steelblue", color = "white", alpha = 0.7) +
-  geom_density(fill = "skyblue", alpha = 0.5) +
+  geom_histogram(aes(y = ..density..), binwidth = 0.05, fill = "darkgrey", color = "white", alpha = 0.7) +
+  geom_density(fill = "lightgrey", alpha = 0.5) +
   labs(x = "Poll Score",
        y = "Density") +
   theme_minimal()
@@ -200,6 +201,8 @@ The variable days to election represents the days remaining from the poll's end 
 It is calculated using the `end_date` variable, by subtracting the end_date from the election date, by assuming the election date is November 5 2024.
 
 # Model {#sec-model}
+
+We run the model in R [@citeR] using the `rstanarm` package of @citeRstanarm. We use the default priors from `rstanarm`.[To be updated...]
 
 To predict the election vote share for each candidate across states, this study employs a Hierarchical Bayesian Model. This model is designed to capture variations in voter support at the state level while accounting for differences introduced by pollsters and specific poll attributes. By structuring the model hierarchically, it accommodates state-level effects, ensuring that local influences on candidate preference are reflected in the predictions. Additionally, the model incorporates poll-specific factors—such as poll sample size, timing, and reliability scores—to enhance its sensitivity to the varying quality and timing of polling data. This comprehensive approach allows the model to generate robust estimates of expected vote shares, providing a thorough view of likely election outcomes.
 
@@ -219,36 +222,38 @@ The model prediction utilizes the following predictor variables:
 - **Sample Size** (`sample_size`): Include as a predictor or weight to reflect poll reliability.
 - **Days to Election** (`end_date`):capture trends in support leading up to the election.
 
-
 Let: 
 \begin{align*}
-y_{ijk} & : \text{ The target variable, representing the actual election vote share for candidate } k \text{ in state } \\
-& \quad i \text{ with pollster } j. \\ 
+y_{ijk} & : \text{ The target variable, representing the actual election vote share for} \\
+& \quad \text {candidate } k \text{ in state } i \text{ with pollster } j. \\ 
 \text{pct}_{ijk} & : \text{ The observed polling percentage for candidate } k \text{ in state } i \text{ by pollster } j. \\ 
 \text{sample\_size}_{ijk} & : \text{ The sample size of the poll, which helps in weighing the poll reliability.} \\ 
-\text{days\_to\_election}_{ijk} & : \text{ Derived as the days remaining until the election from the poll’s end date, capturing } \\
-& \quad \text { the effect of recency.} \\ 
-\text{pollscore}_{ijk} & : \text{ The reliability score for each pollster } j, \text{ reflecting the accuracy of the pollster's } \\
-& \quad \text { historical results.} \\
+\text{days\_to\_election}_{ijk} & : \text{ Derived as the days remaining until the election from the poll’s end date, } \\
+& \quad \text {capturing the effect of recency.} \\ 
+\text{pollscore}_{ijk} & : \text{ The reliability score for each pollster } j, \text{ reflecting the accuracy of the } \\
+& \quad \text { pollster's historical results.} \\
 \end{align*}
 
 The model takes the form of the following equation:
 \begin{align}
-y_{ijk} = \alpha_i + \beta_j + \gamma_k + \delta \cdot \text{pct}_{ijk} + \eta \cdot \text{sample\_size}_{ijk} + \theta \cdot \text{days\_to\_election}_{ijk} + \zeta \cdot \text{pollscore}_{ijk} + \epsilon_{ijk} 
+y_{ijk} = \alpha_i + \beta_j + \gamma_k + \delta \cdot \text{pct}_{ijk} + \eta \cdot \text{sample\_size}_{ijk} +  \\ 
+\theta \cdot \text{days\_to\_election}_{ijk} + \zeta \cdot \text{pollscore}_{ijk} + \epsilon_{ijk} 
 \end{align}
 
 where:
 \begin{align*}
-\alpha_i &\sim \mathcal{N}(\mu_{\alpha}, \sigma_{\alpha}^2): \quad \text{State-level random effect for each state } i, \text{ capturing regional variations in voting patterns.} \\ 
-\beta_j &\sim \mathcal{N}(\mu_{\beta}, \sigma_{\beta}^2): \quad \text{Pollster-level random effect for each pollster } j, \text{ accounting for systematic biases or } \\
-& \quad \text {differences in polling methods.} \\ 
+\alpha_i &\sim \mathcal{N}(\mu_{\alpha}, \sigma_{\alpha}^2): \quad \text{State-level random effect for each state } i, \text{ capturing regional variations in } \\ 
+& \quad \text{voting patterns.} \\ 
+\beta_j &\sim \mathcal{N}(\mu_{\beta}, \sigma_{\beta}^2): \quad \text{Pollster-level random effect for each pollster } j, \text{ accounting for systematic } \\
+& \quad \text {biases or differences in polling methods.} \\ 
 \epsilon_{ijk} &\sim \mathcal{N}(0, \sigma^2): \quad \text{Error term, accounting for random noise.} \\ 
-\gamma_k &: \quad \text{Candidate fixed effect for each candidate } k, \text{ representing baseline support across states and pollsters.} \\ 
-\delta &: \quad \text{Coefficient for Percentage of Votes by Poll } (\text{pct}_{ijk}), \text{ reflecting how poll support translates to actual } \\
-& \quad \text {vote share.} \\ 
+\gamma_k &: \quad \text{Candidate fixed effect for each candidate } k, \text{ representing baseline support across states} \\ 
+& \quad \text{ and pollsters.} \\
+\delta &: \quad \text{Coefficient for Percentage of Votes by Poll } (\text{pct}_{ijk}), \text{ reflecting how poll support translates } \\
+& \quad \text {to actual vote share.} \\ 
 \eta &: \quad \text{Coefficient for Sample Size } (\text{sample\_size}_{ijk}), \text{ weighing polls based on their reliability.} \\ 
-\theta &: \quad \text{Coefficient for Days to Election } (\text{days\_to\_election}_{ijk}), \text{ capturing the trend in support as the election } \\
-& \quad \text { date approaches.} \\ 
+\theta &: \quad \text{Coefficient for Days to Election } (\text{days\_to\_election}_{ijk}), \text{ capturing the trend in support } \\
+& \quad \text { as the election date approaches.} \\ 
 \zeta &: \quad \text{Coefficient for Pollscore } (\text{pollscore}_{ijk}), \text{ accounting for the reliability of the pollster's } \\
 & \quad \text { historical performance.} \\
 \end{align*}
@@ -257,14 +262,16 @@ where:
 ### Interpretation of Parameters
 
 \begin{align*}
-\alpha_i &: \quad \text{Captures state-specific effects, adjusting the baseline vote share prediction based on regional differences.} \\ 
+\alpha_i &: \quad \text{Captures state-specific effects, adjusting the baseline vote share prediction based on } \\ 
+& \quad \text{ regional differences.} \\
 \beta_j &: \quad \text{Accounts for systematic biases or differences in methodologies across pollsters.} \\ 
 \gamma_k &: \quad \text{Provides an overall baseline effect for each candidate, independent of state or pollster.} \\ 
 \delta &: \quad \text{Measures how closely polling support translates to actual vote share.} \\ 
-\eta &: \quad \text{Adjusts the model’s sensitivity to polls based on sample size, giving more weight to larger polls.} \\ 
+\eta &: \quad \text{Adjusts the model’s sensitivity to polls based on sample size, giving more weight to } \\ 
+& \quad \text{  larger polls.} \\
 \theta &: \quad \text{Captures how support trends change as the election date approaches.} \\ 
-\zeta &: \quad \text{Incorporates the reliability of the pollster based on historical performance, weighing polls by } \\
-& \quad \text { the pollster's accuracy.} \\ 
+\zeta &: \quad \text{Incorporates the reliability of the pollster based on historical performance, weighing } \\
+& \quad \text { polls by the pollster's accuracy.} \\ 
 \end{align*}
 
 ### Prior Distributions
@@ -273,11 +280,10 @@ where:
 \alpha_i &\sim \mathcal{N}(0, 2.5): \quad \text{State-level random effect prior for each state } i. \\ 
 \beta_j &\sim \mathcal{N}(0, 2.5): \quad \text{Pollster-level random effect prior for each pollster } j. \\ 
 \gamma_k &\sim \mathcal{N}(0, 2.5): \quad \text{Candidate fixed effect prior for each candidate } k. \\ 
-\delta, \eta, \theta, \zeta &\sim \mathcal{N}(0, 1): \quad \text{Coefficients for polling percentage, sample size, days to election, and pollscore.} \\ 
+\delta, \eta, \theta, \zeta &\sim \mathcal{N}(0, 1): \quad \text{Coefficients for polling percentage, sample size, days to } \\ 
+& \quad \text{ election, and pollscore.} \\
 \sigma &\sim \text{Exponential}(1): \quad \text{Prior for the standard deviation of the error term.} \\
 \end{align*}
-
-We run the model in R [@citeR] using the `rstanarm` package of @citeRstanarm. We use the default priors from `rstanarm`.[To be updated...]
 
 ### Model Justification 
 
@@ -362,7 +368,7 @@ candidate_fixed_effect_read %>%
   kable_styling(latex_options = c("striped"))
 
 ```
-Shown in above @tbl-candidate_fixed_effect, the candidate fixed effects in this model capture the baseline level of support for each candidate, reflecting their overall popularity or favorability across the polls. For example, Kamala Harris has a candidate fixed effect of 47.22, while Donald Trump has a slightly lower effect of 45.28. These values suggest that, on average, Harris may have a marginally higher baseline level of support in the polling data compared to Trump. These fixed effects allow the model to adjust for inherent differences in candidate popularity, providing a more accurate prediction by factoring in each candidate's overall favorability independent of state, pollster, or specific poll characteristics. This adjustment is crucial for capturing the candidates' general standing in the electorate, contributing to more reliable forecasting.
+Shown in @tbl-candidate_fixed_effect, the candidate fixed effects in this model capture the baseline level of support for each candidate, reflecting their overall popularity or favorability across the polls. For example, Kamala Harris has a candidate fixed effect of 47.22, while Donald Trump has a slightly lower effect of 45.28. These values suggest that, on average, Harris may have a marginally higher baseline level of support in the polling data compared to Trump. These fixed effects allow the model to adjust for inherent differences in candidate popularity, providing a more accurate prediction by factoring in each candidate's overall favorability independent of state, pollster, or specific poll characteristics. This adjustment is crucial for capturing the candidates' general standing in the electorate, contributing to more reliable forecasting.
 
 #### Adjust predictions by poll score and sample size $( \delta \cdot \mathrm{pct}_{ijk} + \eta \cdot \mathrm{sample\_size}_{ijk} )$
 
@@ -434,7 +440,7 @@ Pollster reliability represents an adjustment factor that accounts for the credi
 
 # Results {#sec-result}
 
-The final predictions for the 2024 presidential election indicate a close race between the two candidates. The model results are summarized in @tbl-modelresults.Based on the weighted average calculations, which incorporate factors such as state effects, pollster reliability, candidate-specific adjustments, and recent polling trends, Donald Trump is predicted to receive approximately 46.56% of the vote, while Kamala Harris is predicted to receive around 45.65%. These predictions account for adjustments based on sample size, recency of the polls, and reliability scores, ensuring that more recent and reliable polls have a greater influence on the final outcome. The model also applies a slight adjustment to account for known biases, providing a robust estimation of each candidate’s standing. Although these predictions offer a snapshot of the current polling landscape, they should be interpreted with caution, as last-minute changes in voter sentiment could still impact the final outcome.
+The final predictions for the 2024 presidential election indicate a close race between the two candidates. The model results are summarized in @tbl-modelresults. Based on the weighted average calculations, which incorporate factors such as state effects, pollster reliability, candidate-specific adjustments, and recent polling trends, Donald Trump is predicted to receive approximately 46.56% of the vote, while Kamala Harris is predicted to receive around 45.65%. These predictions account for adjustments based on sample size, recency of the polls, and reliability scores, ensuring that more recent and reliable polls have a greater influence on the final outcome. The model also applies a slight adjustment to account for known biases, providing a robust estimation of each candidate’s standing. Although these predictions offer a snapshot of the current polling landscape, they should be interpreted with caution, as last-minute changes in voter sentiment could still impact the final outcome.
 
 ```{r}
 #| label: tbl-modelresults
@@ -626,6 +632,7 @@ Model predictions for key states reveals a competitive landscape for the 2024 pr
 
 ```{r}
 #| label: tbl-modelresults_states
+#| tbl-cap: "Model Prediction Results for Key States"
 #| echo: false
 #| warning: false
 #| message: false
@@ -662,9 +669,8 @@ summary_data <- summary_data %>%
 summary_data %>%
   kable(
     col.names = c("State", "Trump Predicted (%)", "Harris Predicted (%)", "Predicted Winner"),
-    caption = "Model Prediction Results for Key States"
   ) %>%
-  kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
+  kable_styling(latex_options = c("striped"))
 
 ```
 
@@ -674,6 +680,7 @@ This pattern underscores the competitive nature of the election, where both cand
 
 ```{r}
 #| label: fig-modelresults_states
+#| fig-cap: "Model Prediction Results for Key Swing States"
 #| echo: false
 #| warning: false
 #| message: false
@@ -696,9 +703,8 @@ swing_states_long <- swing_states %>%
 ggplot(swing_states_long, aes(x = State, y = Predicted_Percentage, fill = Candidate)) +
   geom_bar(stat = "identity", position = position_dodge()) +
   scale_fill_manual(values = c("Trump_Predicted" = "red", "Harris_Predicted" = "blue"),
-                    labels = c("Trump Predicted (%)", "Harris Predicted (%)")) +
+                    labels = c("Harris Predicted (%)", "Trump Predicted (%)")) +
   labs(
-    title = "Model Prediction Results for Key Swing States",
     x = "States with Close Predicted Vote Share",
     y = "Predicted Percentage (%)",
     fill = "Candidate"
@@ -712,12 +718,12 @@ The bar plot @fig-modelresults_states shows the model’s predicted vote percent
 
 ```{r}
 #| label: fig-modelresults_map
+#| fig-cap: "2024 U.S. Presidential Election Prediction by State"
 #| echo: false
 #| warning: false
 #| message: false
-#| fig-width: 20
-#| fig-height: 8
-#| fig.fullwidth: true
+#| fig-width: 8
+#| fig-height: 7
 
 # Load the weighted predictions data with recency adjustments
 predictions <- read_csv(here("data", "02-analysis_data", "weighted_predictions_with_recency.csv"))
@@ -763,9 +769,8 @@ plot_usmap(data = state_wide, values = "color", labels = TRUE, label_color = "wh
     labels = c("red" = "Trump", "blue" = "Harris", "gray" = "Swing States")  # Set labels correctly
   ) +
   labs(
-    title = "2024 U.S. Presidential Election Prediction by State",
-    subtitle = "Predicted Winner by State with Key Swing States Highlighted",
-    fill = "Predicted Winner"
+    fill = "Predicted Winner",
+    caption = "Predicted Winner by State with Key Swing States Highlighted"
   ) +
   theme_minimal() +
   theme(
@@ -779,7 +784,7 @@ plot_usmap(data = state_wide, values = "color", labels = TRUE, label_color = "wh
 ```
 
 
-The updated map @fig-modelresults_map above provides a visual forecast of the 2024 U.S. Presidential Election by state, using weighted polling data and recent trend adjustments. Each state is color-coded to show the projected winner: red for states likely to support Trump, blue for those leaning towards Harris, and gray for swing states where the predicted vote margins are extremely close. This map shows a competitive electoral landscape. Harris is projected to perform well in traditionally Democratic regions on the West Coast and in the Northeast, including states like California, New York, and Illinois. Trump demonstrates strong support across the South, Midwest, and several central states, such as Texas, Florida, and the Dakotas.
+The updated map @fig-modelresults_map provides a visual forecast of the 2024 U.S. Presidential Election by state, using weighted polling data and recent trend adjustments. Each state is color-coded to show the projected winner: red for states likely to support Trump, blue for those leaning towards Harris, and gray for swing states where the predicted vote margins are extremely close. This map shows a competitive electoral landscape. Harris is projected to perform well in traditionally Democratic regions on the West Coast and in the Northeast, including states like California, New York, and Illinois. Trump demonstrates strong support across the South, Midwest, and several central states, such as Texas, Florida, and the Dakotas.
 
 The swing states highlighted in gray—include states like Georgia, North Carolina, Pennsylvania, Ohio, and Nevada are classified as swing because the polling indicates very narrow vote margins, making them highly competitive. Given the closeness of the race in these states, they could feasibly shift in favor of either candidate, positioning them as key battlegrounds in the election. The outcomes in these swing states are likely to be decisive in determining the overall result, highlighting their critical role in shaping the candidates' campaign strategies.
 
@@ -792,7 +797,6 @@ This discussion examines the effectiveness and limitations of the election predi
 @fig-state_effect shows the influence of state effects on model predictions, with color intensity reflecting each state's effect magnitude. Darker red states have high positive effects, indicating a stronger contribution to the model's predictions, while lighter red states show lower effects, suggesting a more neutral influence. This visualization highlights regional variations in state effects, which may reflect localized political dynamics, demographic factors, or unique voting patterns that distinguish certain states from the national average.
 
 ```{r}
-
 #| label: fig-state_effect
 #| fig-cap: "State Effect" 
 #| echo: false
@@ -800,10 +804,7 @@ This discussion examines the effectiveness and limitations of the election predi
 #| message: false
 
 # Load the state effect data
-state_effect <- read_csv(here("data", "02-analysis_data", "state_effect.csv"))
-
-# Check the data structure
-glimpse(state_effect)
+state_effect <- read_csv(here("data", "02-analysis_data", "state_effect.csv"), show_col_types = FALSE)
 
 # Plot the Choropleth Map
 plot_usmap(data = state_effect, values = "state_effect", regions = "states") +
@@ -829,19 +830,20 @@ In the prediction model, the inclusion of pollster and pollscore effects enables
 
 ```{r}
 #| label: fig-pollster_effect
-#| fig-cap: "Relationship Between Poll Score Reliability and Support Percentage for Kamala Harris" 
+#| fig-cap: "Distribution of Pollster Effects" 
 #| echo: false
 #| warning: false
 #| message: false
+#| fig-height: 3
+#| fig-width: 5
 
 # Load the data (adjust the file path as needed)
 pollster_effects <- read_csv(here("data", "02-analysis_data", "pollster_effect.csv"))
 
 # 1. Histogram of Pollster Effects
 ggplot(pollster_effects, aes(x = pollster_effect)) +
-  geom_histogram(bins = 10, fill = "steelblue", color = "black") +
+  geom_histogram(bins = 10, fill = "darkgrey", color = "black") +
   labs(
-    title = "Distribution of Pollster Effects",
     x = "Pollster Effect",
     y = "Number of Pollsters"
   ) +
@@ -856,6 +858,8 @@ The histogram of pollster effects (@fig-pollster_effect) shows the distribution 
 #| echo: false
 #| warning: false
 #| message: false
+#| fig-height: 4
+#| fig-width: 4
 
 # Load the clean data (adjust path if needed)
 data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"))
@@ -907,6 +911,8 @@ ggplot(trump_data, aes(x = pollscore, y = pct)) +
 #| message: false
 #| layout-ncol: 2
 #| layout-nrow: 1
+#| fig-height: 3
+#| fig-width: 4
 
 # Load both datasets
 weighted_predictions <- read_csv(here("data", "02-analysis_data","weighted_predictions.csv"))
