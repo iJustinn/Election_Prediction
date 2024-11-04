@@ -203,8 +203,6 @@ It is calculated using the `end_date` variable, by subtracting the end_date from
 
 # Model {#sec-model}
 
-We run the model in R [@citeR] using the `rstanarm` package of @citeRstanarm. We use the default priors from `rstanarm`.[To be updated...]
-
 To predict election vote shares for each candidate across states, this study employs a Hierarchical Bayesian Model designed to capture state-level variations in voter support while adjusting for differences introduced by pollsters and specific polling characteristics. The hierarchical structure allows the model to account for state-specific effects, ensuring that regional influences on candidate preferences are accurately represented in the predictions. Additionally, the model incorporates poll-specific factors—such as sample size, timing, and reliability scores—to improve its sensitivity to polling data quality and recency. This approach allows the model to generate robust estimates of expected vote shares, providing a well-rounded perspective on probable election outcomes.
 
 Background details and diagnostics are included in [Appendix -@sec-model-details].
@@ -909,7 +907,7 @@ ggplot(trump_data, aes(x = pollscore, y = pct)) +
 
 @fig-pollscore_pct_trump shows that Donald Trump's percentage support is widely distributed across different poll score reliability levels, with support percentages spanning from around 20% to above 60%, though most values center around 40-50%. The slight negative slope of the trend line suggests a minimal decrease in support as poll reliability increases, but this effect is weak, indicating that pollster reliability does not significantly influence the reported support for Trump. This suggests that Trump’s support remains relatively stable across both high- and low-reliability polls, implying that adjustments for poll score reliability may not substantially impact predictions for him in election models.
 
-## Days to Election (Recency) Effet
+## Days to Election (Recency) Effect
 
 ```{r}
 #| echo: false
@@ -1059,17 +1057,40 @@ Each fixed effect and coefficient was assigned a prior distribution based on his
 
 For parameter estimation, generating samples from the posterior distributions. This approach enables the model to account for hierarchical dependencies (e.g., variations across states or candidates) and produces probabilistic estimates for each parameter, providing a robust framework for uncertainty analysis in electoral predictions.
 
-## Poster Effec Analysis
-
-```{r}
-
-```
-
 ## Candidate Fixed Effects
 
 ```{r}
 
+#| label: fig-candidate_fixed
+#| fig-cap: "Candidate Fixed Effects in Hierachical Bayesian Model" 
+#| echo: false
+#| warning: false
+#| message: false
+
+# Load necessary libraries
+library(ggplot2)
+library(readr)
+library(here)
+
+# Load the candidate fixed effect data
+candidate_data <- read_csv(here("data", "02-analysis_data", "candidate_fixed_effect.csv"))
+
+# Plot candidate fixed effects
+ggplot(candidate_data, aes(x = reorder(candidate_name, gamma_k), y = gamma_k)) +
+  geom_point(color = "blue", size = 3) +
+  geom_errorbar(aes(ymin = gamma_k - 0.1, ymax = gamma_k + 0.1), width = 0.2) + # Adjust error if data available
+  coord_flip() +
+  labs(
+    x = "Candidate",
+    y = "Fixed Effect Estimate (gamma_k)"
+  ) +
+  theme_minimal()
+
 ```
+
+```
+
+@fig-candidate_fixed illustrates the candidate fixed effect estimates for various candidates in this Hierarchical Bayesian Model, which predicts outcomes in the context of the 2024 U.S. presidential election. While this paper only focuses on Trump and Harris, in this plot each point represents the fixed effect estimate for a candidate, with higher values indicating a stronger predicted effect within the model. The plot orders candidates by their fixed effect, allowing for a visual comparison of the relative influence attributed to each candidate. Candidates at the top of the plot, such as those with fixed effects above 40, are projected to have a more substantial impact within the model, while candidates with lower fixed effects are likely to have a minimal effect on the outcome. This visualization helps to convey the variation in candidate influence as determined by our modeling approach.
 
 ## Limitations and Assumptions
 
