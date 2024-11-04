@@ -54,7 +54,7 @@ In the lead-up to the 2024 U.S. Presidential election, understanding voter behav
 
 The primary objective of this study is to estimate state-level vote shares for each candidate while accounting for factors such as regional variations, pollster-specific biases, and the timing of polls relative to Election Day. Predictors including polling percentages, sample sizes, and days remaining until the election are incorporated into the model, which adjusts for state and pollster effects. The model’s structure enables the estimation of vote shares that reflect the underlying distribution of polling data across diverse regions in the U.S.
 
-Initial findings reveal variations in candidate support across states, with certain swing states emerging as pivotal in determining the Electoral College result. The model’s projections suggest a likely lead for Trump in the Electoral College, underscoring the influence of large-sample, recent polls on forecast accuracy. This study’s results emphasize the importance of swing states in the electoral process, demonstrating how regional dynamics and polling methodologies impact predictions.[To Be updated...]
+Initial findings reveal variations in candidate support across states, with certain swing states emerging as pivotal in determining the Electoral College result. The model’s projections suggest a likely lead for Trump in the Electoral College, underscoring the influence of large-sample, recent polls on forecast accuracy. This study’s results emphasize the importance of swing states in the electoral process, demonstrating how regional dynamics and polling methodologies impact predictions.
 
 This research contributes to the field of election forecasting by combining aggregated polling data with a robust modeling approach, offering valuable insights for political analysts, campaign strategists, and policymakers. By identifying critical swing states and accounting for potential polling biases, this study equips stakeholders with the tools to anticipate voter shifts and strategize effectively in an evolving political landscape.
 
@@ -1179,6 +1179,18 @@ Mixed-mode surveys, which combine telephone and online interviews, are designed 
 Finally, specialized in-person and university-affiliated research methods, such as those used by Quinnipiac University and the University of New Hampshire Survey Center, offer a detailed and in-depth approach to data collection. Face-to-face interviews and demographic-specific focus groups can yield rich, context-specific insights into voter behavior. However, these methods are resource-intensive and time-consuming, which limits their scalability. They are typically only feasible for small-scale or targeted studies rather than large-scale polling efforts. Moreover, the high cost of conducting in-person interviews makes it challenging to implement this approach across multiple regions or demographics, which restricts its representativeness in broader studies.
 
 In summary, each polling methodology has limitations that can impact data quality and representativeness. Live interviews may over-represent older demographics, IVR lacks engagement, online panels suffer from self-selection bias, mixed-mode surveys can introduce inconsistencies, and in-person methods are resource-intensive. Understanding these weaknesses is essential for accurately interpreting polling data, as each methodology's limitations shape the final results and influence the portrayal of public opinion leading up to elections.
+
+# Idealized Methodology and Survey
+
+## Overview
+
+## Sampling Approach
+
+## Stratification Variables
+
+## Survey Structure
+
+## Recruitment Strategy
 
 # Data Source and Preprocessing
 
