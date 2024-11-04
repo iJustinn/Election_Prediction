@@ -334,14 +334,14 @@ state_effects_read %>%
   head(5) %>%
   kable(
     col.names = c("State", "Pollster Rating Name", "State Effect"),
-    caption = "State Effects",
+    caption = "State Effects Example",
     booktabs = TRUE
   ) %>%
   kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
 
 ```
 
-@tbl-state_effects illustrates the state effect，The state effects in this Hierarchical Bayesian Model provide adjustments to account for unique voting patterns across different states, enhancing the accuracy of election predictions. For instance, Alabama shows relatively high state effect values, like 55.6 from John Zogby Strategies, suggesting an upward adjustment that aligns with Alabama’s regional voting tendencies. In contrast, Alaska displays lower effect values, such as 45.6 from Alaska Survey Research, indicating a possible regional leaning away from certain candidates.
+@tbl-state_effects illustrates the state effect examples in this Hierarchical Bayesian Model provide adjustments to account for unique voting patterns across different states, enhancing the accuracy of election predictions. For instance, Alabama shows relatively high state effect values, like 55.6 from John Zogby Strategies, suggesting an upward adjustment that aligns with Alabama’s regional voting tendencies. In contrast, Alaska displays lower effect values, such as 45.6 from Alaska Survey Research, indicating a possible regional leaning away from certain candidates.
 
 Arizona’s effect estimates vary across pollsters, with higher values like 49.2 from AtlasIntel and lower values around 39.5 from Blueprint Polling. These adjustments reflect Arizona’s dynamic political environment, where regional preferences can sway support for candidates.
 
@@ -385,7 +385,7 @@ pollster_effects_read %>%
   head(5) %>%
   kable(
     col.names = c("Pollster Rating Name", "Pollster Effect"),
-    caption = "Pollster Effects",
+    caption = "Pollster Effects Example",
     booktabs = TRUE
   ) %>%
   kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
@@ -430,7 +430,7 @@ candidate_fixed_effect_read %>%
   head(5) %>%
   kable(
     col.names = c("Candidate Name", "Candidate Fixed Effect (gamma_k)"),
-    caption = "Candidate Fixed Effects",
+    caption = "Candidate Fixed Effects Example",
     booktabs = TRUE
   ) %>%
   kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
@@ -481,14 +481,14 @@ weighted_predictions <- data %>%
 #print(weighted_predictions)
 
 # Save weighted_predictions to an Excel file
-write_xlsx(weighted_predictions, path = here("data", "02-analysis_data", "weighted_predictions.xlsx"))
+write_csv(weighted_predictions, path = here("data", "02-analysis_data", "weighted_predictions.csv"))
 
 # Optionally, display the first 5 rows as a table using kable
 weighted_predictions %>%
   head(5) %>%
   kable(
     col.names = c("State", "Candidate Name", "Weighted Percentage", "Total Weight"),
-    caption = "Weighted Predictions by Poll Score and Sample Size",
+    caption = "Weighted Predictions by Poll Score and Sample Size Example",
     booktabs = TRUE
   ) %>%
   kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
@@ -496,7 +496,7 @@ weighted_predictions %>%
 ```
 @tbl-adjusted_prediction shows the adjusted predictions by poll score and sample size. The table of weighted predictions shows adjusted support percentages for each candidate by state, incorporating both poll score and sample size. The "Weighted Percentage" column represents the predicted support level for each candidate after applying these weights, while the "Total Weight" column indicates the cumulative influence of poll score and sample size. For instance, in Alaska, Donald Trump has a weighted percentage of 51.57 with a total weight of -4031.0, while Kamala Harris has a lower weighted percentage of 43.32 with a weight of -934.4. In Arizona, the weights are significantly higher in absolute value, such as -76819.6 for Trump, reflecting the model's prioritization of more reliable and larger polls in this state. These adjustments ensure the model’s predictions are robust, accurately reflecting candidate support by accounting for the quality and scale of each poll.
 
-5. Adjustment of weighted predictions by accounting for recency $( \theta_{\mathrm{days\_to\_election\_ijk}} )$
+5. Adjustment of weighted predictions by accounting for recency $( \theta \cdot \mathrm{days\_to\_election}_{ijk} )$
 
 
 ```{r}
@@ -544,14 +544,14 @@ weighted_predictions <- data %>%
   ungroup()
 
 # Save weighted predictions to Excel
-write_xlsx(weighted_predictions, path = here("data", "02-analysis_data", "weighted_predictions_with_recency.xlsx"))
+write_csv(weighted_predictions, path = here("data", "02-analysis_data", "weighted_predictions_with_recency.csv"))
 
 # Display first 5 rows without extra styling
 weighted_predictions %>%
   head(5) %>%
   kable(
     col.names = c("State", "Candidate Name", "Weighted Percentage", "Total Weight"),
-    caption = "Weighted Predictions with Recency Adjustment"
+    caption = "Weighted Predictions with Recency Adjustment Examples"
   )
   # Avoid using `booktabs` or `latex_options` here to prevent LaTeX conflicts
 
@@ -585,11 +585,6 @@ data <- data %>%
     pollster_reliability_adjustment = zeta * pollscore
   )
 
-# Display the calculated adjustment term
-#head(data$pollster_reliability_adjustment)
-
-# Save weighted_predictions to an Excel file
-#write_xlsx(weighted_predictions, path = here("data", "02-analysis_data", "Pollscore_reliability_adjust.csv"))
 ```
 Pollster reliability represents an adjustment factor that accounts for the credibility and historical accuracy of each pollster’s results. Pollster reliability scores are typically calculated based on a pollster’s past performance, including how closely their predictions align with actual election outcomes. This score reflects the likelihood that a given poll’s results accurately represent voter sentiment. By either increasing or decreasing it based on the reliability score; a higher score would yield a more positive adjustment, while a lower score would lead to a reduction. This adjustment aims to reduce the influence of less reliable polls, thereby improving the model’s overall accuracy by weighting predictions according to the quality of the polling data.
 
@@ -903,6 +898,9 @@ The bar plot @fig-modelresults_states shows the model’s predicted vote percent
 #| echo: false
 #| warning: false
 #| message: false
+#| fig-width: 20
+#| fig-height: 8
+#| fig.fullwidth: true
 # Load necessary libraries
 library(tidyverse)
 library(readxl)
@@ -911,7 +909,7 @@ library(usmap)  # For easier mapping of U.S. states
 library(here)
 
 # Load the weighted predictions data with recency adjustments
-predictions <- read_excel(here("data", "02-analysis_data", "weighted_predictions_with_recency.xlsx"))
+predictions <- read_excel(here("data", "02-analysis_data", "weighted_predictions_with_recency.csv"))
 
 # Process data to get state-level predictions for each candidate
 state_predictions <- predictions %>%
