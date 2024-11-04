@@ -1,5 +1,5 @@
 #### Preamble ####
-# Purpose: 
+# Purpose: This code modeled and adjusts polling data to calculate and display weighted predictions for each candidate by state, incorporating factors such as pollster reliability, sample size, and recency, and ultimately provides a comparison of final predicted polling averages for candidates Trump and Harris.
 # Author: Yingke He, Ziheng Zhong
 # Date: 31 October 2024
 # Contact: ziheng.zhong@mail.utoronto.ca
@@ -8,19 +8,14 @@
 
 
 #### Workspace setup ####
-
-# State Effects 
-#| label: tbl-state_effects
-#| echo: false
-#| eval: true
-#| warning: false
-#| message: false
-#| 
 library(dplyr)
-library(readr)
 library(here)
 library(writexl) 
 library(kableExtra)
+library(readr)
+library(knitr)
+
+
 
 # Read in the cleaned data
 data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
@@ -52,15 +47,6 @@ state_effects_read %>%
   kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
 
 # Pollster Effect
-#| label: tbl-pollster_effect
-#| echo: false
-#| warning: false
-#| message: false
-# Load necessary libraries
-library(dplyr)
-library(readr)
-library(here)
-
 # Read in the cleaned data
 data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
 
@@ -94,18 +80,6 @@ pollster_effects_read %>%
   kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
 
 #Candidate Fixed Effect
-
-#| label: tbl-candidate_fixed_effect
-#| echo: false
-#| warning: false
-#| message: false
-# Load necessary libraries
-library(dplyr)
-library(readr)
-library(here)
-library(knitr)
-library(kableExtra)
-
 # Read in the cleaned data
 data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
 
@@ -134,17 +108,6 @@ candidate_fixed_effect_read %>%
   kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
 
 #Adjust predictions by poll score and sample size
-#| label: tbl-adjusted_prediction
-#| echo: false
-#| warning: false
-#| message: false
-# Load necessary libraries
-library(dplyr)
-library(readr)
-library(here)
-library(knitr)
-library(kableExtra)
-
 # Read in the cleaned data
 data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
 
@@ -185,18 +148,6 @@ weighted_predictions %>%
   kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
 
 # Adjustment of weighted predictions by accounting for recency
-
-#| label: tbl-weighted_prediction
-#| echo: false
-#| warning: false
-#| message: false
-# Load necessary libraries
-library(dplyr)
-library(readr)
-library(here)
-library(knitr)
-library(kableExtra)
-
 # Read in the cleaned data
 data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
 
@@ -251,10 +202,6 @@ data <- data %>%
 write_csv(data, path = here("data", "02-analysis_data", "Pollscore_reliability_adjust.csv"))
 
 # Pollscore Reliability
-
-#| echo: false
-#| warning: false
-#| message: false
 # Read in the cleaned data
 data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
 
@@ -268,19 +215,8 @@ data <- data %>%
   )
 
 
+
 #### Modeling ####
-
-#| label: tbl-modelresults
-#| echo: false
-#| warning: false
-#| message: false
-
-library(dplyr)
-library(readr)
-library(here)
-library(knitr)
-library(kableExtra)
-
 # Load the main data and effect files
 data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
 pollster_effect <- read_csv(here("data", "02-analysis_data", "pollster effect.csv"), show_col_types = FALSE)
@@ -363,3 +299,5 @@ results <- results %>%
 results %>%
   kable(caption = "Final Predictions for Trump and Harris") %>%
   kable_styling(full_width = FALSE, position = "center", font_size = 14)
+
+
