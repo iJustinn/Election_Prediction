@@ -100,10 +100,11 @@ The choice of methodology reflects each pollster’s objectives and resources, w
 
 ## Outcome variables
 
-
 According to @tbl-outcome_variables, the outcome variables include critical components for analyzing polling data, such as State, Pollster, Pollscore, Candidate Name, Percentage (pct), Sample Size, Start Date, End Date, and Days to Election. These variables provide the foundation for estimating actual vote shares by capturing regional differences, pollster credibility, candidate-specific support, and timing in relation to Election Day. Together, they ensure a nuanced approach to election forecasting that accounts for variability in poll methodology and voter sentiment shifts over time.
+
 ```{r}
 #| label: tbl-outcome_variables
+#| tbl-cap: "Outcome Variables"
 #| echo: false
 #| eval: true
 #| warning: false
@@ -119,18 +120,17 @@ outcome_variables <- data.frame(
 outcome_variables %>%
   kable(
     col.names = c("Outcome Variable", "Example"),
-    caption = "Outcome Variables",
     booktabs = TRUE
   ) %>%
-  kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
+  kable_styling(latex_options = c("striped"))
 ```
-
 
 ## Predictor variables 
 This study includes several key predictor variables that provide insights into regional voting patterns, polling methodologies, and the timing of voter sentiment shifts. Each variable plays a unique role in forecasting vote shares for the 2024 U.S. Presidential election. Below shown in @tbl-predictor_variables are detailed descriptions of each predictor.
 
 ```{r}
 #| label: tbl-predictor_variables
+#| tbl-cap: "Predictor Variables"
 #| echo: false
 #| eval: true
 #| warning: false
@@ -146,10 +146,9 @@ predictor_variables <- data.frame(
 predictor_variables %>%
   kable(
     col.names = c("Predictor Variable", "Example"),
-    caption = "Predictor Variables",
     booktabs = TRUE
   ) %>%
-  kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
+  kable_styling(latex_options = c("striped"))
 ```
 
 ### State
@@ -528,7 +527,7 @@ results <- results %>%
 # Display the results in a kable table with kableExtra styling
 results %>%
   kable() %>%
-  kable_styling(full_width = FALSE, position = "center", font_size = 14)
+  kable_styling(full_width = FALSE, position = "center", latex_options = c("striped"))
 
 ```
 
