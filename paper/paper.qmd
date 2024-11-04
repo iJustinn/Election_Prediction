@@ -325,6 +325,7 @@ Arizona’s effect estimates vary across pollsters, with higher values like 49.2
 By incorporating these state-specific adjustments, the model better aligns with local voting behaviors, capturing regional nuances and improving the reliability of its predictions.
 
 #### Pollster Effect ($\beta_j$)
+
 ```{r}
 #| label: tbl-pollster_effect
 #| tbl-cap: "Pollster Effects Example"
@@ -345,6 +346,7 @@ pollster_effects_read %>%
   kable_styling(latex_options = c("striped"))
 
 ```
+
 The pollster effects in @tbl-pollster_effect in this model adjust for systematic biases or methodological tendencies in polling data from specific organizations, standardizing vote share predictions across diverse sources. For example, ABC News/The Washington Post has a notable negative adjustment of -1.2, suggesting that this pollster’s data tends to overestimate support for certain candidates, prompting a downward correction. In contrast, BK Strategies has a positive effect of 0.3, indicating a slight upward adjustment, which may be due to an observed underestimation in their polling results. Other pollsters, such as 1892 Polling with a minor positive effect of 0.1, and Alaska Survey Research with a small negative effect of -0.1, receive subtle adjustments to bring their estimates in line with the model's overall predictions. By incorporating these pollster-specific effects, the model accounts for known polling biases, enhancing its predictive reliability.
 
 #### Candidate Fixed Effect ($\gamma_k$)
@@ -397,6 +399,8 @@ weighted_predictions %>%
 
 #### Adjustment of weighted predictions by accounting for recency $( \theta \cdot \mathrm{days\_to\_election}_{ijk} )$
 
+@tbl-weighted_prediction illustrates the model’s adjustment of weighted predictions by accounting for recency. This adjustment decreases the influence of older polls while giving more recent polls greater weight, enhancing prediction relevance as Election Day approaches. Here, the "Total Weight" column reflects the combined impact of poll score, sample size, and recency. For example, in Arizona, Donald Trump’s weighted percentage is 48.66 with a significant total weight of -915.07, indicating a substantial recent adjustment due to proximity to the election. Kamala Harris's weighted percentage in the same state is 46.66 with a weight of -716.47, reflecting similar adjustments. This recency factor ensures that the model prioritizes fresher data, which better captures evolving voter sentiment, thereby making predictions more accurate as the election nears.
+
 ```{r}
 #| label: tbl-weighted_prediction
 #| tbl-cap: "Weighted Predictions with Recency Adjustment Examples"
@@ -417,9 +421,8 @@ weighted_predictions %>%
   kable_styling(latex_options = c("striped"))
 ```
 
-@tbl-weighted_prediction illustrates the model’s adjustment of weighted predictions by accounting for recency. This adjustment decreases the influence of older polls while giving more recent polls greater weight, enhancing prediction relevance as Election Day approaches. Here, the "Total Weight" column reflects the combined impact of poll score, sample size, and recency. For example, in Arizona, Donald Trump’s weighted percentage is 48.66 with a significant total weight of -915.07, indicating a substantial recent adjustment due to proximity to the election. Kamala Harris's weighted percentage in the same state is 46.66 with a weight of -716.47, reflecting similar adjustments. This recency factor ensures that the model prioritizes fresher data, which better captures evolving voter sentiment, thereby making predictions more accurate as the election nears.
-
 #### Pollscore Reliability ($\zeta$)
+
 ```{r}
 #| echo: false
 #| warning: false
@@ -438,6 +441,7 @@ data <- data %>%
   )
 
 ```
+
 Pollster reliability represents an adjustment factor that accounts for the credibility and historical accuracy of each pollster’s results. Pollster reliability scores are typically calculated based on a pollster’s past performance, including how closely their predictions align with actual election outcomes. This score reflects the likelihood that a given poll’s results accurately represent voter sentiment. By either increasing or decreasing it based on the reliability score; a higher score would yield a more positive adjustment, while a lower score would lead to a reduction. This adjustment aims to reduce the influence of less reliable polls, thereby improving the model’s overall accuracy by weighting predictions according to the quality of the polling data.
 
 # Results {#sec-result}
