@@ -1,13 +1,13 @@
 ---
 title: "Red, Blue, or Purple? 2024’s Battleground States Tell a Story"
-subtitle: "Pennsylvania, Arizona, and Nevada Become Game Changers as Trump Gains Ground [To be Update]"
+subtitle: "Pennsylvania, Ohio, and Nevada Become Game Changers as Trump Gains Ground"
 author: 
   - Yingke He
   - Ziheng Zhong
 thanks: "Code and data are available at: [https://github.com/iJustinn/Election_Prediction](https://github.com/RohanAlexander/starter_folder)."
 date: today
 date-format: long
-abstract: "This paper analyzes polling data for the 2024 U.S. Presidential election, examining the key candidates notabily Donald Trump and Kamala Harris to gain a comprehensive perspective on the race. A Hierarchical Bayesian Model is applied in this study and the findings reveal significant variations across states, with [To be updated...] emerging as particularly influential battlegrounds that ultimately tilt in favor of [To be updated..].By highlighting these trends, this research underscores the dynamic and evolving nature of U.S. political landscapes and the crucial role that swing states play in determining election outcomes."
+abstract: "This paper analyzes polling data for the 2024 U.S. Presidential election, examining key candidates, notably Donald Trump and Kamala Harris, to gain a comprehensive perspective on the race. A Hierarchical Bayesian Model is applied in this study, and the findings reveal significant variations across states, with Pennsylvania, Ohio, Georgia, and Nevada emerging as particularly influential battlegrounds that ultimately tilt in favor of Trump. By highlighting these trends, this research underscores the dynamic and evolving nature of the U.S. political landscape and the crucial role that swing states play in determining election outcomes."
 format: pdf
 toc: true
 number-sections: true
@@ -48,7 +48,6 @@ cleaned_poll_data <-
 ```
 
 
-
 # Introduction {#sec-intro}
 
 In the lead-up to the 2024 U.S. Presidential election, understanding voter behavior across states and demographic groups is essential for accurately predicting electoral outcomes. Recent polling data from various sources suggests a close race among major candidates, including Donald Trump, Kamala Harris, and other key contenders. This study applies a Hierarchical Bayesian Model to analyze polling data across all U.S. states, with a focus on identifying critical swing states where even slight shifts in voter sentiment could prove decisive. By exploring trends in voter support across different states and demographic groups, this research aims to highlight the regions most likely to influence the final election outcome.
@@ -64,32 +63,32 @@ The structure of the paper is organized as follows: following @sec-intro, @sec-d
 
 # Data {#sec-data}
 
-## Overview [info need update]
+## Overview [info tobe update]
 
 We use the statistical programming language R [@citeR].... Our data [@shelter].... Following @tellingstories, we consider...
 
 Overview text [To be updated...]
 
-## Data Measurement [info need update]
+## Data Measurement
 	
-In this study, polling data provides insight into public opinion across different states, measuring support for candidates ahead of the 2024 U.S. Presidential election. The data originates from various reputable polling organizations, each employing distinct methodologies that influence data quality and representativeness. Understanding these methodologies is crucial for interpreting polling data accurately. The primary categories of measurement methods include:
+In this study, polling data shows the public opinion across different states, measuring support for candidates ahead of the 2024 U.S. Presidential election. The data originates from various polling organizations, each having distinct methodologies that influence data quality and representativeness. Therefore, understanding these methodologies is crucial for interpreting polling data accurately. Below shows the primary categories of measurement methods include:
 
 1. Live Telephone Interviews
-Some polling organizations, such as Selzer & Co. and Marist College, conduct live telephone interviews, reaching respondents on both landlines and cell phones. This method often provides more accurate and in-depth data because live interviewers can clarify questions, verify demographic details, and increase respondent engagement. However, it is costlier and time-intensive, leading to smaller sample sizes and potentially fewer surveys. In the real world, live telephone interviews offer insights from a cross-section of the population, though they may over-represent older individuals who are more likely to answer landline calls.
+Some polling organizations, such as Selzer & Co. and Marist College, conduct live telephone interviews, reaching respondents on both landlines and cell phones. This method often provides more accurate and in-depth data because live interviewers can clarify questions, verify demographic details, and increase the engagement of respondants. However, it costs more and is more time-intensive, leading to smaller sample sizes and fewer surveys compared to other methodologies. In the real world, live telephone interviews include respondants from a cross-section of the population, though they may over-represent older individuals who are more likely to answer landline calls.
 
 2. Interactive Voice Response (IVR)
-Pollsters like Trafalgar Group and Rasmussen Reports frequently use IVR, or “robo-polling,” where an automated system asks questions over the phone. IVR is more affordable and efficient for reaching large numbers of people. However, because respondents interact with a machine rather than a live person, they may feel less invested in the survey, potentially impacting response rates and depth of engagement. IVR allows pollsters to obtain timely snapshots of voter intentions, though it may miss out on nuanced responses that a live interviewer could capture.
+Pollsters like Trafalgar Group and Rasmussen Reports frequently use IVR, or “robo-polling,” where an automated system asks questions over the phone. IVR is more affordable and efficient for reaching large numbers of people. However, because respondents interact with a machine rather than a live person, they may feel less invested in the survey, impacting response rates and depth of engagement. IVR allows pollsters to obtain timely snapshots of voter intentions, though it may miss out on nuanced responses that a live interviewer could capture. 
 
 3. Online Panels
-YouGov and Ipsos are known for relying on online panels, which recruit participants via web platforms to answer surveys electronically. This method allows for rapid data collection from a broad audience and is relatively cost-effective. However, online surveys can suffer from self-selection bias, as individuals who are more politically active or internet-savvy are more likely to participate. Despite this, online panels remain popular due to their scalability and cost-efficiency, providing a contemporary approach to measuring public sentiment.
+YouGov and Ipsos are known for using online panels, which recruit participants via web platforms to answer surveys electronically. This method allows for a fast data collection from a broad audience and is relatively cost-effective. However, online surveys have disadvantages like self-selection bias, as individuals who are more politically active or internet-savvy are more likely to participate. Other than this, online panels are still popular due to their scalability and cost-efficiency, providing a contemporary approach to measuring public opinions.
 
 4. Mixed-Mode Surveys (Telephone and Online)
-To balance the benefits and limitations of each mode, organizations like The New York Times/Siena College and Public Policy Polling employ mixed-mode surveys. By combining online and telephone interviews, these pollsters aim to broaden demographic reach and mitigate biases inherent in any single method. Mixed-mode surveys improve representativeness and accommodate diverse respondent preferences, providing data that may better reflect the full spectrum of public opinion.
+To balance the benefits and limitations of each mode, organizations like The New York Times/Siena College and Public Policy Polling employ mixed-mode surveys. By combining online and telephone interviews, these pollsters aim to broaden demographic reach and mitigate biases that are in any single method. Mixed-mode surveys improve representativeness and accommodate diverse respondent preferences, providing data that better reflect the full side of public opinion.
 
 5. Specialized In-Person and University-Affiliated Research
-Some university-affiliated pollsters, such as Quinnipiac University and University of New Hampshire Survey Center, incorporate face-to-face interviews or demographic-specific focus groups for deeper insights. These methods can yield highly detailed responses and foster a comprehensive understanding of specific voter groups, though they are resource-intensive and typically used for more specialized research rather than general polling.
+Some university-affiliated pollsters, such as Quinnipiac University and University of New Hampshire Survey Center, incorporate face-to-face interviews or demographic-specific focus groups for deeper insights. These methods can yield highly detailed responses and foster a comprehensive understanding of specific voter groups, though they are resource-intensive and typically used for more specialized research.
 
-These varied data collection methods directly affect how public opinion is measured and interpreted. For instance, live interviews may capture a more detailed view of voter sentiment but often exclude younger demographics who primarily use mobile devices or interact online. Meanwhile, IVR and online panels make large-scale data collection affordable and timely, though they may lack depth and introduce potential self-selection biases. Mixed-mode approaches provide a balanced perspective, catering to both traditional and digital respondents, which may yield more representative data.
+These varied data collection methods directly affect how public opinion is measured and interpreted from different pollsters. For instance, live interviews may capture a more detailed view of voter sentiment but often exclude younger demographics who primarily use mobile devices or interact online. Meanwhile, IVR and online panels make large-scale data collection affordable and timely, though they may lack depth and introduce potential self-selection biases. Mixed-mode approaches provide a balanced perspective, catering to both traditional and digital respondents, which may yield more representative data.
 
 The choice of methodology reflects each pollster’s objectives and resources, with implications for accuracy and data interpretation. By categorizing pollsters based on their methodologies, we can contextualize the polling data in this study, recognizing each method's strengths and limitations. This understanding is essential for modeling real-world voter behavior accurately, as it acknowledges how data collection methods impact polling results.
 
@@ -119,7 +118,6 @@ outcome_variables %>%
   ) %>%
   kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
 ```
-Above outcome variables @tbl-outcome_variables 
 
 
 ## Predictor variables 
@@ -174,6 +172,7 @@ Pollscore (`pollscore`) variable serves as a measure of each pollster's historic
 
 ```{r}
 #| label: fig-pollscore_distribution
+#| fig-cap: "Distribution of Pollscore" 
 #| echo: false
 #| warning: false
 #| message: false
@@ -196,21 +195,17 @@ ggplot(data, aes(x = pollscore)) +
 
 ```
 
-@fig-pollscore_distribution shows the distribution of poll scores The plot shows two primary clusters, with peaks around \(-1\) and near \(0\). This bimodal distribution suggests that pollsters' ratings might tend to fall into two categories, potentially reflecting different methodologies, biases, or levels of reliability among pollsters. For example, scores clustered around \(-1\) could represent pollsters with a more consistent lean or bias in one direction, while scores around \(0\) may indicate neutral or balanced ratings. These clusters highlight the importance of adjusting for pollster reliability when aggregating data for election predictions, as different pollsters contribute varying levels of accuracy and bias. Incorporating such adjustments can enhance the model’s ability to produce a balanced and accurate forecast, providing a more nuanced view of candidate support that takes into account the quality and tendencies of each poll source.
+@fig-pollscore_distribution shows the distribution of poll scores. The plot shows two primary clusters, with peaks around \(-1\) and near \(0\). This bimodal distribution suggests that pollsters' ratings might tend to fall into two categories, potentially reflecting different methodologies, biases, or levels of reliability among pollsters. For example, scores clustered around \(-1\) could represent pollsters with a more consistent lean or bias in one direction, while scores around \(0\) may indicate neutral or balanced ratings. These clusters highlight the importance of adjusting for pollster reliability when aggregating data for election predictions, as different pollsters contribute varying levels of accuracy and bias. Incorporating such adjustments can enhance the model’s ability to produce a balanced and accurate forecast, providing a more nuanced view of candidate support that takes into account the quality and tendencies of each poll source.
 
 ### Days to Election
 The variable days to election represents the days remaining from the poll's end date to Election Day.
 It is calculated using the `end_date` variable, by subtracting the end_date from the election date, by assuming the election date is November 5 2024.
 
-```{r}
-
-```
-days_to_election
-
 # Model {#sec-model}
 
-To predict the actual election vote share for each candidate in each state while accounting for variations by pollster and other poll-specific factors.
-Background details and diagnostics are included in [Appendix -@sec-model-details]. [To be updated...]
+To predict the election vote share for each candidate across states, this study employs a Hierarchical Bayesian Model. This model is designed to capture variations in voter support at the state level while accounting for differences introduced by pollsters and specific poll attributes. By structuring the model hierarchically, it accommodates state-level effects, ensuring that local influences on candidate preference are reflected in the predictions. Additionally, the model incorporates poll-specific factors—such as poll sample size, timing, and reliability scores—to enhance its sensitivity to the varying quality and timing of polling data. This comprehensive approach allows the model to generate robust estimates of expected vote shares, providing a thorough view of likely election outcomes.
+
+Background details and diagnostics are included in [Appendix -@sec-model-details].
 
 ## Model set-up
 
@@ -284,7 +279,7 @@ where:
 \sigma &\sim \text{Exponential}(1): \quad \text{Prior for the standard deviation of the error term.} \\
 \end{align*}
 
-We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
+We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.[To be updated...]
 
 
 ### Model Justification 
@@ -406,7 +401,6 @@ library(readr)
 library(here)
 library(knitr)
 library(kableExtra)
-library(writexl)  # For saving to Excel
 
 # Read in the cleaned data
 data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
@@ -450,7 +444,6 @@ Shown in above @tbl-candidate_fixed_effect, the candidate fixed effects in this 
 library(dplyr)
 library(readr)
 library(here)
-library(writexl)
 library(knitr)
 library(kableExtra)
 
@@ -480,7 +473,7 @@ weighted_predictions <- data %>%
 # Display the weighted predictions
 #print(weighted_predictions)
 
-# Save weighted_predictions to an Excel file
+# Save weighted_predictions to an csv file
 write_csv(weighted_predictions, path = here("data", "02-analysis_data", "weighted_predictions.csv"))
 
 # Optionally, display the first 5 rows as a table using kable
@@ -508,7 +501,6 @@ weighted_predictions %>%
 library(dplyr)
 library(readr)
 library(here)
-library(writexl)
 library(knitr)
 library(kableExtra)
 
@@ -543,7 +535,7 @@ weighted_predictions <- data %>%
   ) %>%
   ungroup()
 
-# Save weighted predictions to Excel
+# Save weighted predictions to csv
 write_csv(weighted_predictions, path = here("data", "02-analysis_data", "weighted_predictions_with_recency.csv"))
 
 # Display first 5 rows without extra styling
@@ -562,7 +554,7 @@ data <- data %>%
     pollster_reliability_adjustment = round(zeta * pollscore, 1)  # Rounded to 1 decimal place
   )
 
-# Save pollster reliability adjustments to Excel
+# Save pollster reliability adjustments to csv
 write_csv(data, path = here("data", "02-analysis_data", "Pollscore_reliability_adjust.csv"))
 ```
 
@@ -909,7 +901,7 @@ library(usmap)  # For easier mapping of U.S. states
 library(here)
 
 # Load the weighted predictions data with recency adjustments
-predictions <- read_excel(here("data", "02-analysis_data", "weighted_predictions_with_recency.csv"))
+predictions <- read_csv(here("data", "02-analysis_data", "weighted_predictions_with_recency.csv"))
 
 # Process data to get state-level predictions for each candidate
 state_predictions <- predictions %>%
@@ -967,23 +959,87 @@ plot_usmap(data = state_wide, values = "color", labels = TRUE, label_color = "wh
 
 ```
 
+
 The updated map @fig-modelresults_map above provides a visual forecast of the 2024 U.S. Presidential Election by state, using weighted polling data and recent trend adjustments. Each state is color-coded to show the projected winner: red for states likely to support Trump, blue for those leaning towards Harris, and gray for swing states where the predicted vote margins are extremely close. This map shows a competitive electoral landscape. Harris is projected to perform well in traditionally Democratic regions on the West Coast and in the Northeast, including states like California, New York, and Illinois. Trump demonstrates strong support across the South, Midwest, and several central states, such as Texas, Florida, and the Dakotas.
 
 The swing states highlighted in gray—include states like Georgia, North Carolina, Pennsylvania, Ohio, and Nevada are classified as swing because the polling indicates very narrow vote margins, making them highly competitive. Given the closeness of the race in these states, they could feasibly shift in favor of either candidate, positioning them as key battlegrounds in the election. The outcomes in these swing states are likely to be decisive in determining the overall result, highlighting their critical role in shaping the candidates' campaign strategies.
 
 # Discussion {#sec-discussion}
 
-```{r}
-
-```
+This discussion examines the effectiveness and limitations of the election prediction model, with a focus on the factors that impact its accuracy and sensitivity to shifts in voter sentiment. The model integrates various adjustments, including state effect, pollster and pollscore effect, and days to election effect. The implications of these findings are considered, and potential areas for improvement in future forecasting efforts are highlighted.
 
 ## State Effect
 
+@fig-state_effect shows the influence of state effects on model predictions, with color intensity reflecting each state's effect magnitude. Darker red states have high positive effects, indicating a stronger contribution to the model's predictions, while lighter red states show lower effects, suggesting a more neutral influence. This visualization highlights regional variations in state effects, which may reflect localized political dynamics, demographic factors, or unique voting patterns that distinguish certain states from the national average.
+
 ```{r}
+
+#| label: fig-state_effect
+#| fig-cap: "State Effect" 
+#| echo: false
+#| warning: false
+#| message: false
+
+# Load necessary libraries
+library(tidyverse)
+library(usmap)
+library(ggplot2)
+library(here)
+
+# Load the state effect data
+state_effect <- read_csv(here("data", "02-analysis_data", "state effect.csv"))
+
+# Check the data structure
+glimpse(state_effect)
+
+# Plot the Choropleth Map
+plot_usmap(data = state_effect, values = "state_effect", regions = "states") +
+  scale_fill_gradient2(
+    low = "blue", mid = "white", high = "red", midpoint = 0, 
+    name = "State Effect"
+  ) +
+  labs(title = "State Effect on Pollster Ratings") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5)
+  )
 
 ```
 
+The observed geographic patterns reveal clustering in the effects, with some states in the South and Midwest displaying notably higher positive effects. This implies that voters in these regions may have unique characteristics that increase their influence on model predictions, potentially reflecting stronger-than-average support for a specific candidate or a systematic polling bias specific to these areas. Meanwhile, states with lighter shades, showing lower state effects, appear to contribute less to prediction bias, aligning more closely with the national average. This variation is essential for the model, as it helps to capture the diverse political landscape across the United States, ensuring that the predictions are sensitive to regional differences.
+
+The inclusion of state effects in the model allows for more accurate predictions that account for both national trends and state-specific deviations. This approach enhances the reliability of the model by recognizing and adjusting for regional variations, leading to predictions that more accurately reflect the complexities of voter sentiment across the United States. By accommodating these state-level effects, the model can better provide insights that are both comprehensive and reflective of the current diverse political dynamics.
+
 ## Pollster and Pollscore Effect 
+
+In the prediction model, the inclusion of pollster and pollscore effects enables adjustments for potential biases and reliability differences across polling sources. The pollster effect accounts for systematic tendencies unique to specific pollsters, which may arise from methodological choices or historical biases, thus improving the model’s ability to correct for over- or underestimations of support by certain sources. Meanwhile, the pollscore effect adjusts for poll quality, assigning more weight to higher-rated polls and thereby reducing noise from less credible sources. Together, these effects help the model produce more balanced and accurate predictions by mitigating the influence of poll-specific biases and emphasizing data from reliable pollsters.
+
+```{r}
+#| label: fig-pollster_effect
+#| fig-cap: "Relationship Between Poll Score Reliability and Support Percentage for Kamala Harris" 
+#| echo: false
+#| warning: false
+#| message: false
+
+# Load necessary libraries
+library(tidyverse)
+library(here)
+
+# Load the data (adjust the file path as needed)
+pollster_effects <- read_csv(here("data", "02-analysis_data", "pollster effect.csv"))
+
+# 1. Histogram of Pollster Effects
+ggplot(pollster_effects, aes(x = pollster_effect)) +
+  geom_histogram(bins = 10, fill = "steelblue", color = "black") +
+  labs(
+    title = "Distribution of Pollster Effects",
+    x = "Pollster Effect",
+    y = "Number of Pollsters"
+  ) +
+  theme_minimal()
+```
+
+The histogram of pollster effects (@fig-pollster_effect) shows the distribution that while most pollsters have an effect near zero, indicating minimal bias, there is a noticeable skew toward negative values. This suggests that many pollsters tend to slightly underestimate support for certain candidates. The pollscore effect in this model adjusts for these variations by incorporating each pollster’s specific effect into the prediction process, allowing the model to account for systematic over- or underestimations across different sources. Pollsters with strong positive or negative effects—appearing as outliers in the histogram—are given less influence in the overall prediction, especially if their biases diverge significantly from the majority. By weighting polls according to their reliability and adjusting for individual pollster effects, the prediction model aims to produce more balanced and accurate estimates, reducing the impact of consistently biased pollsters. This adjustment is essential to ensure that the predictions more accurately capture actual voter sentiment, even when using data from a range of sources with varying degrees of accuracy and bias.
 
 ```{r}
 #| label: fig-pollscore_pct_harris
@@ -1042,47 +1098,144 @@ ggplot(trump_data, aes(x = pollscore, y = pct)) +
 
 @fig-pollscore_pct_trump shows that Donald Trump's percentage support is widely distributed across different poll score reliability levels, with support percentages spanning from around 20% to above 60%, though most values center around 40-50%. The slight negative slope of the trend line suggests a minimal decrease in support as poll reliability increases, but this effect is weak, indicating that pollster reliability does not significantly influence the reported support for Trump. This suggests that Trump’s support remains relatively stable across both high- and low-reliability polls, implying that adjustments for poll score reliability may not substantially impact predictions for him in election models.
 
-## Days to Election Effet
+## Days to Election (Recency) Effet
 
 ```{r}
+# Load required libraries
+library(readr)
+library(here)
+library(dplyr)
+library(ggplot2)
+library(gridExtra) # For arranging plots side by side
+
+# Load both datasets
+weighted_predictions <- read_csv(here("data", "02-analysis_data","weighted_predictions.csv"))
+weighted_predictions_with_recency <- read_csv(here("data","02-analysis_data", "weighted_predictions_with_recency.csv"))
+
+# Add a column to identify the source of each dataset
+weighted_predictions <- weighted_predictions %>%
+  mutate(source = "Original")
+
+weighted_predictions_with_recency <- weighted_predictions_with_recency %>%
+  mutate(source = "With Recency")
+
+# Combine both datasets
+combined_df <- bind_rows(weighted_predictions, weighted_predictions_with_recency)
+
+# Filter out non-finite values in weighted_pct
+combined_df <- combined_df %>% filter(is.finite(weighted_pct))
+
+# Filter data for Donald Trump and Kamala Harris only
+trump_data <- combined_df %>% filter(candidate_name == "Donald Trump")
+harris_data <- combined_df %>% filter(candidate_name == "Kamala Harris")
+
+# Plot for Donald Trump
+plot_trump <- ggplot(trump_data, aes(x = source, y = weighted_pct, fill = source)) +
+  geom_violin(trim = FALSE) +
+  geom_boxplot(width = 0.1, color = "black", fill = "white", outlier.shape = NA) +
+  labs(title = "Donald Trump", y = "Weighted Prediction (%)") +
+  theme_minimal() +
+  theme(axis.title.x = element_blank()) # Remove x-axis title
+
+# Plot for Kamala Harris
+plot_harris <- ggplot(harris_data, aes(x = source, y = weighted_pct, fill = source)) +
+  geom_violin(trim = FALSE) +
+  geom_boxplot(width = 0.1, color = "black", fill = "white", outlier.shape = NA) +
+  labs(title = "Kamala Harris", y = "Weighted Prediction (%)") +
+  theme_minimal() +
+  theme(axis.title.x = element_blank()) # Remove x-axis title
+
+# Arrange the two plots side by side
+grid.arrange(plot_trump, plot_harris, ncol = 2)
 
 ```
 
-## Weaknesses and Next Steps
+The density plot @fig-recency_effect compares the distributions of weighted predictions for Donald Trump and Kamala Harris with and without recency adjustments. For both candidates, predictions are generally concentrated in similar ranges, with Donald Trump’s support mostly clustering around 40-60% and Kamala Harris’s around 30-50%. This similarity in distribution suggests that the recency adjustment does not cause a drastic shift in overall predictions for either candidate. However, some differences are noticeable in the tails of the distributions, particularly for Donald Trump, where predictions with recency adjustments exhibit a slightly tighter distribution, potentially indicating a more stable support level as the election date nears.
 
-Weaknesses and next steps should also be included.
+The recency adjustment in the model gives more weight to polls conducted closer to the election, which can enhance the model’s responsiveness to recent changes in voter sentiment. This adjustment is crucial if recent events have significantly impacted public opinion, as it allows the model to prioritize recent data. In this case, the plot suggests that while recency adjustments provide added precision by refining the distribution, they do not drastically alter the predictions. This alignment between the original and recency-adjusted predictions may indicate steady voter sentiment, with minimal late shifts influencing the overall distribution as the election date approaches.
+
+## Limitations and Next Steps
+
+The model faces certain limitations related to both poll score reliability and recency adjustments, which may reduce its sensitivity to key factors affecting voter sentiment. Since poll score reliability shows a weak correlation with support percentages for certain candidates, this term might have small contributions to the overall prediction accuracy. This suggests that the model could potentially perform just as well with reduced weighting, or even without inclusion of this factor, simplifying the model structure without sacrificing accuracy. By reducing the emphasis on poll score reliability, the model could instead focus more on factors with a stronger influence on predictions, leading to a more streamlined and efficient approach.
+
+Additionally, the limited impact of days to election adjustments on the distribution of predictions highlights a further potential weakness in the model’s responsiveness to late-stage shifts in voter sentiment. Ideally, recency adjustments should enhance the model’s ability to capture fluctuations in support as the election approaches, especially in reaction to recent events or developments. However, if predictions show only minor differences with and without these adjustments, it may indicate that the model underweights recent polls, thus limiting its effectiveness in reflecting last-minute opinion shifts. This insensitivity could be particularly problematic in close elections, where small, late-stage changes in sentiment could significantly influence the outcome.
+
+Together, these observations imply that the model might benefit from a reevaluation of its weighting mechanisms. Reducing the emphasis on poll score reliability while increasing the sensitivity to recent polling data could enhance predictive accuracy without adding complexity. A more dynamic recency weighting method that gives progressively higher importance to the latest polls as the election date nears might address these limitations, allowing the model to better capture real-time shifts in voter sentiment and improve its performance in high-stakes, fast-changing electoral scenarios.
+
+Moreover, future developments could improve the pollster and pollscore effects by incorporating machine learning techniques to dynamically assess pollster credibility based on historical performance. This could involve tracking each pollster’s accuracy across multiple election cycles and adjusting poll scores accordingly, instead of relying on fixed scores. By integrating a more adaptive assessment of pollster reliability, the model could mitigate the influence of outliers and increase its robustness in handling polling data from diverse sources. This changes would not only enhance accuracy but also reduce the risk of introducing systematic biases from overly influential or less reliable pollsters.
 
 \newpage
 
 \appendix
 
-# Appendix {-}
+# Appendix: Pollster Methodology Limitations
 
+Interactive Voice Response (IVR), commonly referred to as robo-polling, allows pollsters to conduct large-scale surveys quickly and affordably by using an automated system to ask questions over the phone. While this method is efficient, it has significant limitations. Respondents may feel less engaged when interacting with a machine, leading to lower response rates and potentially less accurate data. IVR surveys also lack the flexibility for follow-up questions or clarifications, which can result in oversimplified responses that miss the nuances of voter sentiment. This limitation is especially relevant when polling on complex political issues where a more interactive approach could yield deeper insights.
 
-# Additional data details
+Online panels, used by firms like YouGov and Ipsos, have become popular for their scalability and cost-effectiveness. They allow pollsters to reach a broad audience quickly through web-based platforms. However, online panels are prone to self-selection bias, as individuals who are more politically active, internet-savvy, or have strong opinions are more likely to participate. This can lead to over-representation of certain demographics or viewpoints, potentially distorting the overall picture of public opinion. Additionally, online panels may exclude individuals with limited internet access, further narrowing the sample's representativeness and raising concerns about accurately capturing the views of all voter demographics.
+
+Mixed-mode surveys, which combine telephone and online interviews, are designed to mitigate some of the biases associated with single-method approaches. By reaching both traditional and digital audiences, mixed-mode surveys aim to provide a more balanced perspective. However, this method is not without its weaknesses. Integrating data from different modes can introduce inconsistencies, as responses gathered online may differ in tone and depth from those collected by phone. Additionally, the logistical complexity and cost of coordinating mixed-mode surveys can be challenging, potentially affecting sample sizes and limiting their application in real-time polling.
+
+Finally, specialized in-person and university-affiliated research methods, such as those used by Quinnipiac University and the University of New Hampshire Survey Center, offer a detailed and in-depth approach to data collection. Face-to-face interviews and demographic-specific focus groups can yield rich, context-specific insights into voter behavior. However, these methods are resource-intensive and time-consuming, which limits their scalability. They are typically only feasible for small-scale or targeted studies rather than large-scale polling efforts. Moreover, the high cost of conducting in-person interviews makes it challenging to implement this approach across multiple regions or demographics, which restricts its representativeness in broader studies.
+
+In summary, each polling methodology has limitations that can impact data quality and representativeness. Live interviews may over-represent older demographics, IVR lacks engagement, online panels suffer from self-selection bias, mixed-mode surveys can introduce inconsistencies, and in-person methods are resource-intensive. Understanding these weaknesses is essential for accurately interpreting polling data, as each methodology's limitations shape the final results and influence the portrayal of public opinion leading up to elections.
+
+# Data Source and Preprocessing
+
+## Data Source
+
+The primary data source for this study is the national polling data on the 2024 U.S. Presidential election provided by FiveThirtyEight. This dataset compiles polling results from a variety of polling organizations, each employing distinct methodologies, sample sizes, and timing intervals. By consolidating polls from multiple sources, FiveThirtyEight’s dataset offers a comprehensive view of public opinion trends across the nation, capturing fluctuations in candidate support as the election approaches. This centralized dataset also includes detailed information on each pollster's historical performance and reliability, enabling a more nuanced understanding of poll accuracy and biases.
+
+## Data Preprocessing
+
+To ensure the data was suitable for analysis, several preprocessing steps were conducted. First, data cleaning involved removing any duplicate entries and handling missing values for key variables such as pollster ratings and candidate support percentages. Missing values can occur due to inconsistencies in data reporting across pollsters or gaps in data collection for certain candidates. For entries with minor missing data, imputation techniques were applied to estimate values based on similar polls within a comparable timeframe. However, entries with substantial missing information were excluded to maintain data integrity.
+
+After addressing missing data, the next step was to standardize key variables to facilitate comparisons across different polls. Polling organizations often report results with varying levels of granularity and different formats, so standardizing variables like candidate support percentages, sample size, and polling dates was essential. Additionally, each poll's sample size was normalized to account for its impact on reliability; larger sample sizes generally produce more stable estimates, so weighting adjustments were made to emphasize data from polls with larger samples.
+
+Finally, a pollster reliability score from FiveThirtyEight was incorporated to adjust each poll’s weight based on the pollster’s historical accuracy and methodological rigor. Pollsters with high reliability scores were given greater weight in the analysis, while lower-scoring pollsters were down-weighted to minimize the impact of potential biases or inconsistencies. This preprocessing approach not only improved the robustness of the dataset but also accounted for the varying quality and reliability of polling sources, ensuring a more accurate reflection of public opinion trends.
+
+## Null Values and Data Gaps
+
+In the weighted_predictions data, we observe null values for some candidates' predicted percentages (weighted_pct) in specific states. These null values typically appear when the total_weight is zero, which indicates a lack of polling data for that candidate in those regions. This limitation likely arises because certain candidates did not receive enough polling coverage across all states, possibly due to their lower popularity or limited media coverage in those areas. These data gaps introduce uncertainty in the predictions for these states and highlight a potential bias in the polling data, as they may underrepresent less-publicized candidates.
+
+While these null values don't significantly alter the overall prediction trends for major candidates, they emphasize the need for a broader data collection approach to ensure that lesser-known candidates are accurately represented in polling data.
+
+## Prediction Stability and Pollster Influence
+
+The pollster_effect data shows that different pollsters have varying reliability scores, which directly impacts the weighted_pct predictions. Some pollsters have positive or negative effects, indicating a tendency to lean slightly in favor of one candidate or another. This variability could introduce biases in aggregated predictions, as the weight assigned to each pollster can amplify these tendencies, especially if some pollsters are more frequently sampled than others.
+
+In particular, the influence of pollsters with strong biases (positive or negative) can sometimes lead to over- or under-estimation in specific regions. For instance, in cases where a state's polling is heavily reliant on a few pollsters with similar biases, the predicted outcomes may not fully capture the public opinion spectrum. To address this, our model adjusts for these effects, but occasional prediction errors can still occur due to the high variability in pollster reliability.
+
 
 # Model details {#sec-model-details}
 
-## Posterior predictive check
+## Model Specification
 
-In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
+Each fixed effect and coefficient was assigned a prior distribution based on historical data or expert judgment to ensure the model captures reasonable expectations for each component. Bayesian inference was used to estimate the posterior distributions of the model parameters, allowing for uncertainty quantification and better handling of the variability in polling data.
 
-In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
+For parameter estimation, generating samples from the posterior distributions. This approach enables the model to account for hierarchical dependencies (e.g., variations across states or candidates) and produces probabilistic estimates for each parameter, providing a robust framework for uncertainty analysis in electoral predictions.
 
-```{r}
-
-```
-
-## Diagnostics
-
-@fig-stanareyouokay-1 is a trace plot. It shows... This suggests...
-
-@fig-stanareyouokay-2 is a Rhat plot. It shows... This suggests...
+## Poster Effec Analysis
 
 ```{r}
 
 ```
 
+## Candidate Fixed Effects
+
+```{r}
+
+```
+
+## Limitations and Assumptions
+
+The model presumes that polling data accurately captures genuine voter sentiment at the time of each poll. While polling aims to reflect public opinion, it is inherently limited by factors such as the sampling method, response biases, and demographic reach. Therefore, this model assumes that any deviations from true voter sentiment are random rather than systematic, allowing the aggregated polling data to serve as a reliable proxy for the broader electorate's preferences.
+
+Another key assumption is that biases associated with each pollster’s methodology can be corrected through fixed effects. Polling organizations vary in their techniques, target demographics, and question wording, which can systematically bias results toward certain candidates or voter groups. By including fixed effects for each pollster, the model aims to account for these unique biases, essentially adjusting each poll’s results to align with the average tendencies across pollsters. However, this adjustment presupposes that biases are consistent over time and can be offset by a single correction factor, which may oversimplify more dynamic shifts in polling practices or biases over the election cycle.
+
+Additionally, the model assumes a linear relationship between factors such as sample size, days to the election, and polling outcomes. For instance, it assumes that each additional day closer to the election or an increase in sample size exerts a proportional and direct impact on the predicted vote shares. This linearity assumption may not fully capture the complexity of voter behavior dynamics, such as sudden shifts in public opinion due to unforeseen events or heightened voter mobilization closer to election day. Nonlinear effects or interaction terms could potentially enhance the model's sensitivity to such dynamics, though the linear assumption simplifies computation and interpretation.
+
+Despite these simplifications, the hierarchical Bayesian framework (if applicable) offers flexibility by allowing for uncertainty quantification and incorporating pollster reliability into the model’s predictions. By assigning reliability-based weights to pollsters with stronger track records, the model aims to enhance accuracy, giving greater influence to data sources that have historically demonstrated consistency. This approach not only improves prediction robustness but also provides a framework for capturing the variance across pollster methodologies, enabling a more nuanced and adaptable representation of public opinion as it evolves in the lead-up to the election.
 
 
 \newpage
