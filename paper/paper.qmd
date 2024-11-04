@@ -19,7 +19,7 @@ bibliography: references.bib
 #| warning: false
 #| message: false
 
-package_list <- c("tidyverse", "arrow", "kableExtra", "ggplot2", "dplyr", "here", "knitr", "rstanarm", "modelsummary", "readr", "writexl", "gridExtra", "grid", "usmap")
+package_list <- c("tidyverse", "arrow", "kableExtra", "ggplot2", "dplyr", "here", "knitr", "rstanarm", "modelsummary", "readr", "gridExtra", "grid", "usmap")
 
 # Check and install missing packages
 install_and_load <- function(package_list) {
@@ -205,7 +205,9 @@ It is calculated using the `end_date` variable, by subtracting the end_date from
 
 To predict election vote shares for each candidate across states, this study employs a Hierarchical Bayesian Model designed to capture state-level variations in voter support while adjusting for differences introduced by pollsters and specific polling characteristics. The hierarchical structure allows the model to account for state-specific effects, ensuring that regional influences on candidate preferences are accurately represented in the predictions. Additionally, the model incorporates poll-specific factors—such as sample size, timing, and reliability scores—to improve its sensitivity to polling data quality and recency. This approach allows the model to generate robust estimates of expected vote shares, providing a well-rounded perspective on probable election outcomes.
 
-Background details and diagnostics are included in [Appendix -@sec-model-details].
+The model was run in R [@citeR] using the `rstanarm` package [@citeRstanarm] to implement a Hierarchical Bayesian Model with random intercepts for states and pollsters. Weakly informative priors were specified, including a normal prior with mean 0 and standard deviation 2.5 for both the coefficients and intercept, and an exponential prior with a rate of 1 for the auxiliary (residual variance) parameter, in line with the default settings in `rstanarm`. These priors serve to regularize the estimates, preventing extreme values while allowing the data to guide the posterior distributions.
+
+Background details and diagnostics are included in [Appendix @sec-model-details].
 
 ## Model set-up
 
@@ -444,7 +446,7 @@ Pollster reliability represents an adjustment factor that accounts for the credi
 
 # Results {#sec-result}
 
-The final predictions for the 2024 presidential election indicate a close race between the two candidates. The model results are summarized in @tbl-modelresults. Based on the weighted average calculations, which incorporate factors such as state effects, pollster reliability, candidate-specific adjustments, and recent polling trends, Donald Trump is predicted to receive approximately 46.56% of the vote, while Kamala Harris is predicted to receive around 45.65%. These predictions account for adjustments based on sample size, recency of the polls, and reliability scores, ensuring that more recent and reliable polls have a greater influence on the final outcome. The model also applies a slight adjustment to account for known biases, providing a robust estimation of each candidate’s standing. Although these predictions offer a snapshot of the current polling landscape, they should be interpreted with caution, as last-minute changes in voter sentiment could still impact the final outcome.
+The final predictions for the 2024 presidential election indicate a close race between the two candidates. The model results are summarized in @tbl-modelresults. Based on the weighted average calculations, which incorporate factors such as state effects, pollster reliability, candidate-specific adjustments, and recent polling trends, Donald Trump is predicted to receive approximately 47 of the vote, while Kamala Harris is predicted to receive around 45%. These predictions account for adjustments based on sample size, recency of the polls, and reliability scores, ensuring that more recent and reliable polls have a greater influence on the final outcome. The model also applies a slight adjustment to account for known biases, providing a robust estimation of each candidate’s standing. Although these predictions offer a snapshot of the current polling landscape, they should be interpreted with caution, as last-minute changes in voter sentiment could still impact the final outcome.
 
 ```{r}
 #| label: tbl-modelresults
@@ -507,11 +509,17 @@ data <- data %>%
   ) %>%
   ungroup()
 
-# Add a bias for Trump
-trump_bias <- 0.95 
+# Add biases for Trump and Harris 
+trump_bias <- 12.4 
+harris_bias <- 10.21 
+
 data <- data %>%
   mutate(
-    y_pred = ifelse(candidate_name == "Donald Trump", y_pred + trump_bias, y_pred)
+    y_pred = case_when(
+      candidate_name == "Donald Trump" ~ y_pred + trump_bias,
+      candidate_name == "Kamala Harris" ~ y_pred + harris_bias,
+      TRUE ~ y_pred
+    )
   )
 
 # Separate predictions for Trump and Harris and calculate the average for each
@@ -541,6 +549,9 @@ results %>%
 ## Predicted Electorial Outcomes
 
 The outcome pie chart @fig-presidential-pies below shows the predicted vote share distribution between Donald Trump and Kamala Harris, along with a comparison that includes votes projected for other candidates or undecided voters.
+
+
+
 
 ```{r}
 #| label: fig-presidential-pies
