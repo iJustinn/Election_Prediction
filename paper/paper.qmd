@@ -922,9 +922,11 @@ ggplot(trump_data, aes(x = pollscore, y = pct)) +
 
 ```{r}
 #| echo: false
-#| label: fig-recency_effect
 #| warning: false
 #| message: false
+#| label: fig-recency_effect
+#| fig-cap: "Weighted Prediction with and without Recency Effect"
+#| fig-subcap: ["Donald Trump", "Kamala Harris"]
 #| layout-ncol: 2
 #| layout-nrow: 1
 #| fig-height: 3
@@ -969,7 +971,7 @@ ggplot(harris_data, aes(x = source, y = weighted_pct, fill = source)) +
 
 ```
 
-The density plot @fig-recency_effect compares the distributions of weighted predictions for Donald Trump and Kamala Harris with and without recency adjustments. For both candidates, predictions are generally concentrated in similar ranges, with Donald Trump’s support mostly clustering around 40-60% and Kamala Harris’s around 30-50%. This similarity in distribution suggests that the recency adjustment does not cause a big shift in overall predictions for either candidate. However, some differences are noticeable in the tails of the distributions, particularly for Donald Trump, where predictions with recency adjustments exhibit a slightly tighter distribution, potentially indicating a more stable support level as the election date nears.
+The density plot @fig-recency_effect compares the distributions of weighted predictions for Donald Trump and Kamala Harris with and without recency adjustments. For both candidates, predictions are generally concentrated in similar ranges, with Donald Trump’s support @fig-recency_effect-1 mostly clustering around 40-60% and Kamala Harris’s  @fig-recency_effect-2 around 30-50%. This similarity in distribution suggests that the recency adjustment does not cause a big shift in overall predictions for either candidate. However, some differences are noticeable in the tails of the distributions, particularly for Donald Trump, where predictions with recency adjustments exhibit a slightly tighter distribution, potentially indicating a more stable support level as the election date nears.
 
 The recency adjustment in the model increases the weight of polls conducted closer to the election, enhancing the model’s sensitivity to recent shifts in voter sentiment. This adjustment is particularly beneficial when recent events have had a notable impact on public opinion, as it enables the model to prioritize current data. In this case, the plot indicates that while the recency adjustment refines the distribution and improves precision, it does not significantly alter the overall predictions. This consistency between the original and recency-adjusted predictions may suggest stable voter sentiment, with few late changes affecting the overall distribution as the election nears.
 
