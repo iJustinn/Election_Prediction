@@ -4,7 +4,7 @@ This repository provides all the necessary information to replicate Yingke He an
 
 ## Paper Overview
 
-This paper utlized data from [xxx](xxx). ...
+This paper utlized data from [FiveThirtyEight](https://projects.fivethirtyeight.com/polls/president-general/2024/national/?ex_cid=abcpromo), published by ABC News. Using this polling data of the 2024 U.S. Presidential election, focusing on key candidates Donald Trump and Kamala Harris to provide a comprehensive view of the race. A Hierarchical Bayesian Model is employed to analyze the data, revealing notable differences between states. Pennsylvania, Ohio, Georgia, and Nevada are identified as critical battleground states, with trends favoring Trump. These findings highlight the dynamic nature of the U.S. political landscape and emphasize the pivotal role of swing states in shaping election outcomes.
 
 ## File Structure
 

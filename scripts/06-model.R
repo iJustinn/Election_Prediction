@@ -363,4 +363,3 @@ results <- results %>%
 results %>%
   kable(caption = "Final Predictions for Trump and Harris") %>%
   kable_styling(full_width = FALSE, position = "center", font_size = 14)
-

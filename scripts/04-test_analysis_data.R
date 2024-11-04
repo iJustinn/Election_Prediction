@@ -1,7 +1,7 @@
 #### Preamble ####
-# Purpose: TBD
-# Author: Ziheng Zhong
-# Date: 24 October 2024
+# Purpose: This code defines test cases for validating the integrity, range, and data types of key columns in the processed `candidate_sup_num_data` and `num_grade_pollscore_data` datasets, ensuring they meet expected standards for data quality and consistency.
+# Author: Yingke He, Ziheng Zhong
+# Date: 20 October 2024
 # Contact: ziheng.zhong@mail.utoronto.ca
 # License: MIT
 

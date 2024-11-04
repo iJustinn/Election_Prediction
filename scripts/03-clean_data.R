@@ -1,7 +1,7 @@
 #### Preamble ####
-# Purpose: TBD
-# Author: Ziheng Zhong
-# Date: 24 October 2024
+# Purpose: This code sequence cleans and processes polling data by generating filtered subsets, calculating support percentages, applying weights based on sample size, pollscore, and days to election, and saving the results for different analyses, such as candidate support, state effects, and pollster reliability adjustments.
+# Author: Yingke He, Ziheng Zhong
+# Date: 20 October 2024
 # Contact: ziheng.zhong@mail.utoronto.ca
 # License: MIT
 
@@ -80,7 +80,7 @@ clean_data <- clean_data %>%
   mutate(days_to_election = as.numeric(difftime(election_date, temp_end_date, units = "days"))) %>%
   select(-temp_end_date) # Remove temporary column
 
-# Save the cleaned data
+# Save data
 write_csv(clean_data, here("data", "02-analysis_data", "clean_data.csv"))
 
 

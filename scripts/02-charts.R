@@ -1,6 +1,6 @@
 #### Preamble ####
-# Purpose: TBD
-# Author: Ziheng Zhong
+# Purpose: This code generates various visualizations comparing support percentages over time and by state for candidates Kamala Harris and Donald Trump, including weighted and unweighted support trends, numeric grade adjustments, and state-by-state mappings of average polling support and leading candidates.
+# Author: Yingke He, Ziheng Zhong
 # Date: 20 October 2024
 # Contact: ziheng.zhong@mail.utoronto.ca
 # License: MIT
