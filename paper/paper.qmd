@@ -922,6 +922,7 @@ ggplot(trump_data, aes(x = pollscore, y = pct)) +
 
 ```{r}
 #| echo: false
+#| label: fig-recency_effect
 #| warning: false
 #| message: false
 #| layout-ncol: 2
@@ -998,7 +999,7 @@ Specialized in-person and university-affiliated research methods, such as those 
 
 In summary, each polling methodology has limitations that can impact data quality and representativeness. Live interviews may over-represent older demographics, IVR lacks engagement, online panels suffer from self-selection bias, mixed-mode surveys can introduce inconsistencies, and in-person methods are resource-intensive. Understanding these weaknesses is essential for accurately interpreting polling data, as each methodology's limitations shape the final results and influence the portrayal of public opinion leading up to elections.
 
-# Idealized Methodology and Survey
+# Appendix: Idealized Methodology and Survey
 
 ## Overview
 
@@ -1033,7 +1034,7 @@ The survey will end with a thank-you message, expressing gratitude for the respo
 
 Recruitment will utilize mixed-mode sampling, reaching potential participants through online panels and phone interviews. Efforts will focus on achieving demographic diversity and engaging underrepresented voter groups to ensure robust and representative data.
 
-# Data Source and Preprocessing
+# Appendix: Data Source and Preprocessing
 
 ## Data Source
 
@@ -1060,7 +1061,7 @@ The pollster_effect data shows that different pollsters have varying reliability
 In particular, the influence of pollsters with strong biases (positive or negative) can sometimes lead to over- or under-estimation in specific regions. For instance, in cases where a state's polling is heavily reliant on a few pollsters with similar biases, the predicted outcomes may not fully capture the public opinion spectrum. To address this, our model adjusts for these effects, but occasional prediction errors can still occur due to the high variability in pollster reliability.
 
 
-# Model details {#sec-model-details}
+# Appendix: Model details {#sec-model-details}
 
 ## Model Specification
 
