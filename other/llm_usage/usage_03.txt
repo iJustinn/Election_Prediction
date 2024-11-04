@@ -1,0 +1,708 @@
+for all code i will be providing, summarize the purpose in one sentence.
+ChatGPT said:
+ChatGPT
+Memory updated
+Got it! I’ll keep each code summary concise and to the point.
+
+
+
+
+
+
+You said:
+
+
+#### Simulate data ####
+# Defining the states and candidates
+states <- state.name
+candidates <- c("Trump", "Harris")
+
+# Number of voters per state (randomly selected between 500,000 to 10,000,000)
+num_voters <- sample(500:1000, length(states), replace = TRUE)
+
+# Simulate data frame for voters in each state
+analysis_data <- tibble(
+  state = rep(states, num_voters),
+  voter_id = 1:sum(num_voters),
+  age = sample(18:100, sum(num_voters), replace = TRUE),
+  gender = sample(c("Male", "Female", "Other"), sum(num_voters), replace = TRUE, prob = c(0.48, 0.48, 0.04)),
+  candidate_preference = sample(candidates, sum(num_voters), replace = TRUE, prob = c(0.5, 0.5))
+)
+
+# Aggregate the number of votes per candidate per state
+election_results <- analysis_data %>%
+  group_by(state, candidate_preference) %>%
+  summarise(votes = n(), .groups = 'drop')
+
+
+2/2
+
+ChatGPT said:
+ChatGPT
+This code simulates a dataset of voters by state, including their demographic information and candidate preference, and then aggregates the total votes per candidate for each state.
+
+
+
+
+
+
+You said:
+
+#### Test cases ####
+test_that("Test for number of states matches the predefined state list", {
+  simulated_data <- read_csv(here("data", "00-simulated_data", "simulated_data.csv"))
+  states <- c("Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming")
+  expect_equal(length(unique(simulated_data$state)), length(states),
+               info = "The number of unique states in the dataset does not match the predefined state list.")
+})
+
+test_that("Test for voter ID uniqueness", {
+  simulated_data <- read_csv(here("data", "00-simulated_data", "simulated_data.csv"))
+  expect_equal(length(unique(simulated_data$voter_id)), nrow(simulated_data),
+               info = "Voter IDs are not unique.")
+})
+
+test_that("Test for age values within valid range (18 to 100)", {
+  simulated_data <- read_csv(here("data", "00-simulated_data", "simulated_data.csv"))
+  expect_true(all(simulated_data$age >= 18 & simulated_data$age <= 100),
+              info = "Age values are outside the valid range of 18 to 100.")
+})
+
+test_that("Test for valid gender values", {
+  simulated_data <- read_csv(here("data", "00-simulated_data", "simulated_data.csv"))
+  expect_true(all(simulated_data$gender %in% c("Male", "Female", "Other")),
+              info = "Gender values contain invalid entries.")
+})
+
+test_that("Test for valid candidate preference values", {
+  simulated_data <- read_csv(here("data", "00-simulated_data", "simulated_data.csv"))
+  candidates <- c("Harris", "Trump")
+  expect_true(all(simulated_data$candidate_preference %in% candidates),
+              info = "Candidate preference values contain invalid entries.")
+})
+
+test_that("Test for number of votes greater than zero for each state and candidate", {
+  simulated_data <- read_csv(here("data", "00-simulated_data", "simulated_data.csv"))
+  election_results <- simulated_data %>%
+    group_by(state, candidate_preference) %>%
+    summarise(votes = n(), .groups = 'drop')
+  expect_true(all(election_results$votes > 0),
+              info = "There are states or candidates with zero votes.")
+})
+
+test_that("Test for each state having votes for both candidates", {
+  simulated_data <- read_csv(here("data", "00-simulated_data", "simulated_data.csv"))
+  candidates <- c("Harris", "Trump")
+  election_results <- simulated_data %>%
+    group_by(state, candidate_preference) %>%
+    summarise(votes = n(), .groups = 'drop')
+  states_with_both_candidates <- election_results %>%
+    group_by(state) %>%
+    summarise(candidate_count = n()) %>%
+    filter(candidate_count == length(candidates))
+  expect_equal(nrow(states_with_both_candidates), length(unique(simulated_data$state)),
+               info = "Not all states have votes for both candidates.")
+})
+ChatGPT said:
+ChatGPT
+This code defines test cases to validate the simulated voter dataset, checking for unique states, voter ID uniqueness, valid age, gender, and candidate values, and ensuring each state has votes for both candidates without any zero-vote entries.
+
+
+
+
+
+
+You said:
+
+
+#### candidate_sup_num_data Chart ####
+# Plot the weighted percentage change over time for both candidates
+candidate_sup_num_data %>%
+  ggplot(aes(x = as.Date(date, format = "%m/%d/%y"), y = support_pct * weight_value, color = candidate)) +
+  geom_smooth(method = "loess", se = FALSE) +
+  scale_color_manual(values = c("Trump" = "blue", "Harris" = "red")) +
+  labs(
+    title = "Weighted Support Percentage Change Over Time",
+    x = "Date",
+    y = "Weighted Support Percentage",
+    color = "Candidate"
+  ) +
+  theme_minimal()
+
+
+
+# Plot the unweighted percentage change over time for both candidates
+candidate_sup_num_data %>%
+  ggplot(aes(x = as.Date(date, format = "%m/%d/%y"), y = support_pct, color = candidate)) +
+  geom_smooth(method = "loess", se = FALSE) +
+  scale_color_manual(values = c("Trump" = "blue", "Harris" = "red")) +
+  labs(
+    title = "Unweighted Support Percentage Change Over Time",
+    x = "Date",
+    y = "Support Percentage",
+    color = "Candidate"
+  ) +
+  theme_minimal()
+
+
+
+#### num_grade_pollscore_data Chart ####
+# Convert the 'date' column to Date type
+num_grade_pollscore_data %>%
+  mutate(date = as.Date(date, format = '%m/%d/%y')) %>%
+  
+  # Summarize data by month and candidate to reduce the number of points
+  mutate(month = format(date, "%Y-%m")) %>%
+  group_by(month, candidate) %>%
+  summarize(
+    support_pct = mean(support_pct),
+    pollscore = mean(pollscore),
+    count = n(),
+    .groups = 'drop'
+  ) %>%
+  
+  # Plotting numeric_grade as weight using scatter plot with size representing amount of data
+  ggplot(aes(x = as.Date(paste0(month, "-01")), y = support_pct, color = candidate, size = count)) +
+  geom_point(alpha = 0.5) +
+  scale_color_manual(values = c("Harris" = "red", "Trump" = "blue")) +
+  labs(
+    title = 'Support Rate Over Time (Weighted by Numeric Grade)',
+    x = 'Date',
+    y = 'Support Rate (%)',
+    color = 'Candidate',
+    size = 'Number of Data Points'
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Plotting using pollscore with scatter plot with size representing amount of data
+summarized_data %>%
+  ggplot(aes(x = as.Date(paste0(month, "-01")), y = pollscore, color = candidate, size = count)) +
+  geom_point(alpha = 0.5) +
+  scale_color_manual(values = c("Harris" = "red", "Trump" = "blue")) +
+  labs(
+    title = 'Support Rate Over Time (Based on Pollscore)',
+    x = 'Date',
+    y = 'Poll Score',
+    color = 'Candidate',
+    size = 'Number of Data Points'
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+
+#### Harris Chart ####
+# Summarize polling percentages by state and candidate
+state_summary <- cleaned_data %>%
+  filter(candidate_name == "Kamala Harris") %>%  # Choose a candidate (you can change or generalize this)
+  group_by(state) %>%
+  summarize(avg_pct = mean(pct, na.rm = TRUE))
+
+# Prepare US map data
+us_states <- map_data("state")
+
+# Convert state names to lowercase for matching with map data
+state_summary$state <- tolower(state_summary$state)
+
+# Merge state summary with map data
+merged_data <- left_join(us_states, state_summary, by = c("region" = "state"))
+
+# Plot the average polling percentage for Kamala Harris by state on a US map
+ggplot(merged_data, aes(x = long, y = lat, group = group, fill = avg_pct)) +
+  geom_polygon(color = "black") +
+  scale_fill_gradient(low = "lightblue", high = "darkblue", name = "Avg % Support", na.value = "grey90") +
+  labs(title = "Average Polling Support for Kamala Harris by State",
+       x = "",
+       y = "") +
+  theme_map()
+
+
+
+#### Trump Chart ####
+# Summarize polling percentages by state and candidate
+state_summary_trump <- cleaned_data %>%
+  filter(candidate_name == "Donald Trump") %>%  # Choose a candidate (you can change or generalize this)
+  group_by(state) %>%
+  summarize(avg_pct = mean(pct, na.rm = TRUE))
+
+# Convert state names to lowercase for matching with map data
+state_summary_trump$state <- tolower(state_summary_trump$state)
+
+# Merge state summary with map data
+merged_data_trump <- left_join(us_states, state_summary_trump, by = c("region" = "state"))
+
+# Plot the average polling percentage for Donald Trump by state on a US map
+ggplot(merged_data_trump, aes(x = long, y = lat, group = group, fill = avg_pct)) +
+  geom_polygon(color = "black") +
+  scale_fill_gradient(low = "lightpink", high = "darkred", name = "Avg % Support", na.value = "grey90") +
+  labs(title = "Average Polling Support for Donald Trump by State",
+       x = "",
+       y = "") +
+  theme_map()
+
+
+
+#### Mixed Chart ####
+# Summarize polling percentages by state and candidate
+state_summary_mixed <- cleaned_data %>%
+  filter(candidate_name %in% c("Kamala Harris", "Donald Trump")) %>%
+  group_by(state, candidate_name) %>%
+  summarize(avg_pct = mean(pct, na.rm = TRUE)) %>%
+  pivot_wider(names_from = candidate_name, values_from = avg_pct, values_fill = 0)
+
+# Determine the leading candidate for each state
+state_summary_mixed <- state_summary_mixed %>%
+  mutate(leading_candidate = case_when(
+    Kamala Harris > 45 ~ "Harris",
+    Donald Trump > 45 ~ "Trump",
+    TRUE ~ "Tied"
+  ))
+
+# Convert state names to lowercase for matching with map data
+state_summary_mixed$state <- tolower(state_summary_mixed$state)
+
+# Merge state summary with map data
+merged_data_mixed <- left_join(us_states, state_summary_mixed, by = c("region" = "state"))
+
+# Plot the support for Kamala Harris and Donald Trump by state on a US map
+ggplot(merged_data_mixed, aes(x = long, y = lat, group = group, fill = leading_candidate)) +
+  geom_polygon(color = "black") +
+  scale_fill_manual(values = c("Trump" = "blue", "Harris" = "red", "Tied" = "lightgrey"), name = "Leading Candidate") +
+  labs(title = "States with 45%+ Support for Each Candidate",
+       x = "",
+       y = "") +
+  theme_map()
+ChatGPT said:
+ChatGPT
+This code generates various visualizations comparing support percentages over time and by state for candidates Kamala Harris and Donald Trump, including weighted and unweighted support trends, numeric grade adjustments, and state-by-state mappings of average polling support and leading candidates.
+
+
+
+
+
+
+You said:
+
+#### Clean data ####
+# Data #1
+# Load data
+raw_data <- read_csv(here("data", "01-raw_data", "president_polls.csv"))
+
+# Filtering
+candidate_sup_num_data <- raw_data %>%
+  filter(answer %in% c("Trump", "Harris"), election_date == '11/5/24') %>%
+  mutate(weight_value = log(sample_size)) %>%
+  select(candidate = answer, weight_value, support_pct = pct, date = end_date)
+
+# Save data
+write_csv(candidate_sup_num_data, "data/02-analysis_data/candidate_sup_num_data.csv")
+
+
+
+# Data #2
+# Load data
+raw_data <- read_csv(here("data", "01-raw_data", "president_polls.csv"))
+
+# Filtering
+num_grade_pollscore_data <- raw_data %>%
+  filter(answer %in% c("Trump", "Harris"), election_date == '11/5/24') %>%
+  filter(!is.na(numeric_grade), !is.na(pollscore), pollscore >= 0) %>%
+  select(candidate = answer, date = end_date, support_pct = pct, numeric_grade, pollscore)
+
+# Save data
+write_csv(num_grade_pollscore_data, "data/02-analysis_data/num_grade_pollscore_data.csv")
+
+
+
+# Data #3
+# Load data
+raw_data <- read_csv(here("data", "01-raw_data", "president_polls.csv"))
+
+# Select essential columns
+clean_data <- raw_data %>%
+
+  select(state, pollster_rating_name, pollscore, candidate_name, pct, sample_size, start_date, end_date)
+
+# Dropping rows where critical information like candidate name or percentage is missing
+clean_data <- clean_data %>%
+  filter(!is.na(state)) %>%
+  filter(!is.na(pollster_rating_name)) %>%
+  filter(!is.na(pollscore)) %>%
+  filter(!is.na(candidate_name)) %>%
+  filter(!is.na(pct)) %>%
+  filter(!is.na(sample_size)) %>%
+  filter(!is.na(start_date)) %>%
+  filter(!is.na(end_date)) %>%
+  
+  # Filter to keep only rows with candidates "Kamala Harris" or "Donald Trump"
+  filter(candidate_name %in% c("Kamala Harris", "Donald Trump"))
+
+# Check the first few rows of clean_data
+head(clean_data)
+
+# Set election date
+election_date <- as.Date("2024-11-05")
+
+# Calculate days to election without modifying the end_date format
+clean_data <- clean_data %>%
+  mutate(temp_end_date = as.Date(end_date, format = "%m/%d/%y")) %>%
+  mutate(days_to_election = as.numeric(difftime(election_date, temp_end_date, units = "days"))) %>%
+  select(-temp_end_date) # Remove temporary column
+
+# Save data
+write_csv(clean_data, here("data", "02-analysis_data", "clean_data.csv"))
+
+
+
+# Data #4
+# Load data
+data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
+
+# Calculate the average state effect based on polling percentage (pct) by state and pollster_rating_name
+state_effects <- data %>%
+  group_by(state, pollster_rating_name) %>%
+  summarise(
+    state_effect = round(mean(pct, na.rm = TRUE), 1)  # Average polling percentage for each state-pollster combination, rounded to 1 decimal
+  )
+
+# Save data
+write_csv(state_effects, path = here("data", "02-analysis_data", "state_effect.csv"))
+
+
+
+# Data #5
+# Read in the cleaned data
+data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
+
+# Calculate the candidate fixed effect as the average support across all polls
+candidate_fixed_effect <- data %>%
+  group_by(candidate_name) %>%
+  summarise(gamma_k = round(mean(pct, na.rm = TRUE), 1))
+
+# Display candidate fixed effects
+#print(candidate_fixed_effect)
+
+# Save candidate_fixed_effect to a CSV file
+write_csv(candidate_fixed_effect, path = here("data", "02-analysis_data", "candidate_fixed_effect.csv"))
+
+
+
+# Data #6
+# Read in the cleaned data
+data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
+
+# Ensure the pollscore and sample_size columns are non-NA (replace NAs with default values if needed)
+data <- data %>%
+  mutate(
+    pollscore = ifelse(is.na(pollscore), 0, pollscore),  # Replace NA pollscore with 0
+    sample_size = ifelse(is.na(sample_size), 1, sample_size)  # Replace NA sample_size with 1
+  )
+
+# Calculate the weight for each poll as the product of pollscore and sample_size
+data <- data %>%
+  mutate(weight = pollscore * sample_size)
+
+# Calculate the weighted average of pct for each candidate in each state
+weighted_predictions <- data %>%
+  group_by(state, candidate_name) %>%
+  summarise(
+    weighted_pct = round(sum(pct * weight, na.rm = TRUE) / sum(weight, na.rm = TRUE), 0),
+    total_weight = round(sum(weight, na.rm = TRUE), 0)  # Optional: To inspect total weight per group, rounded to 0 dp
+  ) %>%
+  ungroup()
+
+# Save weighted_predictions to an csv file
+write_csv(weighted_predictions, path = here("data", "02-analysis_data", "weighted_predictions.csv"))
+
+
+
+# Data #7 & 8
+# Read in the cleaned data
+data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
+
+# Ensure no NA values in pollscore, sample_size, and days_to_election
+data <- data %>%
+  mutate(
+    pollscore = ifelse(is.na(pollscore), 0, pollscore),  
+    sample_size = ifelse(is.na(sample_size), 1, sample_size),  
+    days_to_election = ifelse(is.na(days_to_election) | days_to_election <= 0, 
+                              max(days_to_election, na.rm = TRUE), 
+                              days_to_election)  
+  )
+
+# Calculate recency weight
+data <- data %>%
+  mutate(recency_weight = ifelse(days_to_election > 0, 1 / days_to_election, 0))
+
+# Calculate total weight
+data <- data %>%
+  mutate(total_weight = pollscore * sample_size * recency_weight)
+
+# Calculate the weighted average of pct for each candidate in each state
+weighted_predictions <- data %>%
+  group_by(state, candidate_name) %>%
+  summarise(
+    weighted_pct = round(ifelse(sum(total_weight, na.rm = TRUE) == 0, 0, 
+                                sum(pct * total_weight, na.rm = TRUE) / sum(total_weight, na.rm = TRUE)), 1),
+    total_weight = round(sum(total_weight, na.rm = TRUE), 1)
+  ) %>%
+  ungroup()
+
+# Save weighted predictions to csv
+write_csv(weighted_predictions, path = here("data", "02-analysis_data", "weighted_predictions_with_recency.csv"))
+
+# Pollster reliability adjustment
+zeta <- 0.2  
+data <- data %>%
+  mutate(
+    pollster_reliability_adjustment = round(zeta * pollscore, 1)  # Rounded to 1 decimal place
+  )
+
+# Save pollster reliability adjustments to csv
+write_csv(data, path = here("data", "02-analysis_data", "pollscore_reliability_adjust.csv"))
+
+
+
+# Data #9
+# Read in the cleaned data
+data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
+
+# Check if the column names are as expected
+#print(colnames(data))
+
+# Calculate the average pollster effect based on pollscore
+pollster_effects <- data %>%
+  group_by(pollster_rating_name) %>%
+  summarise(
+    pollster_effect = mean(pollscore, na.rm = TRUE)  # Calculate average pollscore for each pollster
+  )
+
+# Display the pollster effects
+#print(pollster_effects)
+
+# Save pollster effects to a CSV file, including the pollster_rating_name
+write_csv(pollster_effects, path = here("data", "02-analysis_data", "pollster_effect.csv"))
+ChatGPT said:
+ChatGPT
+This code sequence cleans and processes polling data by generating filtered subsets, calculating support percentages, applying weights based on sample size, pollscore, and days to election, and saving the results for different analyses, such as candidate support, state effects, and pollster reliability adjustments.
+
+
+
+
+
+
+You said:
+
+
+#### Test cases ####
+# candidate_sup_num_data Tests
+test_that("Data Integrity Test: No missing values in critical columns", {
+  candidate_data <- read_csv(here("data", "02-analysis_data", "candidate_sup_num_data.csv"))
+  print(names(candidate_data))  # Debugging: Print column names to verify
+  critical_columns <- c("candidate", "support_pct")  # Allow missing values in weight_value
+  for (col in critical_columns) {
+    expect_false(any(is.na(candidate_data[[col]])), paste("Column", col, "contains missing values."))
+  }
+})
+
+
+test_that("Range Validation Test: Numerical columns are within expected ranges", {
+  candidate_data <- read_csv(here("data", "02-analysis_data", "candidate_sup_num_data.csv"))
+  print(names(candidate_data))  # Debugging: Print column names to verify
+  # Assuming weight_value should be between 0 and 10000, ignoring NA values
+  expect_true(all(candidate_data$weight_value[!is.na(candidate_data$weight_value)] >= 0 &
+                    candidate_data$weight_value[!is.na(candidate_data$weight_value)] <= 10000),
+              "Weight value is out of the expected range (0-10000).")
+})
+
+
+test_that("Column Type Test: All columns have expected data types", {
+  candidate_data <- read_csv(here("data", "02-analysis_data", "candidate_sup_num_data.csv"))
+  print(names(candidate_data))  # Debugging: Print column names to verify
+  expect_true(is.character(candidate_data$candidate), "candidate is not a character")
+  expect_true(is.numeric(candidate_data$weight_value), "weight_value is not numeric")
+  expect_true(is.character(candidate_data$date), "date is not a character")
+})
+
+
+
+# num_grade_pollscore_data Tests
+test_that("Data Integrity Test: No missing values in critical columns", {
+  pollscore_data <- read_csv(here("data", "02-analysis_data", "num_grade_pollscore_data.csv"))
+  print(names(pollscore_data))  # Debugging: Print column names to verify
+  critical_columns <- c("numeric_grade", "pollscore")
+  for (col in critical_columns) {
+    expect_false(any(is.na(pollscore_data[[col]])), paste("Column", col, "contains missing values."))
+  }
+})
+
+
+test_that("Range Validation Test: Numerical columns are within expected ranges", {
+  pollscore_data <- read_csv(here("data", "02-analysis_data", "num_grade_pollscore_data.csv"))
+  print(names(pollscore_data))  # Debugging: Print column names to verify
+  # Assuming pollscore should be between 0 and 100, ignoring NA values
+  out_of_range <- pollscore_data$pollscore[!is.na(pollscore_data$pollscore) & (pollscore_data$pollscore < 0 | pollscore_data$pollscore > 100)]
+  if (length(out_of_range) > 0) {
+    print(paste("Out of range values in pollscore:", paste(out_of_range, collapse = ", ")))
+  }
+  expect_true(all(pollscore_data$pollscore[!is.na(pollscore_data$pollscore)] >= 0 &
+                    pollscore_data$pollscore[!is.na(pollscore_data$pollscore)] <= 100),
+              "Poll score is out of the expected range (0-100).")
+})
+
+
+test_that("Column Type Test: All columns have expected data types", {
+  pollscore_data <- read_csv(here("data", "02-analysis_data", "num_grade_pollscore_data.csv"))
+  print(names(pollscore_data))  # Debugging: Print column names to verify
+  expect_true(is.numeric(pollscore_data$numeric_grade), "numeric_grade is not numeric")
+  expect_true(is.numeric(pollscore_data$pollscore), "pollscore is not numeric")
+})
+ChatGPT said:
+ChatGPT
+This code defines test cases for validating the integrity, range, and data types of key columns in the processed candidate_sup_num_data and num_grade_pollscore_data datasets, ensuring they meet expected standards for data quality and consistency.
+
+
+
+
+
+
+You said:
+
+# Data #4
+# Load data
+data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
+
+# Calculate the average state effect based on polling percentage (pct) by state and pollster_rating_name
+state_effects <- data %>%
+  group_by(state, pollster_rating_name) %>%
+  summarise(
+    state_effect = round(mean(pct, na.rm = TRUE), 1)  # Average polling percentage for each state-pollster combination, rounded to 1 decimal
+  )
+
+# Save data
+write_csv(state_effects, path = here("data", "02-analysis_data", "state_effect.csv"))
+
+
+
+# Data #5
+# Read in the cleaned data
+data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
+
+# Calculate the candidate fixed effect as the average support across all polls
+candidate_fixed_effect <- data %>%
+  group_by(candidate_name) %>%
+  summarise(gamma_k = round(mean(pct, na.rm = TRUE), 1))
+
+# Display candidate fixed effects
+#print(candidate_fixed_effect)
+
+# Save candidate_fixed_effect to a CSV file
+write_csv(candidate_fixed_effect, path = here("data", "02-analysis_data", "candidate_fixed_effect.csv"))
+
+
+
+# Data #6
+# Read in the cleaned data
+data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
+
+# Ensure the pollscore and sample_size columns are non-NA (replace NAs with default values if needed)
+data <- data %>%
+  mutate(
+    pollscore = ifelse(is.na(pollscore), 0, pollscore),  # Replace NA pollscore with 0
+    sample_size = ifelse(is.na(sample_size), 1, sample_size)  # Replace NA sample_size with 1
+  )
+
+# Calculate the weight for each poll as the product of pollscore and sample_size
+data <- data %>%
+  mutate(weight = pollscore * sample_size)
+
+# Calculate the weighted average of pct for each candidate in each state
+weighted_predictions <- data %>%
+  group_by(state, candidate_name) %>%
+  summarise(
+    weighted_pct = round(sum(pct * weight, na.rm = TRUE) / sum(weight, na.rm = TRUE), 0),
+    total_weight = round(sum(weight, na.rm = TRUE), 0)  # Optional: To inspect total weight per group, rounded to 0 dp
+  ) %>%
+  ungroup()
+
+# Save weighted_predictions to an csv file
+write_csv(weighted_predictions, path = here("data", "02-analysis_data", "weighted_predictions.csv"))
+
+
+
+# Data #7 & 8
+# Read in the cleaned data
+data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
+
+# Ensure no NA values in pollscore, sample_size, and days_to_election
+data <- data %>%
+  mutate(
+    pollscore = ifelse(is.na(pollscore), 0, pollscore),  
+    sample_size = ifelse(is.na(sample_size), 1, sample_size),  
+    days_to_election = ifelse(is.na(days_to_election) | days_to_election <= 0, 
+                              max(days_to_election, na.rm = TRUE), 
+                              days_to_election)  
+  )
+
+# Calculate recency weight
+data <- data %>%
+  mutate(recency_weight = ifelse(days_to_election > 0, 1 / days_to_election, 0))
+
+# Calculate total weight
+data <- data %>%
+  mutate(total_weight = pollscore * sample_size * recency_weight)
+
+# Calculate the weighted average of pct for each candidate in each state
+weighted_predictions <- data %>%
+  group_by(state, candidate_name) %>%
+  summarise(
+    weighted_pct = round(ifelse(sum(total_weight, na.rm = TRUE) == 0, 0, 
+                                sum(pct * total_weight, na.rm = TRUE) / sum(total_weight, na.rm = TRUE)), 1),
+    total_weight = round(sum(total_weight, na.rm = TRUE), 1)
+  ) %>%
+  ungroup()
+
+# Save weighted predictions to csv
+write_csv(weighted_predictions, path = here("data", "02-analysis_data", "weighted_predictions_with_recency.csv"))
+
+# Pollster reliability adjustment
+zeta <- 0.2  
+data <- data %>%
+  mutate(
+    pollster_reliability_adjustment = round(zeta * pollscore, 1)  # Rounded to 1 decimal place
+  )
+
+# Save pollster reliability adjustments to csv
+write_csv(data, path = here("data", "02-analysis_data", "pollscore_reliability_adjust.csv"))
+
+
+
+# Data #9
+# Read in the cleaned data
+data <- read_csv(here("data", "02-analysis_data", "clean_data.csv"), show_col_types = FALSE)
+
+# Check if the column names are as expected
+#print(colnames(data))
+
+# Calculate the average pollster effect based on pollscore
+pollster_effects <- data %>%
+  group_by(pollster_rating_name) %>%
+  summarise(
+    pollster_effect = mean(pollscore, na.rm = TRUE)  # Calculate average pollscore for each pollster
+  )
+
+# Display the pollster effects
+#print(pollster_effects)
+
+# Save pollster effects to a CSV file, including the pollster_rating_name
+write_csv(pollster_effects, path = here("data", "02-analysis_data", "pollster_effect.csv"))
+ChatGPT said:
+ChatGPT
+This code cleans and processes polling data to calculate several metrics, including the state effect, candidate fixed effect, weighted predictions based on pollscore and sample size, recency-adjusted weights, pollster reliability adjustments, and pollster effects, saving each result as separate CSV files for further analysis.
+
+
+
+
+
+
