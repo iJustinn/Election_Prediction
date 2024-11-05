@@ -564,8 +564,8 @@ The outcome pie chart @fig-presidential-pies below shows the predicted vote shar
 #| layout-nrow: 1
 
 # Average predictions for Trump and Harris
-average_trump_prediction <- 46.11
-average_harris_prediction <- 45.65
+average_trump_prediction <- 47.48
+average_harris_prediction <- 45.21
 others_prediction <- 100 - (average_trump_prediction + average_harris_prediction)
 
 # Data for the first chart: Trump out of 100%
@@ -633,13 +633,13 @@ ggplot(data_both, aes(x = "", y = percentage, fill = candidate)) +
 
 ```
 
-The @fig-presidential-pies-1, displays Donald Trump’s projected support level if we consider his vote share against all other potential candidates. According to the model, Trump is estimated to hold 46.11% of the vote, while 53.89% falls under the "Others" category. This result suggests that although Trump has a strong share of the projected votes, he does not exceed the 50% threshold in isolation, indicating there remains a sizable portion of voters who may support other candidates or remain undecided.
+The @fig-presidential-pies-1, displays Donald Trump’s projected support level if we consider his vote share against all other potential candidates. According to the model, Trump is estimated to hold 47.48% of the vote, while 52.52% falls under the "Others" category. This result suggests that although Trump has a strong share of the projected votes, he does not exceed the 50% threshold in isolation, indicating there remains a sizable portion of voters who may support other candidates or remain undecided.
 
-The @fig-presidential-pies-2, presents Kamala Harris’s estimated support level against all other candidates. Harris is projected to receive 45.65% of the vote, with 54.35% categorized as "Others." Similar to Trump’s results, Harris shows a solid portion of support, though she too falls short of the majority. This chart highlights that Harris’s vote share is almost on par with Trump’s but leaves a considerable portion of votes uncommitted to either of the main candidates.
+The @fig-presidential-pies-2, presents Kamala Harris’s estimated support level against all other candidates. Harris is projected to receive 45.21% of the vote, with 54.79% categorized as "Others." Similar to Trump’s results, Harris shows a solid portion of support, though she too falls short of the majority. This chart highlights that Harris’s vote share is almost on par with Trump’s but leaves a considerable portion of votes uncommitted to either of the main candidates.
 
-As illustrated in @fig-presidential-pies-3, the model directly compares support levels for Trump, Harris, and the "Others" category. Trump leads narrowly with 46.11%, followed closely by Harris at 45.65%, while 8.24% of the vote falls into the "Others" category, indicating potential support for third-party candidates or undecided voters. This slight lead for Trump, with a margin of only 0.46%, underscores the race’s tightness. The considerable share of votes in the "Others" category could be pivotal if these voters finally align with one of the main candidates, potentially influencing the final outcome.
+As illustrated in @fig-presidential-pies-3, the model directly compares support levels for Trump, Harris, and the "Others" category. Trump leads narrowly with 47.48%, followed closely by Harris at 45.21%, while 8.24% of the vote falls into the "Others" category, indicating potential support for third-party candidates or undecided voters. This slight lead for Trump, with a margin of 2.27%, underscores the race’s tightness. The considerable share of votes in the "Others" category could be pivotal if these voters finally align with one of the main candidates, potentially influencing the final outcome.
 
-Overall, these results suggest a highly competitive election, with Trump holding a marginal edge over Harris. The close percentages indicate that even slight changes in voter preferences could impact the election result, and the 8.24% of "Others" reflects the potential influence of undecided or third-party voters. This tight margin underscores the importance of swing votes in determining the final outcome, with neither candidate showing a decisive lead at this stage.
+Overall, these results suggest a highly competitive election, with Trump holding a marginal edge over Harris. The close percentages indicate that even slight changes in voter preferences could impact the election result, and the 7.31% of "Others" reflects the potential influence of undecided or third-party voters. This tight margin underscores the importance of swing votes in determining the final outcome, with neither candidate showing a decisive lead at this stage.
 
 ## Electorial outcome by states
 
