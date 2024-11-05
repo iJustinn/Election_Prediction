@@ -1,6 +1,6 @@
 ---
-title: "Red, Blue, or Grey? 2024’s Battleground States Tell a Story"
-subtitle: "Pennsylvania, Ohio, and Nevada Become Game Changers as Trump Gains Ground"
+title: "Data Pendulum: Swinging Through 2024's Battlegrounds"
+subtitle: "With Momentum Shifting Toward Trump"
 author: 
   - Yingke He
   - Ziheng Zhong
@@ -47,7 +47,7 @@ cleaned_poll_data <-
 #  prior = normal(0, 2.5),
 #  prior_intercept = normal(0, 2.5),
 #  prior_aux = exponential(1),
-#  iter = 2000, chains = 4
+#  iter = 500, chains = 1
 # )
 ```
 
@@ -689,9 +689,12 @@ summary_data %>%
 
 ```
 
-@tbl-modelresults_states indicates a close race for the 2024 presidential election, with Donald Trump slightly leading in several key swing states. Trump is projected to hold a narrow lead in states such as Arizona (47.67% vs. 46.50%), Florida (49.16% vs. 47.55%), Michigan (47.22% vs. 45.72%), and Ohio (49.02% vs. 48.50%), highlighting his advantage in these critical regions. Harris, on the other hand, is estimated to lead in Georgia (47.53% vs. 46.52%), North Carolina (47.40% vs. 47.17%), and Pennsylvania (45.85% vs. 45.67%), demonstrating her strength in these areas.
+@tbl-modelresults_states's prediction results for key swing states indicate a competitive race for the 2024 presidential election, with Donald Trump holding a narrow lead in each listed state. Trump is projected to lead in Arizona (49.48% vs. 47.07%), Florida (53.32% vs. 50.47%), Georgia (48.92% vs. 48.68%), Michigan (47.25% vs. 44.51%), Nevada (49.46% vs. 48.08%), North Carolina (46.72% vs. 45.71%), Ohio (48.46% vs. 46.69%), Pennsylvania (45.61% vs. 44.54%), Texas (45.69% vs. 42.96%), and Wisconsin (46.40% vs. 45.03%).
 
-This pattern highlights the election’s competitive nature, with each candidate holding strong regional support, yet an overall lead remaining within reach for either. The narrow margins—often within 1-2%—underscore the critical impact of final campaign efforts and voter turnout in influencing outcomes in these pivotal states.
+These results emphasize Trump’s projected advantage across these critical states. The relatively small margins in several states underscore the potential impact of final campaign efforts and voter turnout in determining the ultimate winner in these pivotal regions. The competitive nature of the race remains evident, with both candidates holding substantial regional support.
+
+The bar plot in @fig-modelresults_states shows the model’s predicted vote percentages for Trump and Harris in several competitive states for the 2024 U.S. Presidential Election, with each state represented by bars for each candidate’s projected support. The close alignment of the bars across many states reflects the high level of competition in these regions. Georgia, North Carolina, Pennsylvania, Ohio, and Nevada are identified as key swing states this year due to the narrow predicted vote margins between Trump and Harris, indicating that the outcome could go either way in these areas. This small difference in projected support makes these states pivotal battlegrounds, as any shifts in voter sentiment could significantly impact the election’s overall result. As a result, both campaigns are likely to concentrate their resources and efforts on these swing states to secure a decisive advantage.
+\newpage
 
 ```{r}
 #| label: fig-modelresults_states
@@ -699,6 +702,8 @@ This pattern highlights the election’s competitive nature, with each candidate
 #| echo: false
 #| warning: false
 #| message: false
+#| fig-width: 8
+#| fig-height: 3.5
 
 # Create the data frame for the swing states
 swing_states <- data.frame(
@@ -729,7 +734,7 @@ ggplot(swing_states_long, aes(x = State, y = Predicted_Percentage, fill = Candid
 
 ```
 
-The bar plot @fig-modelresults_states shows the model’s predicted vote percentages for Trump and Harris in several competitive states for the 2024 U.S. Presidential Election, with each state represented by bars for each candidate’s projected support. The close alignment of the bars across many states reflects the high level of competition in these regions. Georgia, North Carolina, Pennsylvania, Ohio, and Nevada are identified as key swing states this year due to the narrow predicted vote margins between Trump and Harris, indicating that the outcome could go either way in these areas. This small difference in projected support makes these states pivotal battlegrounds, as any shifts in voter sentiment could significantly impact the election’s overall result. As a result, both campaigns are likely to concentrate their resources and efforts on these swing states to secure a decisive advantage.
+
 
 ```{r}
 #| label: fig-modelresults_map
@@ -738,7 +743,7 @@ The bar plot @fig-modelresults_states shows the model’s predicted vote percent
 #| warning: false
 #| message: false
 #| fig-width: 8
-#| fig-height: 7
+#| fig-height: 6
 
 # Load the weighted predictions data with recency adjustments
 predictions <- read_csv(here("data", "02-analysis_data", "weighted_predictions_with_recency.csv"))
@@ -799,9 +804,10 @@ plot_usmap(data = state_wide, values = "color", labels = TRUE, label_color = "wh
 ```
 
 
-The updated map @fig-modelresults_map provides a visual forecast of the 2024 U.S. Presidential Election by state, using weighted polling data and recent trend adjustments. Each state is color-coded to show the projected winner: red for states likely to support Trump, blue for those leaning towards Harris, and gray for swing states where the predicted vote margins are extremely close. This map shows a competitive electoral landscape. Harris is projected to perform well in traditionally Democratic regions on the West Coast and in the Northeast, including states like California, New York, and Illinois. Trump demonstrates strong support across the South, Midwest, and several central states, such as Texas, Florida, and the Dakotas.
+The updated map in @fig-modelresults_map provides a visual forecast of the 2024 U.S. Presidential Election by state, using weighted polling data and recent trend adjustments. Each state is color-coded to show the projected winner: red for states likely to support Trump, blue for those leaning towards Harris, and gray for swing states where the predicted vote margins are extremely close. This map shows a competitive electoral landscape. Harris is projected to perform well in traditionally Democratic regions on the West Coast and in the Northeast, including states like California, New York, and Illinois. Trump demonstrates strong support across the South, Midwest, and several central states, such as Texas, Florida, and the Dakotas.
 
 The swing states highlighted in gray—include states like Georgia, North Carolina, Pennsylvania, Ohio, and Nevada are classified as swing because the polling indicates very narrow vote margins, making them highly competitive. Given the closeness of the race in these states, they could feasibly shift in favor of either candidate, positioning them as key battlegrounds in the election. The outcomes in these swing states are likely to be decisive in determining the overall result, highlighting their critical role in shaping the candidates' campaign strategies.
+\newpage 
 
 # Discussion {#sec-discussion}
 
@@ -917,6 +923,7 @@ ggplot(trump_data, aes(x = pollscore, y = pct)) +
 ```
 
 @fig-pollscore_pct_trump shows that Donald Trump's percentage support is widely distributed across different poll score reliability levels, with support percentages spanning from around 20% to above 60%, though most values center around 40-50%. The slight negative slope of the trend line suggests a minimal decrease in support as poll reliability increases, but this effect is weak, indicating that pollster reliability does not significantly influence the reported support for Trump. This suggests that Trump’s support remains relatively stable across both high- and low-reliability polls, implying that adjustments for poll score reliability may not substantially impact predictions for him in election models.
+
 
 ## Days to Election (Recency) Effect
 
